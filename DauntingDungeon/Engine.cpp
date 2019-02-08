@@ -22,6 +22,15 @@ void Engine::Initialise(const char * title, int x, int y, int width, int height,
 		}
 
 		IsRunning = true;
+
+		SDL_Surface *surface = IMG_Load("Assets/03zx13.png");
+
+		if (!surface) {
+			std::cout << IMG_GetError() << std::endl;
+		}
+		//playerTex = SDL_CreateTextureFromSurface(renderer, surface);
+		texManager.SetPlayerTex(renderer, surface);
+		SDL_FreeSurface(surface);
 	}
 	else {
 		IsRunning = false;
@@ -47,8 +56,10 @@ void Engine::HandleEvents()
 void Engine::Render()
 {
 	SDL_RenderClear(renderer);
-	SDL_RenderPresent(renderer);
+	
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+	SDL_RenderCopy(renderer, texManager.GetPlayerTex(), NULL, NULL);
+	SDL_RenderPresent(renderer);
 }
 
 bool Engine::Running()

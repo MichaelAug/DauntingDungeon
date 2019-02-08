@@ -1,6 +1,8 @@
 #pragma once
 #include "SDL.h"
+#include "SDL_image.h"
 #include <iostream>
+#include "TextureManager.h"
 class Engine {
 public:
 	Engine();
@@ -16,4 +18,5 @@ private:
 	SDL_Window *window;
 	SDL_Renderer *renderer;
 	bool IsRunning;
+	TextureManager texManager;
 };
