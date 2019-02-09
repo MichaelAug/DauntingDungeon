@@ -1,10 +1,13 @@
 #include "Engine.h"
 
 Engine::Engine() {
+	counter = 0;
 }
 
 Engine::~Engine() {
 }
+
+
 
 void Engine::Initialise(const char * title, int x, int y, int width, int height, bool fullscreen)
 {
@@ -57,8 +60,8 @@ void Engine::Render()
 {
 	SDL_RenderClear(renderer);
 	
-	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-	SDL_RenderCopy(renderer, texManager.GetPlayerTex(), NULL, NULL);
+	SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+	SDL_RenderCopy(renderer, texManager.GetPlayerTex(), NULL, &dest);
 	SDL_RenderPresent(renderer);
 }
 
@@ -73,4 +76,13 @@ void Engine::ExitGame()
 	SDL_DestroyWindow(window);
 	SDL_Quit();
 	std::cout << "Game Exited" << std::endl;
+}
+
+void Engine::Update()
+{
+	counter++;
+	dest.h = 128;
+	dest.w = 128;
+	dest.x = counter/2;
+	dest.y = counter/2;
 }

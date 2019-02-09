@@ -3,6 +3,7 @@
 
 class TextureManager {
 public:
+	//static SDL_Texture *LoadTexture
 	SDL_Texture* GetPlayerTex();
 	void SetPlayerTex(SDL_Renderer *renderer, SDL_Surface *surface);
 private:
