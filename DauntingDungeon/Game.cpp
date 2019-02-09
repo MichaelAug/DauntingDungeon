@@ -2,6 +2,8 @@
 
 int main(int argc, char *argv[]) {
 
+	/*TODO: Create game setings class!!*/
+
 	const int FPS = 60;
 	const int frameDelay = 1000 / FPS;
 

@@ -1,8 +1,10 @@
 #include "Engine.h"
 #include "GameObject.h"
+#include "GameMap.h"
 
 GameObject* player;
 GameObject* enemy;
+GameMap* map;
 
 SDL_Renderer* Engine::renderer = nullptr;
 
@@ -34,6 +36,7 @@ void Engine::Initialise(const char * title, int x, int y, int width, int height,
 		
 		player = new GameObject("Assets/player.png", 0, 0); // DELETE THIS OBJECT LATER
 		enemy = new GameObject("Assets/enemy.png", 50, 50);
+		map = new GameMap();
 
 	}
 	else {
@@ -60,7 +63,7 @@ void Engine::HandleEvents()
 void Engine::Render()
 {
 	SDL_RenderClear(renderer);
-	
+	map->DrawMap();
 	SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
 
 	player->Render();

@@ -14,3 +14,8 @@ SDL_Texture * TextureManager::GetTexture(const char * fileName)
 	SDL_FreeSurface(surface);
 	return tex;
 }
+
+void TextureManager::Draw(SDL_Texture * tex, SDL_Rect src, SDL_Rect dest)
+{
+	SDL_RenderCopy(Engine::renderer, tex, &src, &dest);
+}
