@@ -1,7 +1,8 @@
 #include "TextureManager.h"
 #include <iostream>
+#include "Engine.h"
 
-SDL_Texture * TextureManager::GetTexture(const char * fileName, SDL_Renderer * renderer)
+SDL_Texture * TextureManager::GetTexture(const char * fileName)
 {
 	SDL_Surface *surface = IMG_Load(fileName);
 
@@ -9,7 +10,7 @@ SDL_Texture * TextureManager::GetTexture(const char * fileName, SDL_Renderer * r
 		std::cout << IMG_GetError() << std::endl;
 	}
 
-	SDL_Texture *tex = SDL_CreateTextureFromSurface(renderer, surface);
+	SDL_Texture *tex = SDL_CreateTextureFromSurface(Engine::renderer, surface);
 	SDL_FreeSurface(surface);
 	return tex;
 }

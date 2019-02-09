@@ -18,9 +18,8 @@ public:
 	bool Running();
 	void ExitGame();
 	void Update();
-
+	static SDL_Renderer* renderer;
 private:
 	SDL_Window *window;
-	SDL_Renderer *renderer;
 	bool IsRunning;
 };

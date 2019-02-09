@@ -4,9 +4,10 @@
 GameObject* player;
 GameObject* enemy;
 
+SDL_Renderer* Engine::renderer = nullptr;
+
 
 Engine::Engine() {
-	counter = 0;
 }
 
 Engine::~Engine() {
@@ -31,8 +32,8 @@ void Engine::Initialise(const char * title, int x, int y, int width, int height,
 
 		IsRunning = true;
 		
-		player = new GameObject("Assets/player.png", renderer, 0, 0); // DELETE THIS OBJECT LATER
-		enemy = new GameObject("Assets/enemy.png", renderer, 50, 50);
+		player = new GameObject("Assets/player.png", 0, 0); // DELETE THIS OBJECT LATER
+		enemy = new GameObject("Assets/enemy.png", 50, 50);
 
 	}
 	else {
