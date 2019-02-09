@@ -23,5 +23,4 @@ private:
 	SDL_Window *window;
 	SDL_Renderer *renderer;
 	bool IsRunning;
-	TextureManager texManager;
 };

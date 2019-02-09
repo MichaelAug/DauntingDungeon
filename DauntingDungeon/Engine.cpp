@@ -1,4 +1,9 @@
 #include "Engine.h"
+#include "GameObject.h"
+
+GameObject* player;
+GameObject* enemy;
+
 
 Engine::Engine() {
 	counter = 0;
@@ -25,15 +30,10 @@ void Engine::Initialise(const char * title, int x, int y, int width, int height,
 		}
 
 		IsRunning = true;
+		
+		player = new GameObject("Assets/player.png", renderer, 0, 0); // DELETE THIS OBJECT LATER
+		enemy = new GameObject("Assets/enemy.png", renderer, 50, 50);
 
-		SDL_Surface *surface = IMG_Load("Assets/03zx13.png");
-
-		if (!surface) {
-			std::cout << IMG_GetError() << std::endl;
-		}
-		//playerTex = SDL_CreateTextureFromSurface(renderer, surface);
-		texManager.SetPlayerTex(renderer, surface);
-		SDL_FreeSurface(surface);
 	}
 	else {
 		IsRunning = false;
@@ -61,7 +61,10 @@ void Engine::Render()
 	SDL_RenderClear(renderer);
 	
 	SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-	SDL_RenderCopy(renderer, texManager.GetPlayerTex(), NULL, &dest);
+
+	player->Render();
+	enemy->Render();
+
 	SDL_RenderPresent(renderer);
 }
 
@@ -80,9 +83,6 @@ void Engine::ExitGame()
 
 void Engine::Update()
 {
-	counter++;
-	dest.h = 128;
-	dest.w = 128;
-	dest.x = counter/2;
-	dest.y = counter/2;
+	player->Update();
+	enemy->Update();
 }
