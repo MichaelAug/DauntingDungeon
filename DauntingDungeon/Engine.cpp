@@ -19,31 +19,30 @@ Engine::~Engine() {
 
 void Engine::Initialise(const char * title, int x, int y, int width, int height, bool fullscreen)
 {
-	if (SDL_Init(SDL_INIT_EVERYTHING) == 0) {
-		std::cout << "Game Initialised Successfully!" << std::endl;
-
-		window = SDL_CreateWindow(title, x, y, width, height, fullscreen);
-		if (window) {
-			std::cout << "Window Created Successfully!" << std::endl;
-		}
-
-		renderer = SDL_CreateRenderer(window, -1, 0);
-		if (renderer) {
-			std::cout << "Renderer Created Successfully!" << std::endl;
-		}
-
-		IsRunning = true;
-		
-		player = new GameObject("Assets/player.png", 0, 0); // DELETE THIS OBJECT LATER
-		enemy = new GameObject("Assets/enemy.png", 50, 50);
-		map = new GameMap();
-
-	}
-	else {
+	if (SDL_Init(SDL_INIT_EVERYTHING)) {
 		IsRunning = false;
 
 		std::cout << "Error Initialising Game!" << std::endl;
+		return;
 	}
+
+	std::cout << "Game Initialised Successfully!" << std::endl;
+
+	window = SDL_CreateWindow(title, x, y, width, height, fullscreen);
+	if (window) {
+		std::cout << "Window Created Successfully!" << std::endl;
+	}
+
+	renderer = SDL_CreateRenderer(window, -1, 0);
+	if (renderer) {
+		std::cout << "Renderer Created Successfully!" << std::endl;
+	}
+
+	IsRunning = true;
+
+	player = new GameObject("Assets/player.png", 0, 0); // DELETE THIS OBJECT LATER
+	enemy = new GameObject("Assets/enemy.png", 50, 50);
+	map = new GameMap();
 }
 
 void Engine::HandleEvents()

@@ -13,8 +13,9 @@ GameMap::GameMap()
 	LoadMap(lvl1);
 
 	src.x = src.y = 0;
-	src.w = dest.w = src.h = dest.h = 32;
-	
+	src.w =  src.h = 32;
+	dest.w = 32;
+	dest.h = 32;
 	dest.x = dest.y = 0;
 }
 
