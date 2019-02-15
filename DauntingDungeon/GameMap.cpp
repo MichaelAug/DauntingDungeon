@@ -1,7 +1,7 @@
 #include "GameMap.h"
 
 
-int lvl1[20][25] = { 0 }; //initialise array with all values set to 0
+int lvl1[20][30] = { 0 }; //initialise array with all values set to 0
 
 
 GameMap::GameMap()
@@ -19,10 +19,10 @@ GameMap::GameMap()
 	dest.x = dest.y = 0;
 }
 
-void GameMap::LoadMap(int arr[20][25])
+void GameMap::LoadMap(int arr[20][30])
 {
 	for (int row = 0; row < 20; row++) {
-		for (int col = 0; col < 25; col++) {
+		for (int col = 0; col < 30; col++) {
 			map[row][col] = arr[row][col];
 		}
 	}
@@ -33,7 +33,7 @@ void GameMap::DrawMap()
 	int type = 0;
 
 	for (int row = 0; row < 20; row++) {
-		for (int col = 0; col < 25; col++) {
+		for (int col = 0; col < 30; col++) {
 			type = map[row][col];
 
 			dest.x = col * 32;

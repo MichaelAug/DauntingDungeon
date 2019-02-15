@@ -6,7 +6,6 @@ GameObject::GameObject(const char * textureName, int x, int y)
 	ypos = y;
 
 	objTexture = TextureManager::GetTexture(textureName);
-	
 }
 
 void GameObject::Update()

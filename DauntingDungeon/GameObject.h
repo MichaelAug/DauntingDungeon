@@ -6,7 +6,7 @@ public:
 	GameObject(const char* textureName, int x, int y);
 	//~GameObject();
 
-	void Update();
+	virtual void Update();
 	void Render();
 
 private:
