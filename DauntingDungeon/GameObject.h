@@ -1,15 +1,14 @@
 #pragma once
-#include "Engine.h"
+#include "SDL.h"
 
 class GameObject {
 public:
 	GameObject(const char* textureName, int x, int y);
-	//~GameObject();
 
 	virtual void Update();
 	void Render();
 
-private:
+protected:
 	int xpos;
 	int ypos;
 

@@ -3,14 +3,13 @@
 #include "SDL_image.h"
 #include <iostream>
 #include "TextureManager.h"
+#include "ObjectManager.h"
+#include "GameMap.h"
+
 class Engine {
 public:
 	Engine();
 	~Engine();
-
-	/*TODO: remove these*/
-	int counter;
-	SDL_Rect dest;
 
 	void Initialise(const char* title, int x, int y, int width, int height, bool fullscreen);
 	void HandleEvents();
@@ -22,4 +21,6 @@ public:
 private:
 	SDL_Window *window;
 	bool IsRunning;
+	ObjectManager* objManager;
+	GameMap* map;
 };

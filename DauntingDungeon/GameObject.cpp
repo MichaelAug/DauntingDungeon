@@ -1,31 +1,37 @@
 #include "GameObject.h"
+#include "TextureManager.h"
+#include "Engine.h"
 
 GameObject::GameObject(const char * textureName, int x, int y)
 {
 	xpos = x;
 	ypos = y;
 
+	srcRect.h = 64;
+	srcRect.w = 64;
+	srcRect.x = 0;
+	srcRect.y = 0;
+	
+	destRect.h = srcRect.h;
+	destRect.w = srcRect.w;
+	destRect.x = xpos;
+	destRect.y = ypos;
+
 	objTexture = TextureManager::GetTexture(textureName);
 }
 
 void GameObject::Update()
 {
+
+	/*TODO: Replace with intended enemy behavior*/
 	xpos++;
 	ypos++;
-
-	srcRect.h = 64;
-	srcRect.w = 64;
-	srcRect.x = 0;
-	srcRect.y = 0;
-
 	destRect.x = xpos;
 	destRect.y = ypos;
-	destRect.h = srcRect.h * 2;
-	destRect.w = srcRect.w * 2;
-	
+
 }
 
 void GameObject::Render()
 {
-	SDL_RenderCopy(Engine::renderer, objTexture, NULL, &destRect);
+	SDL_RenderCopy(Engine::renderer, objTexture, &srcRect, &destRect);
 }

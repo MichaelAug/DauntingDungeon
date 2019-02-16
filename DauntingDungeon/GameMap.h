@@ -1,13 +1,11 @@
 #pragma once
-#include "Engine.h"
 #include "TileType.h"
 
 class GameMap {
 public:
 	GameMap();
-	~GameMap();
 
-	void LoadMap(int arr[20][25]);
+	void LoadMap(int arr[20][30]);
 	void DrawMap();
 
 private:
@@ -16,5 +14,5 @@ private:
 	TileType tiles;
 
 
-	int map[20][25];
+	int map[20][35];
 };

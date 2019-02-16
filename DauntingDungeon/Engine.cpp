@@ -2,20 +2,19 @@
 #include "GameObject.h"
 #include "GameMap.h"
 
-GameObject* player;
-GameObject* enemy;
-GameMap* map;
 
 SDL_Renderer* Engine::renderer = nullptr;
 
 
 Engine::Engine() {
+	objManager = nullptr;
+	map = nullptr;
 }
 
 Engine::~Engine() {
+	delete objManager;
+	delete map;
 }
-
-
 
 void Engine::Initialise(const char * title, int x, int y, int width, int height, bool fullscreen)
 {
@@ -38,10 +37,11 @@ void Engine::Initialise(const char * title, int x, int y, int width, int height,
 		std::cout << "Renderer Created Successfully!" << std::endl;
 	}
 
+	SDL_RenderSetLogicalSize(renderer, 960, 640);
+
 	IsRunning = true;
 
-	player = new GameObject("Assets/player.png", 0, 0); // DELETE THIS OBJECT LATER
-	enemy = new GameObject("Assets/enemy.png", 50, 50);
+	objManager = new ObjectManager();
 	map = new GameMap();
 }
 
@@ -49,6 +49,26 @@ void Engine::HandleEvents()
 {
 	SDL_Event event;
 	SDL_PollEvent(&event);
+
+	if (event.type == SDL_KEYDOWN) {
+		switch (event.key.keysym.sym) {
+		case SDLK_ESCAPE:
+			IsRunning = false;
+			break;
+		case SDLK_w:
+			objManager->UpdatePlayer(0, -1);
+			break;
+		case SDLK_a:
+			objManager->UpdatePlayer(-1, 0);
+			break;
+		case SDLK_s:
+			objManager->UpdatePlayer(0, 1);
+			break;
+		case SDLK_d:
+			objManager->UpdatePlayer(1, 0);
+			break;
+		}
+	}
 
 	switch (event.type) {
 	case SDL_QUIT:
@@ -59,15 +79,17 @@ void Engine::HandleEvents()
 	}
 }
 
+void Engine::Update()
+{
+}
+
 void Engine::Render()
 {
 	SDL_RenderClear(renderer);
 	map->DrawMap();
 	SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
 
-	player->Render();
-	enemy->Render();
-
+	objManager->RenderPlayer();
 	SDL_RenderPresent(renderer);
 }
 
@@ -84,8 +106,4 @@ void Engine::ExitGame()
 	std::cout << "Game Exited" << std::endl;
 }
 
-void Engine::Update()
-{
-	player->Update();
-	enemy->Update();
-}
+

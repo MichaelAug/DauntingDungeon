@@ -1,4 +1,5 @@
 #include "GameMap.h"
+#include "TextureManager.h"
 
 
 int lvl1[20][30] = { 0 }; //initialise array with all values set to 0
