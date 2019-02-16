@@ -10,9 +10,19 @@ ObjectManager::~ObjectManager()
 	delete playerObject;
 }
 
-void ObjectManager::UpdatePlayer(const float &x, const float &y)
+void ObjectManager::UpdatePlayerVelX(float x)
 {
-	playerObject->Update(x,y);  // FIX THIS
+	playerObject->UpdateVelX(x);
+}
+
+void ObjectManager::UpdatePlayerVelY(float y)
+{
+	playerObject->UpdateVelY(y);
+}
+
+void ObjectManager::UpdatePlayer()
+{
+	playerObject->Update();
 }
 
 void ObjectManager::RenderPlayer()

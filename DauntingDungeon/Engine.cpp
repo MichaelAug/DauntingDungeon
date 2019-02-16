@@ -19,7 +19,7 @@ Engine::~Engine() {
 void Engine::Initialise(const char * title, int x, int y, int width, int height, bool fullscreen)
 {
 	if (SDL_Init(SDL_INIT_EVERYTHING)) {
-		IsRunning = false;
+		isRunning = false;
 
 		std::cout << "Error Initialising Game!" << std::endl;
 		return;
@@ -39,7 +39,7 @@ void Engine::Initialise(const char * title, int x, int y, int width, int height,
 
 	SDL_RenderSetLogicalSize(renderer, 960, 640);
 
-	IsRunning = true;
+	isRunning = true;
 
 	objManager = new ObjectManager();
 	map = new GameMap();
@@ -47,40 +47,12 @@ void Engine::Initialise(const char * title, int x, int y, int width, int height,
 
 void Engine::HandleEvents()
 {
-	SDL_Event event;
-	SDL_PollEvent(&event);
-
-	if (event.type == SDL_KEYDOWN) {
-		switch (event.key.keysym.sym) {
-		case SDLK_ESCAPE:
-			IsRunning = false;
-			break;
-		case SDLK_w:
-			objManager->UpdatePlayer(0, -1);
-			break;
-		case SDLK_a:
-			objManager->UpdatePlayer(-1, 0);
-			break;
-		case SDLK_s:
-			objManager->UpdatePlayer(0, 1);
-			break;
-		case SDLK_d:
-			objManager->UpdatePlayer(1, 0);
-			break;
-		}
-	}
-
-	switch (event.type) {
-	case SDL_QUIT:
-		IsRunning = false;
-		break;
-	default:
-		break;
-	}
+	inputManager.HandleInput(isRunning, objManager);
 }
 
 void Engine::Update()
 {
+	objManager->UpdatePlayer();
 }
 
 void Engine::Render()
@@ -95,7 +67,7 @@ void Engine::Render()
 
 bool Engine::Running()
 {
-	return IsRunning;
+	return isRunning;
 }
 
 void Engine::ExitGame()

@@ -5,6 +5,7 @@
 #include "TextureManager.h"
 #include "ObjectManager.h"
 #include "GameMap.h"
+#include "InputManager.h"
 
 class Engine {
 public:
@@ -20,7 +21,8 @@ public:
 	static SDL_Renderer* renderer;
 private:
 	SDL_Window *window;
-	bool IsRunning;
+	bool isRunning;
 	ObjectManager* objManager;
 	GameMap* map;
+	InputManager inputManager;
 };

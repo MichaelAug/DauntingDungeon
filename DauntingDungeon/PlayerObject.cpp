@@ -9,10 +9,20 @@ PlayerObject::PlayerObject(const char* textureName, int x, int y) : GameObject(t
 	destRect.w = srcRect.w*2;
 }
 
-void PlayerObject::Update(const float & x, const float & y)
+void PlayerObject::UpdateVelX(float x)
 {
-	xpos=xpos +x;
-	ypos=ypos + y;
+	velocity.x = x;
+}
+
+void PlayerObject::UpdateVelY(float y)
+{
+	velocity.y = y;
+}
+
+void PlayerObject::Update()
+{
+	xpos+= velocity.x * speed;
+	ypos+= velocity.y * speed;
 	destRect.x = xpos;
 	destRect.y = ypos;
 }
