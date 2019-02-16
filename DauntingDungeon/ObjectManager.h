@@ -7,10 +7,12 @@ class ObjectManager {
 public:
 	ObjectManager();
 	~ObjectManager();
+
 	void UpdatePlayerVelX(float x);
 	void UpdatePlayerVelY(float y);
 	void UpdatePlayer();
 	void RenderPlayer();
+
 	void UpdateObjects();
 	void RenderObjects();
 private:

@@ -9,41 +9,14 @@ void InputManager::HandleInput(bool &isRunning, ObjectManager *objManager)
 {
 	SDL_PollEvent(&event);
 
+	const Uint8* keyState = SDL_GetKeyboardState(NULL);
+	objManager->UpdatePlayerVelX(keyState[SDL_SCANCODE_D] -keyState[SDL_SCANCODE_A]);
+	objManager->UpdatePlayerVelY(keyState[SDL_SCANCODE_S] - keyState[SDL_SCANCODE_W]);
+
 	if (event.type == SDL_KEYDOWN) {
 		switch (event.key.keysym.sym) {
 		case SDLK_ESCAPE:
 			isRunning = false;
-			break;
-		case SDLK_w:
-			objManager->UpdatePlayerVelY(-1);
-			break;
-		case SDLK_a:
-			objManager->UpdatePlayerVelX(-1);
-			break;
-		case SDLK_s:
-			objManager->UpdatePlayerVelY(1);
-			break;
-		case SDLK_d:
-			objManager->UpdatePlayerVelX(1);
-			break;
-		}
-	}
-	if (event.type == SDL_KEYUP) {
-		switch (event.key.keysym.sym) {
-		case SDLK_ESCAPE:
-			isRunning = false;
-			break;
-		case SDLK_w:
-			objManager->UpdatePlayerVelY(0);
-			break;
-		case SDLK_a:
-			objManager->UpdatePlayerVelX(0);
-			break;
-		case SDLK_s:
-			objManager->UpdatePlayerVelY(0);
-			break;
-		case SDLK_d:
-			objManager->UpdatePlayerVelX(0);
 			break;
 		}
 	}
