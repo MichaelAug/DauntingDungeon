@@ -2,11 +2,11 @@
 
 PlayerObject::PlayerObject(const char* textureName, int x, int y) : GameObject(textureName, x, y)
 {
-	srcRect.h = 64;
-	srcRect.w = 64;
+	srcRect.h = 32;
+	srcRect.w = 32;
 
-	destRect.h = srcRect.h;
-	destRect.w = srcRect.w;
+	destRect.h = 64;
+	destRect.w = 64;
 }
 
 void PlayerObject::UpdateVelX(float x)

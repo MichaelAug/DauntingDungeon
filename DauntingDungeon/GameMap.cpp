@@ -1,19 +1,11 @@
 #include "GameMap.h"
 #include "TextureManager.h"
-
-
-int lvl1[20][30] = { 0 }; //initialise array with all values set to 0
+#include <fstream>
+#include <iostream>
 
 GameMap::GameMap()
 {
-	lvl1[13][10] = 1;
-	lvl1[13][11] = 1;
-	lvl1[13][12] = 1;
-	lvl1[14][10] = 1;
-	lvl1[15][10] = 1;
-	lvl1[2][10] = 2;
-	lvl1[3][10] = 2;
-	LoadMap(lvl1);
+	LoadMap();
 
 	/*height and width of rendered tile*/
 	dest.w = tileSize;
@@ -34,11 +26,31 @@ GameMap::GameMap()
 	
 }
 
-void GameMap::LoadMap(int arr[20][30])
+void GameMap::LoadMap()
 {
-	for (int row = 0; row < 20; row++) {
-		for (int col = 0; col < 30; col++) {
-			map[row][col] = arr[row][col];
+	std::ifstream mapFile("Assets/mapData/mapLayout.map");
+
+	if (!mapFile) {
+		std::cout << "Error loading in Map file!" << std::endl;
+		return;
+	}
+
+	mapFile >> mapWidth;
+	std::cout << mapWidth << std::endl;
+	mapFile >> mapHeight;
+	std::cout << mapHeight << std::endl;
+	
+	map = new int*[mapHeight];
+	for (int i = 0; i < mapHeight; ++i) {
+		map[i] = new int[mapWidth];
+	}
+
+	for (int y = 0; y < mapHeight; ++y) {
+		for (int x = 0; x < mapWidth; ++x) {
+
+			char type = 0;
+			mapFile >> type;
+			map[y][x] = type - '0';
 		}
 	}
 }
