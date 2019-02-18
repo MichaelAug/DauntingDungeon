@@ -5,11 +5,15 @@
 
 GameMap::GameMap()
 {
-	LoadMap();
-
-	/*height and width of rendered tile*/
 	dest.w = tileSize;
 	dest.h = tileSize;
+	LoadMap();
+	mapHeight = 0;
+	mapWidth = 0;
+	/*map = nullptr;   IF I UNCOMMENT THIS I GET ACCESS VIOLATION ERROR! WHY*/
+
+	/*height and width of rendered tile*/
+	
 	dest.x = dest.y = 0;
 
 	tileset = TextureManager::GetTexture("Assets/map/dungeon.png");
@@ -23,7 +27,17 @@ GameMap::GameMap()
 
 	src.x = 32; src.y = 32;
 	tiles.pillar = src;
-	
+
+}
+
+GameMap::~GameMap()
+{
+	if (map) {
+		for (int i = 0; i < mapHeight; ++i) {
+			delete[] map[i];
+		}
+		delete[] map;
+	}
 }
 
 void GameMap::LoadMap()
@@ -36,10 +50,8 @@ void GameMap::LoadMap()
 	}
 
 	mapFile >> mapWidth;
-	std::cout << mapWidth << std::endl;
 	mapFile >> mapHeight;
-	std::cout << mapHeight << std::endl;
-	
+
 	map = new int*[mapHeight];
 	for (int i = 0; i < mapHeight; ++i) {
 		map[i] = new int[mapWidth];
@@ -51,6 +63,22 @@ void GameMap::LoadMap()
 			char type = 0;
 			mapFile >> type;
 			map[y][x] = type - '0';
+			std::cout << map[y][x] << " ";
+		}
+		std::cout << std::endl;
+	}
+
+	int type = 0;
+	for (int row = 0; row < 20; ++row) {
+		for (int col = 0; col < 30; ++col) {
+			type = map[row][col];
+
+			dest.x = col * tileSize;
+			dest.y = row * tileSize;
+
+			if (type == 1) {
+				collidableTiles.emplace_back(dest);
+			}
 		}
 	}
 }
@@ -59,8 +87,8 @@ void GameMap::DrawMap()
 {
 	int type = 0;
 
-	for (int row = 0; row < 20; row++) {
-		for (int col = 0; col < 30; col++) {
+	for (int row = 0; row < 20; ++row) {
+		for (int col = 0; col < 30; ++col) {
 			type = map[row][col];
 
 			dest.x = col * tileSize;
@@ -82,4 +110,9 @@ void GameMap::DrawMap()
 			}
 		}
 	}
+}
+
+std::vector<SDL_Rect> GameMap::GetCollidableTiles()
+{
+	return collidableTiles;
 }

@@ -6,6 +6,7 @@
 #include "ObjectManager.h"
 #include "GameMap.h"
 #include "InputManager.h"
+#include "Collider.h"
 
 class Engine {
 public:
@@ -25,4 +26,5 @@ private:
 	ObjectManager* objManager;
 	GameMap* map;
 	InputManager inputManager;
+	Collider collider;
 };

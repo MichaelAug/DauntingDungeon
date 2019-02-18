@@ -12,6 +12,7 @@ public:
 	void UpdatePlayerVelY(float y);
 	void UpdatePlayer();
 	void RenderPlayer();
+	const SDL_Rect& GetPlayerDestRect();
 
 	void UpdateObjects();
 	void RenderObjects();

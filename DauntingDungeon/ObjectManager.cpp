@@ -2,7 +2,7 @@
 
 ObjectManager::ObjectManager()
 {
-	playerObject = new PlayerObject("Assets/man.png", 32, 48);
+	playerObject = new PlayerObject("Assets/manTEST.png", 32, 48);
 }
 
 ObjectManager::~ObjectManager()
@@ -28,6 +28,11 @@ void ObjectManager::UpdatePlayer()
 void ObjectManager::RenderPlayer()
 {
 	playerObject->Render();
+}
+
+const SDL_Rect& ObjectManager::GetPlayerDestRect()
+{
+	return playerObject->GetDestRect();
 }
 
 void ObjectManager::UpdateObjects()

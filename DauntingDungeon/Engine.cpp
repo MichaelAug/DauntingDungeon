@@ -47,7 +47,10 @@ void Engine::Initialise(const char * title, int x, int y, int width, int height,
 
 void Engine::HandleEvents()
 {
+	SDL_Rect player = objManager->GetPlayerDestRect();
+	std::vector<SDL_Rect> tiles = map->GetCollidableTiles();
 	inputManager.HandleInput(isRunning, objManager);
+	collider.HandlePlayerMapCollision(player,tiles);
 }
 
 void Engine::Update()
