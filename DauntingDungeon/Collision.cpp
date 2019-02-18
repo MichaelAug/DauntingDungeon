@@ -1,8 +1,8 @@
-#include "Collider.h"
-#include "Collider.h"
+#include "CollisionManager.h"
+
 #include <iostream>
 
-bool Collider::Collided(const SDL_Rect & a, const SDL_Rect & b)
+bool CollisionManager::Collided(const SDL_Rect & a, const SDL_Rect & b)
 {
 	if (a.x + a.w >= b.x &&
 		b.x + b.w >= a.x &&
@@ -13,7 +13,7 @@ bool Collider::Collided(const SDL_Rect & a, const SDL_Rect & b)
 	return false;
 }
 
-void Collider::HandlePlayerMapCollision(SDL_Rect & player, std::vector<SDL_Rect> walls)
+void CollisionManager::HandlePlayerMapCollision(SDL_Rect & player, std::vector<SDL_Rect> walls)
 {
 	for (auto& t : walls) {
 		if (Collided(player, t)) {
