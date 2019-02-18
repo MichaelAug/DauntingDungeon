@@ -2,7 +2,7 @@
 
 ObjectManager::ObjectManager()
 {
-	playerObject = new PlayerObject("Assets/player.png", 50, 50);
+	playerObject = new PlayerObject("Assets/man.png", 50, 50);
 }
 
 ObjectManager::~ObjectManager()

@@ -33,5 +33,5 @@ void GameObject::Update()
 
 void GameObject::Render()
 {
-	SDL_RenderCopy(Engine::renderer, objTexture, &srcRect, &destRect);
+	TextureManager::Draw(objTexture, srcRect, destRect);
 }

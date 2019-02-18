@@ -4,20 +4,34 @@
 
 int lvl1[20][30] = { 0 }; //initialise array with all values set to 0
 
-
 GameMap::GameMap()
 {
-	tiles.ground = TextureManager::GetTexture("Assets/ground.png");
-	tiles.grass = TextureManager::GetTexture("Assets/grass.png");
-	tiles.water = TextureManager::GetTexture("Assets/water.png");
-
+	lvl1[13][10] = 1;
+	lvl1[13][11] = 1;
+	lvl1[13][12] = 1;
+	lvl1[14][10] = 1;
+	lvl1[15][10] = 1;
+	lvl1[2][10] = 2;
+	lvl1[3][10] = 2;
 	LoadMap(lvl1);
 
-	src.x = src.y = 0;
-	src.w =  src.h = 32;
-	dest.w = 32;
-	dest.h = 32;
+	/*height and width of rendered tile*/
+	dest.w = tileSize;
+	dest.h = tileSize;
 	dest.x = dest.y = 0;
+
+	tileset = TextureManager::GetTexture("Assets/map/dungeon.png");
+	src.w = src.h = tileSize;
+
+	src.x = 96; src.y = 64;
+	tiles.ground = src;
+
+	src.x = 96; src.y = 0;
+	tiles.upper_wall = src;
+
+	src.x = 32; src.y = 32;
+	tiles.pillar = src;
+	
 }
 
 void GameMap::LoadMap(int arr[20][30])
@@ -37,18 +51,18 @@ void GameMap::DrawMap()
 		for (int col = 0; col < 30; col++) {
 			type = map[row][col];
 
-			dest.x = col * 32;
-			dest.y = row * 32;
+			dest.x = col * tileSize;
+			dest.y = row * tileSize;
 
 			switch (type) {
 			case 0:
-				TextureManager::Draw(tiles.water, src, dest);
+				TextureManager::Draw(tileset, tiles.ground, dest);
 				break;
 			case 1:
-				TextureManager::Draw(tiles.grass, src, dest);
+				TextureManager::Draw(tileset, tiles.upper_wall, dest);
 				break;
 			case 2:
-				TextureManager::Draw(tiles.ground, src, dest);
+				TextureManager::Draw(tileset, tiles.pillar, dest);
 				break;
 
 			default:

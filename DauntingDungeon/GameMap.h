@@ -11,8 +11,9 @@ public:
 private:
 	SDL_Rect src, dest;
 
+	SDL_Texture * tileset;
 	TileType tiles;
 
-
+	const int tileSize = 32;
 	int map[20][35];
 };

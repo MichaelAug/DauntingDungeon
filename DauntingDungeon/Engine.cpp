@@ -59,7 +59,7 @@ void Engine::Render()
 {
 	SDL_RenderClear(renderer);
 	map->DrawMap();
-	SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+	SDL_SetRenderDrawColor(renderer, 25, 0, 25, 255);
 
 	objManager->RenderPlayer();
 	SDL_RenderPresent(renderer);
