@@ -24,6 +24,8 @@ private:
 	SDL_Window *window;
 	bool isRunning;
 	ObjectManager* objManager;
+	PlayerObject* player; /* while player is an object, it's the only player controlled
+						 object and therefore not part of the ObjectManager class*/
 	GameMap* map;
 	InputManager inputManager;
 	CollisionManager collider;

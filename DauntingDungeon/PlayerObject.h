@@ -9,7 +9,7 @@ public:
 	void UpdateVelY(float y); // update player's velocity on y axis
 	void Update();
 	const SDL_Rect &GetDestRect();
+	Vector2 velocity;
 private:
 	const float speed = 3;
-	Vector2 velocity;
 };

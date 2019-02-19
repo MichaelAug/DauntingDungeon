@@ -7,6 +7,7 @@ SDL_Renderer* Engine::renderer = nullptr;
 
 
 Engine::Engine() {
+	player = nullptr;
 	objManager = nullptr;
 	map = nullptr;
 }
@@ -14,6 +15,7 @@ Engine::Engine() {
 Engine::~Engine() {
 	delete objManager;
 	delete map;
+	delete player;
 }
 
 void Engine::Initialise(const char * title, int x, int y, int width, int height, bool fullscreen)
@@ -43,19 +45,20 @@ void Engine::Initialise(const char * title, int x, int y, int width, int height,
 
 	objManager = new ObjectManager();
 	map = new GameMap();
+	player = new PlayerObject("Assets/man.png", 32, 48);
 }
 
 void Engine::HandleEvents()
 {
-	SDL_Rect player = objManager->GetPlayerDestRect();
+	SDL_Rect playerRect = player->GetDestRect();
 	std::vector<SDL_Rect> tiles = map->GetCollidableTiles();
-	inputManager.HandleInput(isRunning, objManager);
-	collider.HandlePlayerMapCollision(player,tiles);
+	inputManager.HandleInput(isRunning, player);
+	collider.HandlePlayerMapCollision(playerRect,tiles);
 }
 
 void Engine::Update()
 {
-	objManager->UpdatePlayer();
+	player->Update();
 }
 
 void Engine::Render()
@@ -64,7 +67,7 @@ void Engine::Render()
 	map->DrawMap();
 	SDL_SetRenderDrawColor(renderer, 25, 0, 25, 255);
 
-	objManager->RenderPlayer();
+	player->Render();
 	SDL_RenderPresent(renderer);
 }
 

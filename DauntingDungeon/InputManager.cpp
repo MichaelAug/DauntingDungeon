@@ -5,13 +5,13 @@ InputManager::InputManager()
 {
 }
 
-void InputManager::HandleInput(bool &isRunning, ObjectManager *objManager)
+void InputManager::HandleInput(bool &isRunning, PlayerObject *player)
 {
 	SDL_PollEvent(&event);
 
 	const Uint8* keyState = SDL_GetKeyboardState(NULL);
-	objManager->UpdatePlayerVelX(keyState[SDL_SCANCODE_D] -keyState[SDL_SCANCODE_A]);
-	objManager->UpdatePlayerVelY(keyState[SDL_SCANCODE_S] - keyState[SDL_SCANCODE_W]);
+	player->velocity.x = keyState[SDL_SCANCODE_D] - keyState[SDL_SCANCODE_A];
+	player->velocity.y = keyState[SDL_SCANCODE_S] - keyState[SDL_SCANCODE_W];
 
 	if (event.type == SDL_KEYDOWN) {
 		switch (event.key.keysym.sym) {
