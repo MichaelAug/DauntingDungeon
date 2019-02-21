@@ -9,8 +9,6 @@ public:
 	void Render();
 
 protected:
-	int xpos;
-	int ypos;
 
 	SDL_Texture *objTexture;
 	SDL_Rect srcRect, destRect;

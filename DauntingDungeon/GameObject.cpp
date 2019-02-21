@@ -4,8 +4,6 @@
 
 GameObject::GameObject(const char * textureName, int x, int y)
 {
-	xpos = x;
-	ypos = y;
 
 	srcRect.h = 64;
 	srcRect.w = 64;
@@ -14,8 +12,8 @@ GameObject::GameObject(const char * textureName, int x, int y)
 	
 	destRect.h = srcRect.h;
 	destRect.w = srcRect.w;
-	destRect.x = xpos;
-	destRect.y = ypos;
+	destRect.x = x;
+	destRect.y = y;
 
 	objTexture = TextureManager::GetTexture(textureName);
 }
@@ -24,10 +22,8 @@ void GameObject::Update()
 {
 
 	/*TODO: Replace with intended enemy behavior*/
-	xpos++;
-	ypos++;
-	destRect.x = xpos;
-	destRect.y = ypos;
+	destRect.x++;
+	destRect.y++;
 
 }
 

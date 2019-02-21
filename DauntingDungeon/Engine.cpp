@@ -2,9 +2,7 @@
 #include "GameObject.h"
 #include "GameMap.h"
 
-
 SDL_Renderer* Engine::renderer = nullptr;
-
 
 Engine::Engine() {
 	player = nullptr;
@@ -16,6 +14,7 @@ Engine::~Engine() {
 	delete objManager;
 	delete map;
 	delete player;
+	delete renderer;
 }
 
 void Engine::Initialise(const char * title, int x, int y, int width, int height, bool fullscreen)
@@ -46,19 +45,21 @@ void Engine::Initialise(const char * title, int x, int y, int width, int height,
 	objManager = new ObjectManager();
 	map = new GameMap();
 	player = new PlayerObject("Assets/man.png", 32, 48);
+	collider = CollisionManager(player->destRect, map->GetCollidableTiles());
 }
 
 void Engine::HandleEvents()
 {
-	SDL_Rect playerRect = player->GetHitBoxRect();
-	std::vector<SDL_Rect> tiles = map->GetCollidableTiles();
-	inputManager.HandleInput(isRunning, player->velocity);
-	collider.HandlePlayerMapCollision(playerRect,tiles, player->velocity);
+	inputManager.HandleInput(isRunning, player->velocity); 
+
+	collider.HandlePlayerMapCollision(player->destRect, player->velocity);
 }
 
 void Engine::Update()
 {
-	player->Update();
+	collider.UpdatePreviousPlayerPos(player->destRect); //get previous player pos
+
+	player->Update(); //update player pos
 }
 
 void Engine::Render()

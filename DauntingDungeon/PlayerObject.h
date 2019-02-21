@@ -13,7 +13,6 @@ public:
 
 	PlayerObject(const char* textureName, int x, int y);
 	void Update();
-	const SDL_Rect &GetHitBoxRect();
 	
 private:
 	Vector2 velocity;
