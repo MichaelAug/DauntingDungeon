@@ -52,7 +52,9 @@ void Engine::HandleEvents()
 {
 	inputManager.HandleInput(isRunning, player->velocity); 
 
-	collider.HandlePlayerMapCollision(player->destRect, player->velocity);
+	collider.HandlePlayerMapCollision(player->hitbox, player->destRect);
+
+	//std::cout << "Player center point: x=" << player->centerPoint.x << " y="<<player->centerPoint.y<< std::endl;
 }
 
 void Engine::Update()

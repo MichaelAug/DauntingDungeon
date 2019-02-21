@@ -62,10 +62,8 @@ void GameMap::LoadMap()
 
 			char type = 0;
 			mapFile >> type;
-			map[y][x] = type - '0';
-			std::cout << map[y][x] << " ";
+			map[y][x] = type - '0';			
 		}
-		std::cout << std::endl;
 	}
 
 	int type = 0;
@@ -77,7 +75,7 @@ void GameMap::LoadMap()
 			dest.y = row * tileSize;
 
 			if (type == 1) {
-				collidableTiles.emplace_back(dest);
+				collidableTiles.emplace_back(Collidable(dest));
 			}
 		}
 	}
@@ -112,7 +110,7 @@ void GameMap::DrawMap()
 	}
 }
 
-std::vector<SDL_Rect> GameMap::GetCollidableTiles()
+std::vector<Collidable> GameMap::GetCollidableTiles()
 {
 	return collidableTiles;
 }

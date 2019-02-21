@@ -1,6 +1,7 @@
 #pragma once
 #include "TileType.h"
 #include <vector>
+#include "Collidable.h"
 
 class GameMap {
 public:
@@ -9,7 +10,7 @@ public:
 
 	void LoadMap();
 	void DrawMap();
-	std::vector<SDL_Rect> GetCollidableTiles();
+	std::vector<Collidable> GetCollidableTiles();
 
 private:
 	SDL_Rect src, dest;
@@ -22,5 +23,5 @@ private:
 	const int tileSize = 32;
 	int **map;
 
-	std::vector<SDL_Rect> collidableTiles;
+	std::vector<Collidable> collidableTiles;
 };

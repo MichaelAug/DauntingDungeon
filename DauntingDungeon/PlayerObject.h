@@ -1,12 +1,12 @@
 #pragma once
 #include "GameObject.h"
 #include "Vector2.h"
+#include "Collidable.h"
 
 class Engine;
 
-class PlayerObject : public GameObject {
+class PlayerObject : public GameObject, public Collidable {
 public:
-
 	friend class Engine;
 
 	//keep track of previous position, if player collides with wall, put him back to previous position
@@ -15,6 +15,8 @@ public:
 	void Update();
 	
 private:
+	SDL_Rect GetPreciseHitBox();
+
 	Vector2 velocity;
 	const float speed = 3;
 };

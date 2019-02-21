@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-CollisionManager::CollisionManager(SDL_Rect playerPos, std::vector<SDL_Rect> collidableTiles)
+CollisionManager::CollisionManager(SDL_Rect playerPos, std::vector<Collidable> collidableTiles)
 {
 	previousPlayerPos = playerPos;
 	tiles = collidableTiles;
@@ -19,24 +19,16 @@ bool CollisionManager::Collided(const SDL_Rect & a, const SDL_Rect & b)
 	return false;
 }
 
-void CollisionManager::HandlePlayerMapCollision(SDL_Rect &playerRect, Vector2 &playerVel)
+void CollisionManager::HandlePlayerMapCollision(SDL_Rect &playerHitBox, SDL_Rect &playerDest)
 {
-	/*A more precise version of the SDL_Rect that represents the player hit-box
-	(needed because of the texture having a lot of empty space)*/
-	SDL_Rect playerHitBox = playerRect;
-	playerHitBox.x += 20;
-	playerHitBox.w -= 35;
-
-	playerHitBox.y += 20;
-	playerHitBox.h -= 42;
-
-
+	Vector2 difference;
 	for (auto& t : tiles) {
-		if (Collided(playerHitBox, t)) {
-			
+		if (Collided(playerHitBox, t.GetHitBox())) {
 
-			std::cout << "WALL HIT! Current pos: x="<<playerRect.x<<" y="<<playerRect.y<<" going back to: x="<<previousPlayerPos.x<<" y="<<previousPlayerPos.y << std::endl;
-			playerRect = previousPlayerPos;
+			//difference = 
+			std::cout << "WALL HIT! Current pos: x="<<playerHitBox.x<<" y="<<playerHitBox.y<<" going back to: x="<<previousPlayerPos.x<<" y="<<previousPlayerPos.y << std::endl;
+			playerHitBox = previousPlayerPos;
+			playerDest = previousPlayerPos;
 		}
 	}
 }
@@ -45,7 +37,7 @@ void CollisionManager::UpdatePreviousPlayerPos(SDL_Rect ppp)
 {
 	if (previousPlayerPos.x != ppp.x || previousPlayerPos.y != ppp.y) {
 		previousPlayerPos = ppp;
-		std::cout << "Updated previous player position! to x="<<ppp.x << " y="<<ppp.y << std::endl;
+		//std::cout << "Updated previous player position to x="<<ppp.x << " y="<<ppp.y << std::endl;
 	}
 	
 }
