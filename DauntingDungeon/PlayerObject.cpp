@@ -27,7 +27,7 @@ void PlayerObject::Update()
 	destRect.y = ypos;
 }
 
-const SDL_Rect& PlayerObject::GetDestRect()
+const SDL_Rect& PlayerObject::GetHitBoxRect()
 {
 	/*A more precise version of the SDL_Rect that represents the player hit-box
 	(needed because of the texture having a lot of empty space)*/

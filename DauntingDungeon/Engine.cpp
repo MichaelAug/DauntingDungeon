@@ -50,10 +50,10 @@ void Engine::Initialise(const char * title, int x, int y, int width, int height,
 
 void Engine::HandleEvents()
 {
-	SDL_Rect playerRect = player->GetDestRect();
+	SDL_Rect playerRect = player->GetHitBoxRect();
 	std::vector<SDL_Rect> tiles = map->GetCollidableTiles();
 	inputManager.HandleInput(isRunning, player);
-	collider.HandlePlayerMapCollision(playerRect,tiles);
+	collider.HandlePlayerMapCollision(playerRect,tiles, *player);
 }
 
 void Engine::Update()
