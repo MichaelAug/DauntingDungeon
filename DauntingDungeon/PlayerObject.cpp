@@ -9,16 +9,6 @@ PlayerObject::PlayerObject(const char* textureName, int x, int y) : GameObject(t
 	destRect.w = 64;
 }
 
-void PlayerObject::UpdateVelX(float x)
-{
-	velocity.x = x;
-}
-
-void PlayerObject::UpdateVelY(float y)
-{
-	velocity.y = y;
-}
-
 void PlayerObject::Update()
 {
 	xpos+= velocity.x * speed;

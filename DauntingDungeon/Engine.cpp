@@ -52,8 +52,8 @@ void Engine::HandleEvents()
 {
 	SDL_Rect playerRect = player->GetHitBoxRect();
 	std::vector<SDL_Rect> tiles = map->GetCollidableTiles();
-	inputManager.HandleInput(isRunning, player);
-	collider.HandlePlayerMapCollision(playerRect,tiles, *player);
+	inputManager.HandleInput(isRunning, player->velocity);
+	collider.HandlePlayerMapCollision(playerRect,tiles, player->velocity);
 }
 
 void Engine::Update()

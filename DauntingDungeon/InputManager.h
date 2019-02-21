@@ -5,7 +5,7 @@
 class InputManager {
 public:
 	InputManager();
-	void HandleInput(bool &isRunning, PlayerObject *player);
+	void HandleInput(bool &isRunning, Vector2 &playerVel);
 private:
 	SDL_Event event;
 };

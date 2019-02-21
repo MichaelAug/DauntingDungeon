@@ -2,14 +2,20 @@
 #include "GameObject.h"
 #include "Vector2.h"
 
+class Engine;
+
 class PlayerObject : public GameObject {
 public:
+
+	friend class Engine;
+
+	//keep track of previous position, if player collides with wall, put him back to previous position
+
 	PlayerObject(const char* textureName, int x, int y);
-	void UpdateVelX(float x); // update player's velocity on x axis
-	void UpdateVelY(float y); // update player's velocity on y axis
 	void Update();
 	const SDL_Rect &GetHitBoxRect();
-	Vector2 velocity;
+	
 private:
+	Vector2 velocity;
 	const float speed = 3;
 };

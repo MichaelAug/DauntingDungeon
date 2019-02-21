@@ -13,12 +13,12 @@ bool CollisionManager::Collided(const SDL_Rect & a, const SDL_Rect & b)
 	return false;
 }
 
-void CollisionManager::HandlePlayerMapCollision(SDL_Rect & playerRect, std::vector<SDL_Rect> walls, PlayerObject &player)
+void CollisionManager::HandlePlayerMapCollision(SDL_Rect & playerRect, std::vector<SDL_Rect> walls, Vector2 &playerVel)
 {
 	for (auto& t : walls) {
 		if (Collided(playerRect, t)) {
-			player.velocity.x *= -1;
-			player.velocity.y *= -1;
+			playerVel.x *= -1;
+			playerVel.y *= -1;
 			std::cout << "WALL HIT!" << std::endl;
 		}
 	}
