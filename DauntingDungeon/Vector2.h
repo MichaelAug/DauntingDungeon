@@ -10,5 +10,5 @@ public:
 
 	void normalise(); // DOES NOT WORK PROPERLY
 
-	Vector2 operator-(const Vector2&);
+	friend Vector2 operator-(const Vector2&,const Vector2&);
 };

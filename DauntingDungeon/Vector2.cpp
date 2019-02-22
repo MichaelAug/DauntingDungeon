@@ -23,9 +23,9 @@ void Vector2::normalise()
 	y /= length;
 }
 
-Vector2 Vector2::operator-(const Vector2 &vec)
+Vector2 operator-(const Vector2&vec1, const Vector2&vec2)
 {
-	float x = this->x - vec.x;
-	float y = this->y - vec.y;
+	float x = vec1.x - vec2.x;
+	float y = vec1.y - vec2.y;
 	return Vector2(x,y);
 }

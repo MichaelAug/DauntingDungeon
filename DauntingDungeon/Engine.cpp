@@ -59,7 +59,7 @@ void Engine::HandleEvents()
 
 void Engine::Update()
 {
-	collider.UpdatePreviousPlayerPos(player->destRect); //get previous player pos
+	collider.UpdatePreviousPlayerPos(player->destRect, player->hitbox); //get previous player pos
 
 	player->Update(); //update player pos
 }
