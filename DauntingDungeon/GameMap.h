@@ -7,8 +7,8 @@ class GameMap {
 public:
 	GameMap();
 	~GameMap();
-
-	void LoadMap();
+	
+	void LoadMap(); 
 	void DrawMap();
 	std::vector<Collidable> GetCollidableTiles();
 

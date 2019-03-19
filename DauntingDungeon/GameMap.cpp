@@ -5,15 +5,17 @@
 
 GameMap::GameMap()
 {
+	map = nullptr;
 	dest.w = tileSize;
 	dest.h = tileSize;
+
+	/*Initialise and load map*/
 	LoadMap();
+
 	mapHeight = 0;
 	mapWidth = 0;
-	/*map = nullptr;   IF I UNCOMMENT THIS I GET ACCESS VIOLATION ERROR! WHY*/
 
 	/*height and width of rendered tile*/
-	
 	dest.x = dest.y = 0;
 
 	tileset = TextureManager::GetTexture("Assets/map/dungeon.png");

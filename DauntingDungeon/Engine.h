@@ -8,6 +8,9 @@
 #include "InputManager.h"
 #include "CollisionManager.h"
 
+
+/*TODO:  use smart pointers, overload <<operators for debugging purposes*/
+
 class Engine {
 public:
 	Engine();
@@ -27,6 +30,6 @@ private:
 	PlayerObject* player; /* while player is an object, it's the only player controlled
 						 object and therefore not part of the ObjectManager class*/
 	GameMap* map;
-	InputManager inputManager;
-	CollisionManager collider;
+	InputManager* inputManager;
+	CollisionManager* collider;
 };

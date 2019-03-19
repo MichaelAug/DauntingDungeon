@@ -23,6 +23,13 @@ void Vector2::normalise()
 	y /= length;
 }
 
+float Vector2::magnitude()
+{
+	return std::sqrtf((x*x) + (y*y));
+}
+
+
+
 Vector2 operator-(const Vector2&vec1, const Vector2&vec2)
 {
 	float x = vec1.x - vec2.x;

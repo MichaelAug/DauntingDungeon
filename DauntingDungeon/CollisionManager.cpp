@@ -23,7 +23,7 @@ void CollisionManager::HandlePlayerMapCollision(SDL_Rect &playerHitBox, SDL_Rect
 	Vector2 difference;
 	for (auto& t : tiles) {
 		if (Collided(playerHitBox, t.GetHitBox())) {
-			//std::cout << "WALL HIT! Current pos: x="<<playerHitBox.x<<" y="<<playerHitBox.y<<" going back to: x="<<previousPlayerPos.x<<" y="<<previousPlayerPos.y << std::endl;
+			//std::cout << "WALL HIT! Current pos: x="<<playerHitBox.x<<" y="<<playerHitBox.y<<" going back to: x="<<previousPlayerHitBox.x<<" y="<< previousPlayerHitBox.y << std::endl;
 			playerHitBox = previousPlayerHitBox;
 			playerDest = previousPlayerPos;
 		}
@@ -36,7 +36,7 @@ void CollisionManager::UpdatePreviousPlayerPos(SDL_Rect playerPos, SDL_Rect play
 	if (previousPlayerPos.x != playerPos.x || previousPlayerPos.y != playerPos.y) {
 		previousPlayerPos = playerPos;
 		previousPlayerHitBox = playerHitBox;
-		//std::cout << "Updated previous player position to x="<<ppp.x << " y="<<ppp.y << std::endl;
+		//std::cout << "Updated previous player position to x="<< playerPos.x << " y="<< playerPos.y<<" Hitbox to: x="<<playerHitBox.x << " y="<<playerHitBox.y << std::endl;
 	}
 
 }

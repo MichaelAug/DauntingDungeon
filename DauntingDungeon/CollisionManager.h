@@ -8,7 +8,7 @@ class CollisionManager {
 public:
 	CollisionManager() {}
 	CollisionManager(SDL_Rect playerPos, std::vector<Collidable> collidableTiles);
-	static bool Collided(const SDL_Rect &a, const SDL_Rect &b);
+	static bool Collided(const SDL_Rect &a, const SDL_Rect &b); //AABB collision detection
 	void HandlePlayerMapCollision(SDL_Rect &playerHitBox, SDL_Rect &playerDest);
 	void UpdatePreviousPlayerPos(SDL_Rect playerPos, SDL_Rect playerHitBox);
 

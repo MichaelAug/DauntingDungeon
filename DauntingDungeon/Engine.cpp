@@ -5,9 +5,12 @@
 SDL_Renderer* Engine::renderer = nullptr;
 
 Engine::Engine() {
+	window = nullptr;
 	player = nullptr;
 	objManager = nullptr;
 	map = nullptr;
+	inputManager = nullptr;
+	collider = nullptr;
 }
 
 Engine::~Engine() {
@@ -15,6 +18,8 @@ Engine::~Engine() {
 	delete map;
 	delete player;
 	delete renderer;
+	delete map;
+	delete collider;
 }
 
 void Engine::Initialise(const char * title, int x, int y, int width, int height, bool fullscreen)
@@ -45,21 +50,22 @@ void Engine::Initialise(const char * title, int x, int y, int width, int height,
 	objManager = new ObjectManager();
 	map = new GameMap();
 	player = new PlayerObject("Assets/man.png", 32, 48);
-	collider = CollisionManager(player->destRect, map->GetCollidableTiles());
+	collider = new CollisionManager(player->destRect, map->GetCollidableTiles());
+	inputManager = new InputManager();
 }
 
 void Engine::HandleEvents()
 {
-	inputManager.HandleInput(isRunning, player->velocity); 
+	inputManager->HandleInput(isRunning, player->velocity); 
 
-	collider.HandlePlayerMapCollision(player->hitbox, player->destRect);
+	collider->HandlePlayerMapCollision(player->hitbox, player->destRect);
 
 	//std::cout << "Player center point: x=" << player->centerPoint.x << " y="<<player->centerPoint.y<< std::endl;
 }
 
 void Engine::Update()
 {
-	collider.UpdatePreviousPlayerPos(player->destRect, player->hitbox); //get previous player pos
+	collider->UpdatePreviousPlayerPos(player->destRect, player->hitbox); //get previous player pos
 
 	player->Update(); //update player pos
 }
