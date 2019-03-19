@@ -7,6 +7,7 @@
 #include "GameMap.h"
 #include "InputManager.h"
 #include "CollisionManager.h"
+#include <memory>
 
 
 /*TODO:  use smart pointers, overload <<operators for debugging purposes*/
@@ -24,12 +25,13 @@ public:
 	void Update();
 	static SDL_Renderer* renderer;
 private:
-	SDL_Window *window;
+	std::unique_ptr<SDL_Window, void(*)(SDL_Window*)> window; // need to pass in a custom deleter because need to call SDL_DestroyWindow
 	bool isRunning;
-	ObjectManager* objManager;
-	PlayerObject* player; /* while player is an object, it's the only player controlled
+
+	std::unique_ptr<ObjectManager> objManager;
+	std::unique_ptr<PlayerObject> player; /* while player is an object, it's the only player controlled
 						 object and therefore not part of the ObjectManager class*/
-	GameMap* map;
-	InputManager* inputManager;
-	CollisionManager* collider;
+	std::unique_ptr<GameMap> map;
+	std::unique_ptr<InputManager> inputManager;
+	std::unique_ptr<CollisionManager> collider;
 };

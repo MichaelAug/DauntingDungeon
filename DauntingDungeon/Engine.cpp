@@ -4,22 +4,13 @@
 
 SDL_Renderer* Engine::renderer = nullptr;
 
-Engine::Engine() {
-	window = nullptr;
-	player = nullptr;
-	objManager = nullptr;
-	map = nullptr;
-	inputManager = nullptr;
+Engine::Engine() : window(nullptr, SDL_DestroyWindow) {
 	collider = nullptr;
+	//don't need to initialise unique_ptr because it's null by default
 }
 
 Engine::~Engine() {
-	delete objManager;
-	delete map;
-	delete player;
 	delete renderer;
-	delete map;
-	delete collider;
 }
 
 void Engine::Initialise(const char * title, int x, int y, int width, int height, bool fullscreen)
@@ -33,12 +24,12 @@ void Engine::Initialise(const char * title, int x, int y, int width, int height,
 
 	std::cout << "Game Initialised Successfully!" << std::endl;
 
-	window = SDL_CreateWindow(title, x, y, width, height, fullscreen);
+	window.reset(SDL_CreateWindow(title, x, y, width, height, fullscreen));
 	if (window) {
 		std::cout << "Window Created Successfully!" << std::endl;
 	}
 
-	renderer = SDL_CreateRenderer(window, -1, 0);
+	renderer = SDL_CreateRenderer(window.get(), -1, 0);
 	if (renderer) {
 		std::cout << "Renderer Created Successfully!" << std::endl;
 	}
@@ -47,11 +38,11 @@ void Engine::Initialise(const char * title, int x, int y, int width, int height,
 
 	isRunning = true;
 
-	objManager = new ObjectManager();
-	map = new GameMap();
-	player = new PlayerObject("Assets/man.png", 32, 48);
-	collider = new CollisionManager(player->destRect, map->GetCollidableTiles());
-	inputManager = new InputManager();
+	objManager = std::make_unique<ObjectManager>();
+	map = std::make_unique<GameMap>();
+	player = std::make_unique<PlayerObject>("Assets/man.png", 32, 48);
+	collider = std::make_unique<CollisionManager>(player->destRect, map->GetCollidableTiles());
+	inputManager = std::make_unique<InputManager>();
 }
 
 void Engine::HandleEvents()
@@ -88,7 +79,6 @@ bool Engine::Running()
 void Engine::ExitGame()
 {
 	SDL_DestroyRenderer(renderer);
-	SDL_DestroyWindow(window);
 	SDL_Quit();
 	std::cout << "Game Exited" << std::endl;
 }

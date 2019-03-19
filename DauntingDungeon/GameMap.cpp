@@ -40,6 +40,8 @@ GameMap::~GameMap()
 		}
 		delete[] map;
 	}
+
+	SDL_DestroyTexture(tileset);
 }
 
 void GameMap::LoadMap()

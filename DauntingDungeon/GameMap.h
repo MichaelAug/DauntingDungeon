@@ -21,7 +21,7 @@ private:
 	TileType tiles;
 
 	const int tileSize = 32;
-	int **map;
+	int **map; //change to 2d vector?
 
 	std::vector<Collidable> collidableTiles;
 };

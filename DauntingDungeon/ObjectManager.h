@@ -10,5 +10,5 @@ public:
 	void UpdateObjects();
 	void RenderObjects();
 private:
-	std::vector<GameObject*> gameObjects;
+	std::vector<GameObject*> gameObjects; // make unique
 };

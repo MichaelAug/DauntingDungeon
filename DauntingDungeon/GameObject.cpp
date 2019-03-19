@@ -18,6 +18,11 @@ GameObject::GameObject(const char * textureName, int x, int y)
 	objTexture = TextureManager::GetTexture(textureName);
 }
 
+GameObject::~GameObject()
+{
+	SDL_DestroyTexture(objTexture);
+}
+
 void GameObject::Update()
 {
 
