@@ -2,7 +2,8 @@
 #include "TextureManager.h"
 #include "Engine.h"
 
-GameObject::GameObject(const char * textureName, int x, int y)
+GameObject::GameObject(const char * textureName, int x, int y) : 
+	objTexture(TextureManager::GetTexture(textureName))
 {
 
 	srcRect.h = 64;
@@ -14,18 +15,14 @@ GameObject::GameObject(const char * textureName, int x, int y)
 	destRect.w = srcRect.w;
 	destRect.x = x;
 	destRect.y = y;
-
-	objTexture = TextureManager::GetTexture(textureName);
 }
 
 GameObject::~GameObject()
 {
-	SDL_DestroyTexture(objTexture);
 }
 
 void GameObject::Update()
 {
-
 	/*TODO: Replace with intended enemy behavior*/
 	destRect.x++;
 	destRect.y++;
@@ -34,5 +31,5 @@ void GameObject::Update()
 
 void GameObject::Render()
 {
-	TextureManager::Draw(objTexture, srcRect, destRect);
+	TextureManager::Draw(objTexture.get(), srcRect, destRect);
 }

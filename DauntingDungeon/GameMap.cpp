@@ -3,9 +3,9 @@
 #include <fstream>
 #include <iostream>
 
-GameMap::GameMap()
+GameMap::GameMap() :
+	tileset(TextureManager::GetTexture("Assets/map/dungeon.png"))
 {
-	map = nullptr;
 	dest.w = tileSize;
 	dest.h = tileSize;
 
@@ -18,7 +18,6 @@ GameMap::GameMap()
 	/*height and width of rendered tile*/
 	dest.x = dest.y = 0;
 
-	tileset = TextureManager::GetTexture("Assets/map/dungeon.png");
 	src.w = src.h = tileSize;
 
 	src.x = 96; src.y = 64;
@@ -30,18 +29,6 @@ GameMap::GameMap()
 	src.x = 32; src.y = 32;
 	tiles.pillar = src;
 
-}
-
-GameMap::~GameMap()
-{
-	if (map) {
-		for (int i = 0; i < mapHeight; ++i) {
-			delete[] map[i];
-		}
-		delete[] map;
-	}
-
-	SDL_DestroyTexture(tileset);
 }
 
 void GameMap::LoadMap()
@@ -56,10 +43,7 @@ void GameMap::LoadMap()
 	mapFile >> mapWidth;
 	mapFile >> mapHeight;
 
-	map = new int*[mapHeight];
-	for (int i = 0; i < mapHeight; ++i) {
-		map[i] = new int[mapWidth];
-	}
+	map = std::vector<std::vector<int>>(mapHeight, std::vector<int>(mapWidth, 0));
 
 	for (int y = 0; y < mapHeight; ++y) {
 		for (int x = 0; x < mapWidth; ++x) {
@@ -98,13 +82,13 @@ void GameMap::DrawMap()
 
 			switch (type) {
 			case 0:
-				TextureManager::Draw(tileset, tiles.ground, dest);
+				TextureManager::Draw(tileset.get(), tiles.ground, dest);
 				break;
 			case 1:
-				TextureManager::Draw(tileset, tiles.upper_wall, dest);
+				TextureManager::Draw(tileset.get(), tiles.upper_wall, dest);
 				break;
 			case 2:
-				TextureManager::Draw(tileset, tiles.pillar, dest);
+				TextureManager::Draw(tileset.get(), tiles.pillar, dest);
 				break;
 
 			default:

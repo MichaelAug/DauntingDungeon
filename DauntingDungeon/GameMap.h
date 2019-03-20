@@ -2,11 +2,11 @@
 #include "TileType.h"
 #include <vector>
 #include "Collidable.h"
+#include <memory>
 
 class GameMap {
 public:
 	GameMap();
-	~GameMap();
 	
 	void LoadMap(); 
 	void DrawMap();
@@ -17,11 +17,12 @@ private:
 	int mapWidth;
 	int mapHeight;
 
-	SDL_Texture *tileset;
+	std::unique_ptr<SDL_Texture, void(*)(SDL_Texture*)> tileset;
 	TileType tiles;
 
 	const int tileSize = 32;
-	int **map; //change to 2d vector?
+
+	std::vector<std::vector<int>> map;
 
 	std::vector<Collidable> collidableTiles;
 };

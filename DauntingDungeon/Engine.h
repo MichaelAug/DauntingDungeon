@@ -15,7 +15,6 @@
 class Engine {
 public:
 	Engine();
-	~Engine();
 
 	void Initialise(const char* title, int x, int y, int width, int height, bool fullscreen);
 	void HandleEvents();

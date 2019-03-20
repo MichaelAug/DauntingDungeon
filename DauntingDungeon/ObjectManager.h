@@ -1,6 +1,7 @@
 #pragma once
 #include "PlayerObject.h"
 #include <vector>
+#include <memory>
 
 class ObjectManager {
 public:
@@ -10,5 +11,5 @@ public:
 	void UpdateObjects();
 	void RenderObjects();
 private:
-	std::vector<GameObject*> gameObjects; // make unique
+	std::vector<std::unique_ptr<GameObject>> gameObjects;
 };

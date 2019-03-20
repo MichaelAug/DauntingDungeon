@@ -1,5 +1,6 @@
 #pragma once
 #include "SDL.h"
+#include <memory>
 
 class GameObject {
 public:
@@ -11,6 +12,6 @@ public:
 
 protected:
 
-	SDL_Texture *objTexture; //make unique
+	std::unique_ptr<SDL_Texture, void(*)(SDL_Texture*)> objTexture; //make unique
 	SDL_Rect srcRect, destRect;
 };

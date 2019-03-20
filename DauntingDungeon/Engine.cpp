@@ -5,12 +5,7 @@
 SDL_Renderer* Engine::renderer = nullptr;
 
 Engine::Engine() : window(nullptr, SDL_DestroyWindow) {
-	collider = nullptr;
 	//don't need to initialise unique_ptr because it's null by default
-}
-
-Engine::~Engine() {
-	delete renderer;
 }
 
 void Engine::Initialise(const char * title, int x, int y, int width, int height, bool fullscreen)
