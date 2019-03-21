@@ -261,3 +261,5 @@ __pycache__/
 *.pyc
 /DauntingDungeon/Assets/03zx13.png
 /DauntingDungeon/Assets
+/DauntingDungeon/SDL2
+/Release

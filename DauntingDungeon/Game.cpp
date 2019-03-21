@@ -10,7 +10,7 @@ int main(int argc, char *argv[]) {
 
 	Engine *engine = new Engine();
 
-	engine->Initialise("My Game!", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1080, 720, false);
+	engine->Initialise("My Game!", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1440, 810, false);
 
 	while (engine->Running()) {
 
