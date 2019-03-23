@@ -8,6 +8,7 @@
 #include "InputManager.h"
 #include "CollisionManager.h"
 #include <memory>
+#include "UIManager.h"
 
 
 /*TODO:  use smart pointers, overload <<operators for debugging purposes*/
@@ -21,7 +22,7 @@ public:
 	void Render();
 	bool Running();
 	void ExitGame();
-	void Update();
+	void Update(std::string fps);
 	static SDL_Renderer* renderer;
 private:
 	std::unique_ptr<SDL_Window, void(*)(SDL_Window*)> window; // need to pass in a custom deleter because need to call SDL_DestroyWindow
@@ -33,4 +34,5 @@ private:
 	std::unique_ptr<GameMap> map;
 	std::unique_ptr<InputManager> inputManager;
 	std::unique_ptr<CollisionManager> collider;
+	std::unique_ptr<UIManager> ui;
 };

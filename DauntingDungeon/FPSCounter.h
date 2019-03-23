@@ -8,10 +8,12 @@ public:
 	void Limit();
 	void Count();
 	void FrameStart();
+	int GetFPS();
 
 private:
 	Uint32 frameStart, frameTime, secondStart;
 	const int FPS = 60;
 	const int FRAME_DELAY = 1000 / FPS;
 	int frames;
+	int fps;
 };

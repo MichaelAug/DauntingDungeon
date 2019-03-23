@@ -5,6 +5,7 @@ FPSCounter::FPSCounter() : frames(0) {}
 
 void FPSCounter::Init()
 {
+	fps = 0;
 	secondStart = SDL_GetTicks();
 }
 
@@ -19,9 +20,9 @@ void FPSCounter::Limit()
 void FPSCounter::Count()
 {
 	if ((SDL_GetTicks() - secondStart) >= 1000) {
-		std::cout << "FPS: " << frames << std::endl;
-		frames = 0;
 		secondStart = SDL_GetTicks();
+		fps = frames;
+		frames = 0;
 	}
 	frames++;
 }
@@ -29,4 +30,9 @@ void FPSCounter::Count()
 void FPSCounter::FrameStart()
 {
 	frameStart = SDL_GetTicks();
+}
+
+int FPSCounter::GetFPS()
+{
+	return fps;
 }

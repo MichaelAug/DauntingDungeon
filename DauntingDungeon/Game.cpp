@@ -17,7 +17,7 @@ int main(int argc, char *argv[]) {
 		fps.Count(); // counts and prints fps to console
 
 		engine->HandleEvents();
-		engine->Update();
+		engine->Update(std::to_string(fps.GetFPS()));
 		engine->Render();
 
 		fps.Limit(); //limits FPS to 60
