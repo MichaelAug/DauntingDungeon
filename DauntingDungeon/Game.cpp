@@ -1,31 +1,26 @@
 #include "Engine.h"
-
+#include "FPSCounter.h"
 int main(int argc, char *argv[]) {
-
-	const int FPS = 60;
-	const int frameDelay = 1000 / FPS;
-
-	Uint32 frameStart;
-	int frameTime;
 
 	Engine *engine = new Engine();
 
+	FPSCounter fps;
+
 	engine->Initialise("My Game!", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1440, 810, false);
+
+	fps.Init();
 
 	while (engine->Running()) {
 
-		frameStart = SDL_GetTicks(); // for FPS limiting
+		fps.FrameStart(); // for FPS limiting
+
+		fps.Count(); // counts and prints fps to console
 
 		engine->HandleEvents();
 		engine->Update();
 		engine->Render();
 
-		// FPS limiting TODO: add a keypress to switch between limited and unlimited fps
-		frameTime = SDL_GetTicks() - frameStart;
-		if (frameDelay > frameTime) {
-			SDL_Delay(frameDelay - frameTime);
-		}
-		//---------------
+		fps.Limit(); //limits FPS to 60
 	}
 
 	engine->ExitGame();
