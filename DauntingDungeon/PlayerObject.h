@@ -9,7 +9,7 @@ class PlayerObject : public GameObject, public Collidable {
 public:
 	friend class Engine;
 
-	PlayerObject(const char* textureName, int x, int y);
+	PlayerObject(const std::string textureName, int x, int y);
 	void Update();
 	
 private:

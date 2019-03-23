@@ -12,7 +12,7 @@ public:
 	void Draw();
 	void UpdateMessage(std::string msg);
 private:
-	TTF_Font *font;
+	std::unique_ptr<TTF_Font, void(*)(TTF_Font*)> font;
 	SDL_Rect position;
 	SDL_Color colour;
 	std::string text;

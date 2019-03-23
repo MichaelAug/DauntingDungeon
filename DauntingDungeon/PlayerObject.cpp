@@ -2,7 +2,7 @@
 #include <iostream>
 #include <cmath>
 
-PlayerObject::PlayerObject(const char* textureName, int x, int y) : GameObject(textureName, x, y), Collidable()
+PlayerObject::PlayerObject(const std::string textureName, int x, int y) : GameObject(textureName, x, y), Collidable()
 {
 	srcRect.h = 32;
 	srcRect.w = 32;

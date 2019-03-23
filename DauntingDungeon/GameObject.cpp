@@ -2,8 +2,8 @@
 #include "TextureManager.h"
 #include "Engine.h"
 
-GameObject::GameObject(const char * textureName, int x, int y) : 
-	objTexture(TextureManager::GetTexture(textureName))
+GameObject::GameObject(const std::string textureName, int x, int y) : 
+	objTexture(TextureManager::GetTexture(textureName.c_str()))
 {
 
 	srcRect.h = 64;

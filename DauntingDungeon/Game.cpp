@@ -2,14 +2,14 @@
 #include "FPSCounter.h"
 int main(int argc, char *argv[]) {
 
-	Engine *engine = new Engine();
+	std::unique_ptr<Engine>engine = std::make_unique<Engine>();
 
 	FPSCounter fps;
 
-	engine->Initialise("My Game!", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1440, 810, false);
+	engine->Initialise("Daunting Dungeon", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1440, 810, false);
 
 	fps.Init();
-
+	
 	while (engine->Running()) {
 
 		fps.FrameStart(); // for FPS limiting
