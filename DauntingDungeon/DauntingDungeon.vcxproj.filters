@@ -82,7 +82,7 @@
       <Filter>Managers</Filter>
     </ClCompile>
     <ClCompile Include="GameManager.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Managers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

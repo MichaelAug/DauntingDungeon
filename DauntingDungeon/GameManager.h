@@ -3,17 +3,21 @@
 #include "PhysicsManager.h"
 #include "GameObject.h"
 
+class PlayerObject;
+
 class GameManager {
 public:
 	GameManager();
+	~GameManager();
 
 	void Initialise();
 
 	void AddGameObject(Vector2 pos, GameObject* o);
 
-	PhysicsManager& GetPhysicsManager() { return *physics; }
-	PlayerObject& GetPlayer() { return *player; }
+	void AddPlayerObject(Vector2 pos, GameObject* o);
+	PhysicsManager* GetPhysicsManager() { return physics; }
+	PlayerObject* GetPlayer() { return player; }
 private:
-	std::unique_ptr<PlayerObject> player;
-	std::unique_ptr<PhysicsManager> physics;
+	PlayerObject* player;
+	PhysicsManager* physics;
 };

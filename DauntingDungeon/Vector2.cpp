@@ -50,10 +50,10 @@ void Vector2::ToZero()
 	y = 0.0f;
 }
 
-Vector2 Vector2::operator-(const Vector2 & v) const
-{
-	return Vector2(x - v.x, y - v.y);
-}
+//Vector2 Vector2::operator-(const Vector2 & v) const
+//{
+//	return Vector2(x - v.x, y - v.y);
+//}
 
 Vector2 Vector2::operator+(const Vector2 & v) const
 {
@@ -85,6 +85,12 @@ void Vector2::operator*=(float f)
 {
 	x *= f;
 	y *= f;
+}
+
+void Vector2::operator-=(const Vector2 & a)
+{
+	x -= a.x;
+	y -= a.y;
 }
 
 Vector2 operator-(const Vector2&vec1, const Vector2&vec2)

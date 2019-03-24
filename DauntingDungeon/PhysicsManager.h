@@ -8,7 +8,6 @@ class PhysicsManager {
 public:
 	PhysicsManager();
 
-	//void FixedUpdate(float dt); maybe add later? 
 	void UpdatePhysics(float dt);
 
 	void ResetForces();
@@ -16,9 +15,9 @@ public:
 	void AddGameObject(GameObject* b);
 	void RemoveGameObject(std::shared_ptr<GameObject> b);
 
-	CollisionManager& GetCollisionManager() { return *collider; }
+	CollisionManager& GetCollisionManager() { return *colManager; }
 protected:
-	std::unique_ptr<CollisionManager> collider;
+	std::unique_ptr<CollisionManager> colManager;
 	void Integration(float dt);
 	void IntegrateVelocity(float dt);
 };

@@ -13,15 +13,20 @@ GameObject::GameObject(const std::string textureName, Vector2 pos) : PhysicsObje
 	
 	destRect.h = srcRect.h;
 	destRect.w = srcRect.w;
-	destRect.x = position.x;
-	destRect.y = position.y;
+	destRect.x = (int)position.x;
+	destRect.y = (int)position.y;
 }
 
-void GameObject::UpdateTexturePos()
+void GameObject::MovePosAndCol(Vector2 posChange)
 {
-	destRect.x = position.x;
-	destRect.y = position.y;
+	collider->pos += posChange;
+	position += posChange;
+}
 
+void GameObject::UpdateTexPos()
+{
+	destRect.x = (int)position.x;
+	destRect.y = (int)position.y;
 }
 
 void GameObject::Render()
@@ -31,5 +36,5 @@ void GameObject::Render()
 
 void GameObject::AddCollider(std::unique_ptr<Collidable> col)
 {
-	collider.reset(col.release());
+	collider = col.release();
 }

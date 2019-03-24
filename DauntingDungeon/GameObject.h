@@ -13,13 +13,16 @@ class GameObject : public PhysicsObject{
 public:
 	GameObject(const std::string textureName, Vector2 pos);
 	//~GameObject();
-	void UpdateTexturePos();
+	void MovePosAndCol(Vector2 posChange);
+	void UpdateTexPos();
 	void Render();
+
+	Collidable* GetCollider() { return collider; }
 
 	void AddCollider(std::unique_ptr<Collidable> col);
 
 protected:
-	std::unique_ptr<Collidable> collider;
+	Collidable* collider;
 
 	std::unique_ptr<SDL_Texture, void(*)(SDL_Texture*)> objTexture;
 	SDL_Rect srcRect, destRect; /*Position of the texture*/
