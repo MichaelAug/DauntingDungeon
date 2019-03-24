@@ -2,7 +2,7 @@
 #include "TextureManager.h"
 #include "Engine.h"
 
-GameObject::GameObject(const std::string textureName, int x, int y) : 
+GameObject::GameObject(const std::string textureName, Vector2 pos) : PhysicsObject(pos),
 	objTexture(TextureManager::GetTexture(textureName.c_str()))
 {
 
@@ -13,8 +13,8 @@ GameObject::GameObject(const std::string textureName, int x, int y) :
 	
 	destRect.h = srcRect.h;
 	destRect.w = srcRect.w;
-	destRect.x = x;
-	destRect.y = y;
+	destRect.x = position.x;
+	destRect.y = position.y;
 }
 
 GameObject::~GameObject()

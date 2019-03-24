@@ -22,6 +22,9 @@
     <Filter Include="Managers">
       <UniqueIdentifier>{36b2d015-83be-4e38-95fa-d199165475f9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Collision">
+      <UniqueIdentifier>{e46e38dc-410d-496a-ab9c-eb2317ab0492}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -39,9 +42,6 @@
     <ClCompile Include="PlayerObject.cpp">
       <Filter>Object</Filter>
     </ClCompile>
-    <ClCompile Include="Vector2.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ObjectManager.cpp">
       <Filter>Managers</Filter>
     </ClCompile>
@@ -54,16 +54,28 @@
     <ClCompile Include="CollisionManager.cpp">
       <Filter>Managers</Filter>
     </ClCompile>
-    <ClCompile Include="Collidable.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="FPSCounter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="UIManager.cpp">
+    <ClCompile Include="UILabel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="UILabel.cpp">
+    <ClCompile Include="UIManager.cpp">
+      <Filter>Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Collidable.cpp">
+      <Filter>Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Square.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Circle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector2.cpp">
+      <Filter>DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -83,9 +95,6 @@
     <ClInclude Include="PlayerObject.h">
       <Filter>Object</Filter>
     </ClInclude>
-    <ClInclude Include="Vector2.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="CollisionManager.h">
       <Filter>Managers</Filter>
     </ClInclude>
@@ -98,9 +107,6 @@
     <ClInclude Include="InputManager.h">
       <Filter>Managers</Filter>
     </ClInclude>
-    <ClInclude Include="Collidable.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -111,7 +117,31 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="UIManager.h">
-      <Filter>Header Files</Filter>
+      <Filter>Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsObject.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsManager.h">
+      <Filter>Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="GameManager.h">
+      <Filter>Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Collidable.h">
+      <Filter>Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Square.h">
+      <Filter>Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Circle.h">
+      <Filter>Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="ColliderType.h">
+      <Filter>Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2.h">
+      <Filter>DataTypes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -135,6 +135,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Circle.cpp" />
     <ClCompile Include="Collidable.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="Engine.cpp" />
@@ -144,23 +145,31 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
+    <ClCompile Include="PhysicsObject.cpp" />
     <ClCompile Include="PlayerObject.cpp" />
+    <ClCompile Include="Square.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="UILabel.cpp" />
     <ClCompile Include="UIManager.cpp" />
     <ClCompile Include="Vector2.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Circle.h" />
     <ClInclude Include="Collidable.h" />
+    <ClInclude Include="ColliderType.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="FPSCounter.h" />
+    <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameMap.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="ObjectManager.h" />
+    <ClInclude Include="PhysicsManager.h" />
+    <ClInclude Include="PhysicsObject.h" />
     <ClInclude Include="PlayerObject.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Square.h" />
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="TileType.h" />
     <ClInclude Include="UILabel.h" />

@@ -33,8 +33,9 @@ void Engine::Initialise(std::string title, int x, int y, int width, int height, 
 
 	objManager = std::make_unique<ObjectManager>();
 	map = std::make_unique<GameMap>();
-	player = std::make_unique<PlayerObject>("Assets/man.png", 32, 48);
-	collider = std::make_unique<CollisionManager>(player->destRect, map->GetCollidableTiles());
+	player = std::make_unique<PlayerObject>("Assets/man.png", Vector2(32, 48));
+	collider = std::make_unique<CollisionManager>(player->destRect);
+	map->LoadMap(*collider);
 	inputManager = std::make_unique<InputManager>();
 	ui = std::make_unique<UIManager>();
 }
@@ -43,14 +44,11 @@ void Engine::HandleEvents()
 {
 	inputManager->HandleInput(isRunning, player->velocity); 
 
-	collider->HandlePlayerMapCollision(player->hitbox, player->destRect);
-
 	//std::cout << "Player center point: x=" << player->centerPoint.x << " y="<<player->centerPoint.y<< std::endl;
 }
 
 void Engine::Update(std::string fps)
 {
-	collider->UpdatePreviousPlayerPos(player->destRect, player->hitbox); //get previous player pos
 	ui->UpdateFPS(fps);
 	player->Update(); //update player pos
 }

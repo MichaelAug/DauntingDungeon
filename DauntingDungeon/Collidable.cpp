@@ -1,16 +1,5 @@
 #include "Collidable.h"
 
-Collidable::Collidable(SDL_Rect rect)
+Collidable::Collidable(Vector2 pos, ColliderType type) : pos(pos), type(type)
 {
-	UpdateRectPos(rect);
-}
-
-void Collidable::UpdateRectPos(SDL_Rect rect)
-{
-	hitbox = rect;
-}
-
-SDL_Rect Collidable::GetHitBox()
-{
-	return hitbox;
 }

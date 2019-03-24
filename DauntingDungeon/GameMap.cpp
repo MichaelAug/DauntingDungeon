@@ -2,15 +2,14 @@
 #include "TextureManager.h"
 #include <fstream>
 #include <iostream>
+#include "Square.h"
+#include "ColliderType.h"
 
 GameMap::GameMap() :
 	tileset(TextureManager::GetTexture("Assets/map/dungeon.png"))
 {
 	dest.w = tileSize;
 	dest.h = tileSize;
-
-	/*Initialise and load map*/
-	LoadMap();
 
 	mapHeight = 0;
 	mapWidth = 0;
@@ -31,7 +30,7 @@ GameMap::GameMap() :
 
 }
 
-void GameMap::LoadMap()
+void GameMap::LoadMap(CollisionManager &colManager)
 {
 	std::ifstream mapFile("Assets/mapData/mapLayout.map");
 
@@ -39,18 +38,19 @@ void GameMap::LoadMap()
 		std::cout << "Error loading in Map file!" << std::endl;
 		return;
 	}
-
 	mapFile >> mapWidth;
 	mapFile >> mapHeight;
 
 	map = std::vector<std::vector<int>>(mapHeight, std::vector<int>(mapWidth, 0));
+
+	std::vector<std::unique_ptr<Square>> initTer;
 
 	for (int y = 0; y < mapHeight; ++y) {
 		for (int x = 0; x < mapWidth; ++x) {
 
 			char type = 0;
 			mapFile >> type;
-			map[y][x] = type - '0';			
+			map[y][x] = type - '0';
 		}
 	}
 
@@ -63,9 +63,51 @@ void GameMap::LoadMap()
 			dest.y = row * tileSize;
 
 			if (type == 1) {
-				collidableTiles.emplace_back(Collidable(dest));
+				initTer.emplace_back(std::make_unique<Square>(Vector2( //initially save top left corner of block as pos
+					(float)col*tileSize, (float)row * tileSize), tileSize, tileSize));
 			}
 		}
+	}
+
+	/*Algorithm to combine terrain blocks into bigger colliders to save computation*/
+	for (size_t i = 0; i < initTer.size(); ++i) {
+		for (auto j = initTer.begin() + i; j != initTer.end();) {
+			if (initTer[i]->pos.y == (*j)->pos.y &&
+				initTer[i]->pos.x + initTer[i]->halfWidth == (*j)->pos.x &&
+				initTer[i]->halfHeight == tileSize &&
+				(*j)->halfHeight == tileSize && (*j)->halfWidth == tileSize) {
+				initTer[i]->halfWidth += (*j)->halfWidth;
+				(*j).reset();
+				j = initTer.erase(j);
+			}
+			else if (initTer[i]->pos.x == (*j)->pos.x &&
+				initTer[i]->pos.y + initTer[i]->GetHalfHeight() == (*j)->pos.y &&
+				initTer[i]->halfWidth == tileSize &&
+				(*j)->halfWidth == tileSize && (*j)->halfHeight == tileSize) {
+				initTer[i]->halfHeight += (*j)->halfHeight;
+				(*j).reset();
+				j = initTer.erase(j);
+			}
+			else {
+				++j;
+			}
+		}
+	}
+
+	//move pointers to primary vector and save actual center (x,y) pos and half width/height
+	for (auto& o : initTer) {
+		o->halfHeight /= 2;
+		o->halfWidth /= 2;
+		o->pos.x = o->pos.x + o->GetHalfWidth();
+		o->pos.y = o->pos.y + o->GetHalfHeight();
+
+		colManager.AddTerrainCollider(std::move(o));
+	}
+
+	std::cout << "numterrain: " << colManager.terrain.size() << std::endl;
+	for (auto a : colManager.terrain) {
+		std::shared_ptr<Square>s = std::dynamic_pointer_cast<Square>(a);
+		std::cout << s->pos << " halfHeight= " << s->GetHalfHeight() << " halfWidth= " << s->GetHalfWidth() << std::endl;
 	}
 }
 
@@ -96,9 +138,4 @@ void GameMap::DrawMap()
 			}
 		}
 	}
-}
-
-std::vector<Collidable> GameMap::GetCollidableTiles()
-{
-	return collidableTiles;
 }

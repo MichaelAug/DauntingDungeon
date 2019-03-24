@@ -5,11 +5,11 @@
 
 class Engine;
 
-class PlayerObject : public GameObject, public Collidable {
+class PlayerObject : public GameObject {
 public:
 	friend class Engine;
 
-	PlayerObject(const std::string textureName, int x, int y);
+	PlayerObject(const std::string textureName, Vector2 pos);
 	void Update();
 	
 private:

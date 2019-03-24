@@ -1,17 +1,17 @@
 #pragma once
-#include "SDL.h"
 #include "Vector2.h"
+#include "ColliderType.h"
 
 class Collidable {
+	friend class Engine;
 public:
 	Collidable() {};
-	Collidable(SDL_Rect);
-	void UpdateRectPos(SDL_Rect);
-	SDL_Rect GetHitBox();
-
+	virtual ~Collidable() {}
+	Collidable(Vector2 pos, ColliderType type);
+	ColliderType GetType() { return type; }
+	Vector2 pos; //center of collider pos
 protected:
-	SDL_Rect hitbox;
-
+	ColliderType type;
 private:
 };
 

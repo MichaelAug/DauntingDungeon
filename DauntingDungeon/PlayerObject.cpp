@@ -1,8 +1,9 @@
 #include "PlayerObject.h"
 #include <iostream>
 #include <cmath>
+#include "Circle.h"
 
-PlayerObject::PlayerObject(const std::string textureName, int x, int y) : GameObject(textureName, x, y), Collidable()
+PlayerObject::PlayerObject(const std::string textureName,Vector2 pos) : GameObject(textureName, pos)
 {
 	srcRect.h = 32;
 	srcRect.w = 32;
@@ -10,17 +11,18 @@ PlayerObject::PlayerObject(const std::string textureName, int x, int y) : GameOb
 	destRect.h = 64;
 	destRect.w = 64;
 
-	UpdateRectPos(GetPreciseHitBox());
+
+
+	collider = std::make_shared<Circle>(pos, 8);
 }
 void PlayerObject::Update()
 {
-	
 	velocity.normalise();
 	
 	destRect.x += std::round(velocity.x*speed);
 	destRect.y += std::round(velocity.y*speed);
 
-	UpdateRectPos(GetPreciseHitBox());
+	//collider->UpdateHitBox(GetPreciseHitBox());
 }
 
 SDL_Rect PlayerObject::GetPreciseHitBox()

@@ -3,17 +3,18 @@
 #include <vector>
 #include "PlayerObject.h"
 #include "Collidable.h"
+#include <memory>
 
 class CollisionManager {
 public:
 	CollisionManager() {}
-	CollisionManager(SDL_Rect playerPos, std::vector<Collidable> collidableTiles);
-	static bool Collided(const SDL_Rect &a, const SDL_Rect &b); //AABB collision detection
-	void HandlePlayerMapCollision(SDL_Rect &playerHitBox, SDL_Rect &playerDest);
-	void UpdatePreviousPlayerPos(SDL_Rect playerPos, SDL_Rect playerHitBox);
+	CollisionManager(SDL_Rect playerPos);
+	
 
+	void AddTerrainCollider(std::shared_ptr<Collidable> col);
+
+	std::vector<std::shared_ptr<Collidable>> terrain;
 private:
-	SDL_Rect previousPlayerPos;
-	SDL_Rect previousPlayerHitBox;
-	std::vector<Collidable> tiles;
+	//std::vector<collision*> collisions;
+	
 };
