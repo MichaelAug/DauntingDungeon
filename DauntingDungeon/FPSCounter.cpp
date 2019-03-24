@@ -5,14 +5,16 @@ FPSCounter::FPSCounter() : frames(0) {}
 
 void FPSCounter::Init()
 {
+	frameEnd = 0;
 	fps = 0;
 	secondStart = SDL_GetTicks();
+	frameStart = 0;
 }
 
 void FPSCounter::Limit()
 {
 	frameTime = SDL_GetTicks() - frameStart;
-	if (FRAME_DELAY > frameTime) {
+	if (FRAME_DELAY >= frameTime) {
 		SDL_Delay(FRAME_DELAY - frameTime);
 	}
 }
@@ -35,4 +37,14 @@ void FPSCounter::FrameStart()
 int FPSCounter::GetFPS()
 {
 	return fps;
+}
+
+void FPSCounter::FrameEnd()
+{
+	frameEnd = SDL_GetTicks() - frameStart;
+}
+
+Uint32 FPSCounter::GetDeltaTime()
+{
+	return frameEnd;
 }

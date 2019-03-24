@@ -13,8 +13,4 @@ public:
 	void Update();
 	
 private:
-	SDL_Rect GetPreciseHitBox();
-
-	Vector2 velocity;
-	const float speed = 3;
 };

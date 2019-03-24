@@ -17,6 +17,8 @@ public:
 
 	float DotProduct(Vector2 a) const;
 
+	void ToZero();
+
 	friend Vector2 operator-(const Vector2&,const Vector2&);
 
 	friend std::ostream& operator<<(std::ostream& o, const Vector2& v);
@@ -26,4 +28,5 @@ public:
 	Vector2  operator*(float f) const;
 	Vector2  operator/(float f) const;
 	void operator+=(const Vector2  &v);
+	void operator*=(float f);
 };

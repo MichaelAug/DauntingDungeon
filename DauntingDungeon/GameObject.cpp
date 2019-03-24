@@ -17,19 +17,19 @@ GameObject::GameObject(const std::string textureName, Vector2 pos) : PhysicsObje
 	destRect.y = position.y;
 }
 
-GameObject::~GameObject()
+void GameObject::UpdateTexturePos()
 {
-}
-
-void GameObject::Update()
-{
-	/*TODO: Replace with intended enemy behavior*/
-	destRect.x++;
-	destRect.y++;
+	destRect.x = position.x;
+	destRect.y = position.y;
 
 }
 
 void GameObject::Render()
 {
 	TextureManager::Draw(objTexture.get(), srcRect, destRect);
+}
+
+void GameObject::AddCollider(std::unique_ptr<Collidable> col)
+{
+	collider.reset(col.release());
 }

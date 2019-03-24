@@ -44,6 +44,12 @@ float Vector2::DotProduct(Vector2 v) const
 	return (this->x*v.x + this->y*v.y);
 }
 
+void Vector2::ToZero()
+{
+	x = 0.0f;
+	y = 0.0f;
+}
+
 Vector2 Vector2::operator-(const Vector2 & v) const
 {
 	return Vector2(x - v.x, y - v.y);
@@ -73,6 +79,12 @@ void Vector2::operator+=(const Vector2 & v)
 {
 	x += v.x;
 	y += v.y;
+}
+
+void Vector2::operator*=(float f)
+{
+	x *= f;
+	y *= f;
 }
 
 Vector2 operator-(const Vector2&vec1, const Vector2&vec2)

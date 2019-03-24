@@ -10,7 +10,7 @@ public:
 	
 	void LoadMap(CollisionManager&);
 	void DrawMap();
-
+	static const int tileSize = 32;
 private:
 	SDL_Rect src, dest;
 	int mapWidth;
@@ -19,7 +19,6 @@ private:
 	std::unique_ptr<SDL_Texture, void(*)(SDL_Texture*)> tileset;
 	TileType tiles;
 
-	static const int tileSize = 32;
 	static const int tileHalfSize = 16;
 
 	std::vector<std::vector<int>> map;

@@ -2,7 +2,9 @@
 #include "Vector2.h"
 
 class PhysicsObject {
+	friend class InputManager;
 public:
+	void AddForce(Vector2 f);
 	PhysicsObject() {}
 	PhysicsObject(Vector2);
 protected:

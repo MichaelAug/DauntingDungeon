@@ -1,8 +1,11 @@
 #include "CollisionManager.h"
 #include <iostream>
 
-CollisionManager::CollisionManager(SDL_Rect playerPos)
+void CollisionManager::Draw()
 {
+	for (auto& o : allObjects) {
+		o->Render();
+	}
 }
 
 void CollisionManager::AddTerrainCollider(std::shared_ptr<Collidable> col)

@@ -9,18 +9,16 @@ int main(int argc, char *argv[]) {
 	engine->Initialise("Daunting Dungeon", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1440, 810, false);
 
 	fps.Init();
-	
+
 	while (engine->Running()) {
-
 		fps.FrameStart(); // for FPS limiting
+		fps.Count(); // counts fps
 
-		fps.Count(); // counts and prints fps to console
-
-		engine->HandleEvents();
-		engine->Update(std::to_string(fps.GetFPS()));
+		engine->Update(std::to_string(fps.GetFPS()), fps.GetDeltaTime());
 		engine->Render();
 
 		fps.Limit(); //limits FPS to 60
+		fps.FrameEnd(); // counts deltaTime
 	}
 
 	engine->ExitGame();

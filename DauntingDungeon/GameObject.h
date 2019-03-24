@@ -8,14 +8,18 @@
 /*Handles Object's texture (setup and Rendering), its position and a reference to collider*/
 
 class GameObject : public PhysicsObject{
+	friend class PhysicsManager;
+	friend class GameManager;
 public:
 	GameObject(const std::string textureName, Vector2 pos);
-	~GameObject();
-	virtual void Update();
+	//~GameObject();
+	void UpdateTexturePos();
 	void Render();
 
+	void AddCollider(std::unique_ptr<Collidable> col);
+
 protected:
-	std::shared_ptr<Collidable> collider; //shared because will need reference for collision detection
+	std::unique_ptr<Collidable> collider;
 
 	std::unique_ptr<SDL_Texture, void(*)(SDL_Texture*)> objTexture;
 	SDL_Rect srcRect, destRect; /*Position of the texture*/

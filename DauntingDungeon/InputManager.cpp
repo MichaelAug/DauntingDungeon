@@ -5,13 +5,17 @@ InputManager::InputManager()
 {
 }
 
-void InputManager::HandleInput(bool &isRunning, Vector2 &playerVel)
+void InputManager::HandleInput(bool &isRunning, PlayerObject &player)
 {
 	SDL_PollEvent(&event);
 
 	const Uint8* keyState = SDL_GetKeyboardState(NULL);
-	playerVel.x = static_cast<float>(keyState[SDL_SCANCODE_D] - keyState[SDL_SCANCODE_A]);
-	playerVel.y = static_cast<float>(keyState[SDL_SCANCODE_S] - keyState[SDL_SCANCODE_W]);
+
+
+	float x = static_cast<float>(keyState[SDL_SCANCODE_D] - keyState[SDL_SCANCODE_A]);
+	float y = static_cast<float>(keyState[SDL_SCANCODE_S] - keyState[SDL_SCANCODE_W]);
+
+	player.AddForce(Vector2(x, y));
 
 	if (event.type == SDL_KEYDOWN) {
 		switch (event.key.keysym.sym) {

@@ -31,26 +31,21 @@ void Engine::Initialise(std::string title, int x, int y, int width, int height, 
 
 	isRunning = true;
 
-	objManager = std::make_unique<ObjectManager>();
+	gameManager = std::make_unique<GameManager>();
+	gameManager->Initialise();
 	map = std::make_unique<GameMap>();
-	player = std::make_unique<PlayerObject>("Assets/man.png", Vector2(32, 48));
-	collider = std::make_unique<CollisionManager>(player->destRect);
-	map->LoadMap(*collider);
+	map->LoadMap(gameManager->GetPhysicsManager().GetCollisionManager());
 	inputManager = std::make_unique<InputManager>();
 	ui = std::make_unique<UIManager>();
 }
 
-void Engine::HandleEvents()
+void Engine::Update(std::string fps, Uint32 dt)
 {
-	inputManager->HandleInput(isRunning, player->velocity); 
-
-	//std::cout << "Player center point: x=" << player->centerPoint.x << " y="<<player->centerPoint.y<< std::endl;
-}
-
-void Engine::Update(std::string fps)
-{
+	inputManager->HandleInput(isRunning, gameManager->GetPlayer());
+	gameManager->GetPhysicsManager().UpdatePhysics(dt);
+	
 	ui->UpdateFPS(fps);
-	player->Update(); //update player pos
+	//player->Update(); //update player pos
 }
 
 void Engine::Render()
@@ -59,7 +54,7 @@ void Engine::Render()
 	map->DrawMap();
 	SDL_SetRenderDrawColor(renderer, 25, 0, 25, 255);
 
-	player->Render();
+	gameManager->GetPhysicsManager().GetCollisionManager().Draw();
 	ui->DrawFPS();
 	SDL_RenderPresent(renderer);
 }
