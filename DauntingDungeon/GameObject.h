@@ -16,6 +16,7 @@ public:
 	void MovePosAndCol(Vector2 posChange);
 	void UpdateTexPos();
 	void Render();
+	virtual void UpdateObject();
 
 	Collidable* GetCollider() { return collider; }
 

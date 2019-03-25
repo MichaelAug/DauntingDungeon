@@ -6,5 +6,5 @@
 PlayerObject::PlayerObject(const std::string textureName,Vector2 pos) : GameObject(textureName, pos)
 {
 	inverseMass = 0.001;
-	elasticity = 1.0f;
+	elasticity = 0.0f;
 }

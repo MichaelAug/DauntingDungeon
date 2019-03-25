@@ -38,7 +38,6 @@ public:
 	void Draw();
 
 	void AddTerrainCollider(std::shared_ptr<Collidable> col);
-	
 private:
 	
 	

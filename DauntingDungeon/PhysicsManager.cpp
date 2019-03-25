@@ -21,7 +21,7 @@ void PhysicsManager::ResetForces()
 	}
 }
 
-void PhysicsManager::AddGameObject(GameObject* b)
+void PhysicsManager::AddToAllObjects(GameObject* b)
 {
 	colManager->allObjects.emplace_back(b);
 }
@@ -30,6 +30,7 @@ void PhysicsManager::Integration(float dt)
 {
 	Vector2 acceleration;
 	for (auto& b : colManager->allObjects) {
+		b->UpdateObject();
 		acceleration = b->force * b->inverseMass;
 		b->velocity += acceleration * dt;
 		b->velocity *= 0.87f;
@@ -42,6 +43,5 @@ void PhysicsManager::IntegrateVelocity(float dt)
 		Vector2 posChange = b->velocity * dt;
 		b->collider->pos += posChange;
 		b->position += posChange;
-		b->UpdateTexPos();
 	}
 }

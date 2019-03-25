@@ -34,6 +34,11 @@ void GameObject::Render()
 	TextureManager::Draw(objTexture.get(), srcRect, destRect);
 }
 
+void GameObject::UpdateObject()
+{
+	UpdateTexPos();
+}
+
 void GameObject::AddCollider(std::unique_ptr<Collidable> col)
 {
 	collider = col.release();

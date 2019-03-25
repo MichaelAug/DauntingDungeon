@@ -12,7 +12,7 @@ public:
 
 	void ResetForces();
 
-	void AddGameObject(GameObject* b);
+	void AddToAllObjects(GameObject* b);
 	void RemoveGameObject(std::shared_ptr<GameObject> b);
 
 	CollisionManager& GetCollisionManager() { return *colManager; }

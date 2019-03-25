@@ -138,6 +138,7 @@
     <ClCompile Include="Circle.cpp" />
     <ClCompile Include="Collidable.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
+    <ClCompile Include="EnemyObject.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="FPSCounter.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -149,6 +150,7 @@
     <ClCompile Include="PhysicsManager.cpp" />
     <ClCompile Include="PhysicsObject.cpp" />
     <ClCompile Include="PlayerObject.cpp" />
+    <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="Square.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="UILabel.cpp" />
@@ -160,6 +162,7 @@
     <ClInclude Include="Collidable.h" />
     <ClInclude Include="ColliderType.h" />
     <ClInclude Include="CollisionManager.h" />
+    <ClInclude Include="EnemyObject.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="FPSCounter.h" />
     <ClInclude Include="GameManager.h" />
@@ -170,6 +173,7 @@
     <ClInclude Include="PhysicsManager.h" />
     <ClInclude Include="PhysicsObject.h" />
     <ClInclude Include="PlayerObject.h" />
+    <ClInclude Include="Projectile.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Square.h" />
     <ClInclude Include="TextureManager.h" />

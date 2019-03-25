@@ -28,17 +28,6 @@ float Vector2::magnitude()
 	return std::sqrtf((x*x) + (y*y));
 }
 
-void Vector2::Normalise()
-{
-	float length = sqrt((x*x) + (y*y));
-
-	if (length != 0.0f) {
-		length = 1.0f / length;
-		x = x * length;
-		y = y * length;
-	}
-}
-
 float Vector2::DotProduct(Vector2 v) const
 {
 	return (this->x*v.x + this->y*v.y);

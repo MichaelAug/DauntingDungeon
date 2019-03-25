@@ -14,16 +14,17 @@ void CollisionManager::AddTerrainCollider(std::shared_ptr<Collidable> col)
 	terrain.emplace_back(col);
 }
 
+
 float CollisionManager::CalculateImpulse(const GameObject * a, const GameObject * b, Vector2 & normal)
 {
-	if (a != nullptr) {
+	if (a != nullptr) { //OBJECT-TERRAIN COLLISION
 		float e = (a->elasticity + b->elasticity) / 2;
 		Vector2 vr = b->velocity - a->velocity;
 		float dotProduct = vr.DotProduct(normal);
 		auto j = (-(1 + e)*dotProduct) / (a->inverseMass + b->inverseMass);
 		return j;
 	}
-	else {
+	else { //OBJECT-OBJECT COLLISION	
 		float e = b->elasticity;
 		Vector2 vr = b->velocity;
 		float dotProduct = vr.DotProduct(normal);
@@ -108,7 +109,7 @@ bool CollisionManager::SphereCollision(const Circle * a, const Circle * b, Vecto
 
 	if (sqDist < radii * radii) {
 		normal = Vector2(b->pos.x - a->pos.x, b->pos.y - a->pos.y);
-		normal.Normalise();
+		normal.normalise();
 		penDist = radii - std::sqrtf(sqDist);
 		return true;
 	}
@@ -131,7 +132,7 @@ bool CollisionManager::CircleSquareCollision(const Square * square, const Circle
 
 	if (sqDist < pow(circle->GetRadius(), 2)) {
 		normal = Vector2(circle->pos.x - nearestX, circle->pos.y - nearestY);
-		normal.Normalise();
+		normal.normalise();
 		float dist = std::sqrtf(sqDist);
 
 		penDist = circle->GetRadius() - dist;
@@ -145,6 +146,7 @@ bool CollisionManager::CircleSquareCollision(const Square * square, const Circle
 void CollisionManager::ObjectTerrainCollision(std::vector<GameObject*>& allObjects)
 {
 	for (size_t i = 0; i < allObjects.size(); ++i) {
+		//std::cout << allObjects[i]->position << "colliderpso:" << allObjects[i]->GetCollider()->pos << std::endl;
 		for (size_t j = 0; j < terrain.size(); ++j) {
 			Vector2 normal;
 			float penDist;

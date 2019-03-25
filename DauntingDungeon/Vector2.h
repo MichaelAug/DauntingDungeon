@@ -13,8 +13,6 @@ public:
 
 	float magnitude();
 
-	void Normalise();
-
 	float DotProduct(Vector2 a) const;
 
 	void ToZero();
