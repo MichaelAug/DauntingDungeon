@@ -26,7 +26,7 @@ void InputManager::HandleInput(bool &isRunning, PlayerObject &player, GameManage
 			isRunning = false;
 			break;
 		case SDLK_SPACE:
-			Projectile *p = new Projectile("Assets/projectile.png", player.position, direction);
+			Projectile *p = new Projectile("Assets/projectile.png", player.position/*+direction*60*/, direction);
 			g.AddProjectile(direction, p);
 			break;
 		}

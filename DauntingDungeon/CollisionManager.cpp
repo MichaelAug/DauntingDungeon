@@ -189,4 +189,48 @@ void CollisionManager::ObjectTerrainCollision(std::vector<GameObject*>& allObjec
 void CollisionManager::CollisionDetection(std::vector<GameObject*>& allObjects)
 {
 	ObjectTerrainCollision(allObjects);
+	ObjectCollision(allObjects);
+}
+
+void CollisionManager::ObjectCollision(std::vector<GameObject*>& allObjects)
+{
+	for (size_t i = 0; i < allObjects.size(); ++i) {
+		for (size_t j = i+1; j < allObjects.size(); ++j) {
+			Vector2 normal;
+			float penDist;
+			ColliderType obj2type = allObjects[j]->GetCollider()->GetType();
+			ColliderType objType = allObjects[i]->GetCollider()->GetType();
+
+			/*Pass a nullptr to AddCollision if colliding with terrain (because it does not need to be moved)*/
+			if (obj2type == square && objType == circle) {
+				if (CircleSquareCollision(dynamic_cast<Square*>(allObjects[j]->GetCollider()), dynamic_cast<Circle*>
+					(allObjects[i]->GetCollider()), normal, penDist)) {
+					//std::cout << "collision happened";
+					AddCollision(new collision{ allObjects[j],allObjects[i], normal,penDist });
+				}
+			}
+			else if (obj2type == circle && objType == circle) {
+				if (allObjects[i]->type == player && allObjects[j]->type == projectile) {
+					continue;
+				}
+				if (SphereCollision(dynamic_cast<Circle*>(allObjects[j]->GetCollider()), dynamic_cast<Circle*>
+					(allObjects[i]->GetCollider()), normal, penDist)) {
+					AddCollision(new collision{ allObjects[j],allObjects[i],normal,penDist });
+				}
+			}
+			else if (obj2type == square && objType == square) {
+				if (AABB(dynamic_cast<Square*>(allObjects[i]->GetCollider()), dynamic_cast<Square*>
+					(allObjects[j]->GetCollider()), normal, penDist)) {
+
+					AddCollision(new collision{ allObjects[j],allObjects[i],normal,penDist });
+				}
+			}
+			else if (obj2type == circle && objType == square) {
+				if (CircleSquareCollision(dynamic_cast<Square*>(allObjects[i]->GetCollider()),
+					dynamic_cast<Circle*>(allObjects[j]->GetCollider()), normal, penDist)) {
+					AddCollision(new collision{ allObjects[j],allObjects[i], normal,penDist });
+				}
+			}
+		}
+	}
 }

@@ -168,6 +168,7 @@
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameMap.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameObjectType.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="PhysicsManager.h" />

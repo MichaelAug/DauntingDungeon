@@ -2,8 +2,10 @@
 #include "TextureManager.h"
 #include "Engine.h"
 
-GameObject::GameObject(const std::string textureName, Vector2 pos) : PhysicsObject(pos),
-	objTexture(TextureManager::GetTexture(textureName.c_str()))
+GameObject::GameObject(const std::string textureName, Vector2 pos, GameObjectType type) : 
+	PhysicsObject(pos), 
+	objTexture(TextureManager::GetTexture(textureName.c_str())), 
+	type(type)
 {
 
 	srcRect.h = 64;

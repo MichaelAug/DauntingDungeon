@@ -1,6 +1,7 @@
 #include "EnemyObject.h"
+#include "GameObjectType.h"
 
-EnemyObject::EnemyObject(const std::string textureName, Vector2 pos) : GameObject(textureName, pos)
+EnemyObject::EnemyObject(const std::string textureName, Vector2 pos) : GameObject(textureName, pos, enemy)
 {
 	inverseMass = 0.001;
 	elasticity = 0.5f;

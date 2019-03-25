@@ -1,7 +1,8 @@
 #include "Projectile.h"
+#include "GameObjectType.h"
 
 Projectile::Projectile(const std::string textureName, Vector2 pos, Vector2 direction) :
-	GameObject(textureName, pos)
+	GameObject(textureName, pos, projectile)
 {
 	inverseMass = 0.001;
 	elasticity = 1.0f;
@@ -18,7 +19,7 @@ Projectile::Projectile(const std::string textureName, Vector2 pos, Vector2 direc
 
 void Projectile::UpdateObject()
 {
-	AddForce(direction*7);
+	AddForce(direction*8);
 
 
 	direction *= 0.98;

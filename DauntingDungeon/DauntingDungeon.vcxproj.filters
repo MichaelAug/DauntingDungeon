@@ -149,9 +149,6 @@
     <ClInclude Include="Circle.h">
       <Filter>Collision</Filter>
     </ClInclude>
-    <ClInclude Include="ColliderType.h">
-      <Filter>Collision</Filter>
-    </ClInclude>
     <ClInclude Include="Vector2.h">
       <Filter>DataTypes</Filter>
     </ClInclude>
@@ -160,6 +157,12 @@
     </ClInclude>
     <ClInclude Include="Projectile.h">
       <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="ColliderType.h">
+      <Filter>DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjectType.h">
+      <Filter>DataTypes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

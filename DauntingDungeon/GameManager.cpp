@@ -19,7 +19,6 @@ GameManager::~GameManager()
 void GameManager::Initialise()
 {
 	player = new PlayerObject("Assets/man.png", Vector2(32, 48));
-	physics->AddToAllObjects(player);
 
 	AddPlayerObject(player->position,player);
 
@@ -35,16 +34,16 @@ void GameManager::Initialise()
 
 void GameManager::AddGameObject(Vector2 pos, GameObject* o)
 {
-	float centerX = (o->position.x + GameMap::tileSize / 2);
-	float centerY = (o->position.y + GameMap::tileSize / 2);
-	o->AddCollider(std::make_unique<Circle>(Vector2(centerX, centerY), 16));
+	float centerX = (o->position.x+10 + GameMap::tileSize / 2);
+	float centerY = (o->position.y+30 + GameMap::tileSize / 2);
+	o->AddCollider(std::make_unique<Circle>(Vector2(centerX, centerY), 20));
 	physics->AddToAllObjects(o);
 	std::cout << "GameObject Added!" << std::endl;
 }
 
 void GameManager::AddProjectile(Vector2 direction, GameObject *o)
 {
-	o->AddCollider(std::make_unique<Circle>(player->GetCollider()->pos-Vector2(10, 0), 8));
+	o->AddCollider(std::make_unique<Circle>(player->GetCollider()->pos, 8));
 	physics->AddToAllObjects(o);
 	std::cout << "Projectile Added!" << std::endl;
 }

@@ -33,6 +33,7 @@ public:
 		const Circle * circle, Vector2 &normal, float &penDist);
 	void ObjectTerrainCollision(std::vector<GameObject*> &allObjects);
 	void CollisionDetection(std::vector<GameObject*> &allObjects);
+	void ObjectCollision(std::vector<GameObject*> &allObjects);
 
 	CollisionManager() {}
 	void Draw();
