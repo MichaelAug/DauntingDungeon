@@ -30,7 +30,7 @@ GameMap::GameMap() :
 
 }
 
-void GameMap::LoadMap(CollisionManager &colManager)
+void GameMap::LoadMap(GameManager &gameManager)
 {
 	std::ifstream mapFile("Assets/mapData/mapLayout.map");
 
@@ -101,14 +101,14 @@ void GameMap::LoadMap(CollisionManager &colManager)
 		o->pos.x = o->pos.x + o->GetHalfWidth();
 		o->pos.y = o->pos.y + o->GetHalfHeight();
 
-		colManager.AddTerrainCollider(std::move(o));
+		gameManager.AddTerrain(std::move(o));
 	}
 
-	std::cout << "numterrain: " << colManager.terrain.size() << std::endl;
-	for (auto a : colManager.terrain) {
+	/*std::cout << "numterrain: " << gameManager.terrain.size() << std::endl;
+	for (auto a : gameManager.terrain) {
 		std::shared_ptr<Square>s = std::dynamic_pointer_cast<Square>(a);
 		std::cout << s->pos << " halfHeight= " << s->GetHalfHeight() << " halfWidth= " << s->GetHalfWidth() << std::endl;
-	}
+	}*/
 }
 
 void GameMap::DrawMap()

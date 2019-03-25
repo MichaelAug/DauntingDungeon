@@ -6,7 +6,7 @@ int main(int argc, char *argv[]) {
 
 	FPSCounter fps;
 
-	engine->Initialise("Daunting Dungeon", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1080, 720, false);
+	engine->Initialise("Daunting Dungeon", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1440, 900, false);
 
 	fps.Init();
 

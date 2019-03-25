@@ -8,16 +8,14 @@ class PhysicsManager {
 public:
 	PhysicsManager();
 
-	void UpdatePhysics(float dt);
+	void UpdatePhysics(Uint32 dt, CollisionManager &colManager, std::vector<GameObject*>& allObjects,
+		std::vector<std::shared_ptr<Collidable>> &terrain);
 
-	void ResetForces();
+	void ResetForces(std::vector<GameObject*>& allObjects);
 
 	void AddToAllObjects(GameObject* b);
-	void RemoveGameObject(std::shared_ptr<GameObject> b);
 
-	CollisionManager& GetCollisionManager() { return *colManager; }
 protected:
-	std::unique_ptr<CollisionManager> colManager;
-	void Integration(float dt);
-	void IntegrateVelocity(float dt);
+	void Integration(float dt, std::vector<GameObject*>& allObjects);
+	void IntegrateVelocity(float dt, std::vector<GameObject*>& allObjects);
 };

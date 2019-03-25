@@ -1,23 +1,24 @@
 #include "GameManager.h"
 #include "Circle.h"
-#include "GameMap.h"
 #include "PlayerObject.h"
 #include "PhysicsManager.h"
 #include "EnemyObject.h"
+#include "GameMap.h"
 
-GameManager::GameManager()
+GameManager::GameManager() : physics(std::make_unique<PhysicsManager>()),
+colManager(std::make_unique<CollisionManager>()), map(std::make_unique<GameMap>())
 {
-	physics = new PhysicsManager();
 }
 
 GameManager::~GameManager()
 {
-	delete physics;
 	delete player;
 }
 
 void GameManager::Initialise()
 {
+	map->LoadMap(*this);
+
 	player = new PlayerObject("Assets/man.png", Vector2(32, 48));
 
 	AddPlayerObject(player->position,player);
@@ -32,19 +33,43 @@ void GameManager::Initialise()
 	AddGameObject(enemy3->position, enemy3);
 }
 
+void GameManager::Update(Uint32 dt)
+{
+	UpdateObjects();
+	physics->UpdatePhysics(dt, *colManager, allObjects, terrain);
+}
+
+void GameManager::Draw()
+{
+	map->DrawMap();
+	DrawObjects();
+}
+
+void GameManager::UpdateObjects()
+{
+	for (auto& o : allObjects) {
+		o->UpdateObject();
+	}
+}
+
+void GameManager::AddTerrain(std::shared_ptr<Collidable> c)
+{
+	terrain.emplace_back(c);
+}
+
 void GameManager::AddGameObject(Vector2 pos, GameObject* o)
 {
 	float centerX = (o->position.x+10 + GameMap::tileSize / 2);
 	float centerY = (o->position.y+30 + GameMap::tileSize / 2);
 	o->AddCollider(std::make_unique<Circle>(Vector2(centerX, centerY), 20));
-	physics->AddToAllObjects(o);
+	allObjects.emplace_back(o);
 	std::cout << "GameObject Added!" << std::endl;
 }
 
 void GameManager::AddProjectile(Vector2 direction, GameObject *o)
 {
 	o->AddCollider(std::make_unique<Circle>(player->GetCollider()->pos, 8));
-	physics->AddToAllObjects(o);
+	allObjects.emplace_back(o);
 	std::cout << "Projectile Added!" << std::endl;
 }
 
@@ -53,6 +78,13 @@ void GameManager::AddPlayerObject(Vector2 pos, GameObject * o)
 	float centerX = (o->position.x+20 + GameMap::tileSize / 2);
 	float centerY = (o->position.y+10 + GameMap::tileSize / 2);
 	o->AddCollider(std::make_unique<Circle>(Vector2(centerX, centerY), 16));
-	physics->AddToAllObjects(o);
+	allObjects.emplace_back(o);
 	std::cout << "PlayerObject Added!" << std::endl;
+}
+
+void GameManager::DrawObjects()
+{
+	for (auto& o : allObjects) {
+		o->Render();
+	}
 }

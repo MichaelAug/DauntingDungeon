@@ -22,7 +22,6 @@ public:
 private:
 	bool isRunning;
 	std::unique_ptr<SDL_Window, void(*)(SDL_Window*)> window; // need to pass in a custom deleter because need to call SDL_DestroyWindow
-	std::unique_ptr<GameMap> map;
 	std::unique_ptr<InputManager> inputManager;
 	std::unique_ptr<UIManager> ui;
 	std::unique_ptr<GameManager> gameManager;

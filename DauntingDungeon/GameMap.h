@@ -2,13 +2,13 @@
 #include "TileType.h"
 #include <vector>
 #include <memory>
-#include "CollisionManager.h"
+#include "GameManager.h"
 
 class GameMap {
 public:
 	GameMap();
 	
-	void LoadMap(CollisionManager&);
+	void LoadMap(GameManager &gameManager);
 	void DrawMap();
 	static const int tileSize = 32;
 private:

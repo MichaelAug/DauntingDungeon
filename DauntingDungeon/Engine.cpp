@@ -33,8 +33,6 @@ void Engine::Initialise(std::string title, int x, int y, int width, int height, 
 
 	gameManager = std::make_unique<GameManager>();
 	gameManager->Initialise();
-	map = std::make_unique<GameMap>();
-	map->LoadMap(gameManager->GetPhysicsManager()->GetCollisionManager());
 	inputManager = std::make_unique<InputManager>();
 	ui = std::make_unique<UIManager>();
 }
@@ -42,19 +40,17 @@ void Engine::Initialise(std::string title, int x, int y, int width, int height, 
 void Engine::Update(std::string fps, Uint32 dt)
 {
 	inputManager->HandleInput(isRunning, *gameManager->GetPlayer(), *gameManager);
-	gameManager->GetPhysicsManager()->UpdatePhysics(dt);
+	gameManager->Update(dt);
 	
 	ui->UpdateFPS(fps);
-	//player->Update(); //update player pos
 }
 
 void Engine::Render()
 {
 	SDL_RenderClear(renderer);
-	map->DrawMap();
 	SDL_SetRenderDrawColor(renderer, 25, 0, 25, 255);
 
-	gameManager->GetPhysicsManager()->GetCollisionManager().Draw();
+	gameManager->Draw();
 	ui->DrawFPS();
 	SDL_RenderPresent(renderer);
 }

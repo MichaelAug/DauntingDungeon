@@ -2,19 +2,6 @@
 #include <iostream>
 #include <algorithm>
 
-void CollisionManager::Draw()
-{
-	for (auto& o : allObjects) {
-		o->Render();
-	}
-}
-
-void CollisionManager::AddTerrainCollider(std::shared_ptr<Collidable> col)
-{
-	terrain.emplace_back(col);
-}
-
-
 float CollisionManager::CalculateImpulse(const GameObject * a, const GameObject * b, Vector2 & normal)
 {
 	if (a != nullptr) { //OBJECT-TERRAIN COLLISION
@@ -143,7 +130,7 @@ bool CollisionManager::CircleSquareCollision(const Square * square, const Circle
 	}
 }
 
-void CollisionManager::ObjectTerrainCollision(std::vector<GameObject*>& allObjects)
+void CollisionManager::ObjectTerrainCollision(std::vector<GameObject*>& allObjects, std::vector<std::shared_ptr<Collidable>> &terrain)
 {
 	for (size_t i = 0; i < allObjects.size(); ++i) {
 		//std::cout << allObjects[i]->position << "colliderpso:" << allObjects[i]->GetCollider()->pos << std::endl;
@@ -186,9 +173,9 @@ void CollisionManager::ObjectTerrainCollision(std::vector<GameObject*>& allObjec
 	}
 }
 
-void CollisionManager::CollisionDetection(std::vector<GameObject*>& allObjects)
+void CollisionManager::CollisionDetection(std::vector<GameObject*>& allObjects, std::vector<std::shared_ptr<Collidable>> &terrain)
 {
-	ObjectTerrainCollision(allObjects);
+	ObjectTerrainCollision(allObjects, terrain);
 	ObjectCollision(allObjects);
 }
 

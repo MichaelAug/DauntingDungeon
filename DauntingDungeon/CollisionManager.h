@@ -19,8 +19,6 @@ protected:
 	};
 
 	std::vector<collision*> collisions;
-	std::vector<std::shared_ptr<Collidable>> terrain;
-	std::vector<GameObject*> allObjects;
 
 	static float CalculateImpulse(const GameObject * a, const GameObject * b, Vector2&normal);
 public:
@@ -31,14 +29,11 @@ public:
 	bool SphereCollision(const Circle *a, const Circle *b, Vector2 &normal, float &penDist);
 	bool CircleSquareCollision(const Square * square,
 		const Circle * circle, Vector2 &normal, float &penDist);
-	void ObjectTerrainCollision(std::vector<GameObject*> &allObjects);
-	void CollisionDetection(std::vector<GameObject*> &allObjects);
+	void ObjectTerrainCollision(std::vector<GameObject*>& allObjects, std::vector<std::shared_ptr<Collidable>> &terrain);
+	void CollisionDetection(std::vector<GameObject*> &allObjects, std::vector<std::shared_ptr<Collidable>> &terrain);
 	void ObjectCollision(std::vector<GameObject*> &allObjects);
 
 	CollisionManager() {}
-	void Draw();
-
-	void AddTerrainCollider(std::shared_ptr<Collidable> col);
 private:
 	
 	
