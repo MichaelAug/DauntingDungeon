@@ -6,7 +6,7 @@
 #include "GameMap.h"
 
 GameManager::GameManager() : physics(std::make_unique<PhysicsManager>()),
-colManager(std::make_unique<CollisionManager>()), map(std::make_unique<GameMap>())
+map(std::make_unique<GameMap>())
 {
 }
 
@@ -36,7 +36,7 @@ void GameManager::Initialise()
 void GameManager::Update(Uint32 dt)
 {
 	UpdateObjects();
-	physics->UpdatePhysics(dt, *colManager, allObjects, terrain);
+	physics->UpdatePhysics(dt, allObjects, terrain);
 }
 
 void GameManager::Draw()

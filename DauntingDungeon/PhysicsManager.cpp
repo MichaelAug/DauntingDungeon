@@ -1,15 +1,15 @@
 #include "PhysicsManager.h"
 
-PhysicsManager::PhysicsManager()
+PhysicsManager::PhysicsManager() : colManager(std::make_unique<CollisionManager>())
 {
 }
 
-void PhysicsManager::UpdatePhysics(Uint32 dt, CollisionManager &colManager, std::vector<GameObject*>& allObjects, 
+void PhysicsManager::UpdatePhysics(Uint32 dt, std::vector<GameObject*>& allObjects, 
 	std::vector<std::shared_ptr<Collidable>> &terrain)
 {
 	Integration(dt, allObjects);
-	colManager.CollisionDetection(allObjects, terrain);
-	colManager.HandleCollisionResolution();
+	colManager->CollisionDetection(allObjects, terrain);
+	colManager->HandleCollisionResolution();
 	IntegrateVelocity(dt, allObjects);
 	ResetForces(allObjects);
 }

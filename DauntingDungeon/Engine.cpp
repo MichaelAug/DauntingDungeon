@@ -21,7 +21,7 @@ void Engine::Initialise(std::string title, int x, int y, int width, int height, 
 	if (TTF_Init() == -1) { printf("Unable to initialise TTF! SDL_ttf Error: %s\n", TTF_GetError()); }
 	else { printf("TTF_Initialised!\n"); }
 
-	window.reset(SDL_CreateWindow(title.c_str(), x, y, width, height, fullscreen | SDL_WINDOW_RESIZABLE));
+	window.reset(SDL_CreateWindow(title.c_str(), x, y, width, height, (fullscreen | SDL_WINDOW_RESIZABLE)));
 	if (window) { std::cout << "Window Created Successfully!" << std::endl; }
 
 	renderer = SDL_CreateRenderer(window.get(), -1, 0);

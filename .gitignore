@@ -266,3 +266,4 @@ __pycache__/
 /DauntingDungeon/SDL2_ttf.dll
 /DauntingDungeon/OpenSans-ExtraBold.ttf
 /DauntingDungeon/libfreetype-6.dll
+*.sln

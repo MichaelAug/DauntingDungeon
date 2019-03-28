@@ -29,7 +29,6 @@ private:
 	std::vector<GameObject*> allObjects;
 	std::vector<std::shared_ptr<Collidable>> terrain;
 
-	std::unique_ptr<CollisionManager> colManager;
 	std::unique_ptr<PhysicsManager> physics; /*maybe possible to turn into static class?
 											 or put CollisionManager back into PhysicsManager?*/
 	std::unique_ptr<GameMap> map;
