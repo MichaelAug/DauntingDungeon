@@ -2,6 +2,18 @@
 
 PhysicsManager::PhysicsManager() : colManager(std::make_unique<CollisionManager>())
 {
+	timeRemaining = 0;
+}
+
+void PhysicsManager::FixedUpdate(Uint32 dt, std::vector<GameObject*>& allObjects,
+	std::vector<std::shared_ptr<Collidable>> &terrain)
+{
+	timeRemaining += dt;
+
+	while (timeRemaining > subTimeDelta) {
+		UpdatePhysics(subTimeDelta, allObjects, terrain);
+		timeRemaining -= subTimeDelta;
+	}
 }
 
 void PhysicsManager::UpdatePhysics(Uint32 dt, std::vector<GameObject*>& allObjects, 

@@ -36,7 +36,7 @@ void GameManager::Initialise()
 void GameManager::Update(Uint32 dt)
 {
 	UpdateObjects();
-	physics->UpdatePhysics(dt, allObjects, terrain);
+	physics->FixedUpdate(dt, allObjects, terrain);
 }
 
 void GameManager::Draw()

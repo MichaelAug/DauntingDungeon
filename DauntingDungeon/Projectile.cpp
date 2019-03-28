@@ -19,8 +19,7 @@ Projectile::Projectile(const std::string textureName, Vector2 pos, Vector2 direc
 
 void Projectile::UpdateObject()
 {
-	AddForce(direction*8);
-
+	AddForce(direction*30);
 
 	direction *= 0.98;
 	UpdateTexPos();

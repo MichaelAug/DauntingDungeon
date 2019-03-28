@@ -17,9 +17,9 @@ void InputManager::HandleInput(bool &isRunning, GameManager &g)
 	float y = static_cast<float>(keyState[SDL_SCANCODE_S] - keyState[SDL_SCANCODE_W]);
 
 	Vector2 direction = Vector2(x, y);
-
-	g.GetPlayer().AddForce(Vector2(x, y));
-
+	direction.normalise();
+	g.GetPlayer().AddForce(Vector2(x, y)*6);
+	
 	if (event.type == SDL_KEYDOWN) {
 		switch (event.key.keysym.sym) {
 		case SDLK_ESCAPE:

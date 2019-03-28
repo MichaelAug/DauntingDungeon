@@ -88,7 +88,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Projectile.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
