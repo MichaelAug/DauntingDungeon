@@ -16,14 +16,14 @@ public:
 	void UpdateObjects();
 	void AddTerrain(std::shared_ptr<Collidable>);
 	void AddGameObject(Vector2 pos, GameObject* o);
-	void AddProjectile(Vector2 direction, GameObject *o);
+	void AddProjectile(Vector2 direction);
 	void AddPlayerObject(Vector2 pos, GameObject* o);
-	PlayerObject* GetPlayer() { return player; }
+	PlayerObject& GetPlayer() { return *player; }
 
 private:
 	void DrawObjects();
 
-	PlayerObject* player;
+	std::unique_ptr<PlayerObject> player;
 
 	
 	std::vector<GameObject*> allObjects;

@@ -4,6 +4,7 @@
 #include "PhysicsManager.h"
 #include "EnemyObject.h"
 #include "GameMap.h"
+#include "Projectile.h"
 
 GameManager::GameManager() : physics(std::make_unique<PhysicsManager>()),
 map(std::make_unique<GameMap>())
@@ -12,16 +13,15 @@ map(std::make_unique<GameMap>())
 
 GameManager::~GameManager()
 {
-	delete player;
 }
 
 void GameManager::Initialise()
 {
 	map->LoadMap(*this);
 
-	player = new PlayerObject("Assets/man.png", Vector2(32, 48));
+	player = std::make_unique<PlayerObject>("Assets/man.png", Vector2(32, 48));
 
-	AddPlayerObject(player->position,player);
+	AddPlayerObject(player->position,player.get());
 
 	EnemyObject *enemy = new EnemyObject("Assets/demon.png", Vector2(300, 300));
 	AddGameObject(enemy->position, enemy);
@@ -66,10 +66,12 @@ void GameManager::AddGameObject(Vector2 pos, GameObject* o)
 	std::cout << "GameObject Added!" << std::endl;
 }
 
-void GameManager::AddProjectile(Vector2 direction, GameObject *o)
+void GameManager::AddProjectile(Vector2 direction)
 {
-	o->AddCollider(std::make_unique<Circle>(player->GetCollider()->pos, 8));
-	allObjects.emplace_back(o);
+	Projectile *p = new Projectile("Assets/projectile.png", player->GetPosition()/*+direction*60*/, direction);
+
+	p->AddCollider(std::make_unique<Circle>(player->GetCollider()->pos, 8));
+	allObjects.emplace_back(p);
 	std::cout << "Projectile Added!" << std::endl;
 }
 

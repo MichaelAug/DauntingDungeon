@@ -6,7 +6,7 @@
 class InputManager {
 public:
 	InputManager();
-	void HandleInput(bool &isRunning, PlayerObject &playerVel, GameManager &g);
+	void HandleInput(bool &isRunning, GameManager &g);
 private:
 	SDL_Event event;
 };

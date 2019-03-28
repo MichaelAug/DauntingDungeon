@@ -6,7 +6,7 @@ InputManager::InputManager()
 {
 }
 
-void InputManager::HandleInput(bool &isRunning, PlayerObject &player, GameManager &g)
+void InputManager::HandleInput(bool &isRunning, GameManager &g)
 {
 	SDL_PollEvent(&event);
 
@@ -18,7 +18,7 @@ void InputManager::HandleInput(bool &isRunning, PlayerObject &player, GameManage
 
 	Vector2 direction = Vector2(x, y);
 
-	player.AddForce(Vector2(x, y));
+	g.GetPlayer().AddForce(Vector2(x, y));
 
 	if (event.type == SDL_KEYDOWN) {
 		switch (event.key.keysym.sym) {
@@ -26,8 +26,7 @@ void InputManager::HandleInput(bool &isRunning, PlayerObject &player, GameManage
 			isRunning = false;
 			break;
 		case SDLK_SPACE:
-			Projectile *p = new Projectile("Assets/projectile.png", player.position/*+direction*60*/, direction);
-			g.AddProjectile(direction, p);
+			g.AddProjectile(direction);
 			break;
 		}
 		

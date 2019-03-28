@@ -10,6 +10,6 @@ public:
 	friend class Engine;
 
 	PlayerObject(const std::string textureName, Vector2 pos);
-	
+	Vector2 GetPosition() { return position; }
 private:
 };

@@ -39,7 +39,7 @@ void Engine::Initialise(std::string title, int x, int y, int width, int height, 
 
 void Engine::Update(std::string fps, Uint32 dt)
 {
-	inputManager->HandleInput(isRunning, *gameManager->GetPlayer(), *gameManager);
+	inputManager->HandleInput(isRunning, *gameManager);
 	gameManager->Update(dt);
 	
 	ui->UpdateFPS(fps);
