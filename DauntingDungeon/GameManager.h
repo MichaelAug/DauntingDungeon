@@ -2,6 +2,7 @@
 #include <memory>
 #include "PhysicsManager.h"
 #include "GameObject.h"
+#include "GameMap.h"
 
 class PlayerObject;
 
@@ -15,9 +16,9 @@ public:
 	void Draw();
 	void UpdateObjects();
 	void AddTerrain(std::shared_ptr<Collidable>);
-	void AddGameObject(Vector2 pos, GameObject* o);
+	void AddGameObject(GameObject* o);
 	void AddProjectile(Vector2 direction);
-	void AddPlayerObject(Vector2 pos, GameObject* o);
+	void AddPlayerObject(GameObject* o);
 	PlayerObject& GetPlayer() { return *player; }
 
 private:
@@ -25,11 +26,10 @@ private:
 
 	std::unique_ptr<PlayerObject> player;
 
-	
 	std::vector<GameObject*> allObjects;
 	std::vector<std::shared_ptr<Collidable>> terrain;
 
-	std::unique_ptr<PhysicsManager> physics; /*maybe possible to turn into static class?
-											 or put CollisionManager back into PhysicsManager?*/
+	std::unique_ptr<PhysicsManager> physics;
+
 	std::unique_ptr<GameMap> map;
 };

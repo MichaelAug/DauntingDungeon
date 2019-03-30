@@ -18,14 +18,14 @@ void Vector2::normalise()
 	if (x == 0 && y == 0)
 		return;
 
-	float length = std::sqrtf((x*x) + (y*y));
+	float length = std::sqrt((x*x) + (y*y));
 	x /= length;
 	y /= length;
 }
 
 float Vector2::magnitude()
 {
-	return std::sqrtf((x*x) + (y*y));
+	return std::sqrt((x*x) + (y*y));
 }
 
 float Vector2::DotProduct(Vector2 v) const

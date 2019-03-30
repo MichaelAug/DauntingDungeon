@@ -1,7 +1,7 @@
 #include "Engine.h"
 #include "GameObject.h"
 #include "GameMap.h"
-
+#include <memory>
 SDL_Renderer* Engine::renderer = nullptr;
 
 Engine::Engine() : window(nullptr, SDL_DestroyWindow) {
@@ -17,7 +17,7 @@ void Engine::Initialise(std::string title, int x, int y, int width, int height, 
 		return;
 	}
 	else { std::cout << "Game Initialised Successfully!" << std::endl; }
-	
+
 	if (TTF_Init() == -1) { printf("Unable to initialise TTF! SDL_ttf Error: %s\n", TTF_GetError()); }
 	else { printf("TTF_Initialised!\n"); }
 
@@ -41,7 +41,7 @@ void Engine::Update(std::string fps, Uint32 dt)
 {
 	inputManager->HandleInput(isRunning, *gameManager);
 	gameManager->Update(dt);
-	
+
 	ui->UpdateFPS(fps);
 }
 

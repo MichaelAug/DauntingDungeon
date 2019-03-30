@@ -3,6 +3,7 @@
 #include "SDL.h"
 #include <string>
 #include "SDL_ttf.h"
+#include <memory>
 
 class UILabel {
 	friend class UIManager;

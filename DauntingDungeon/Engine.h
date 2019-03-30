@@ -3,7 +3,6 @@
 #include "SDL_image.h"
 #include <iostream>
 #include "TextureManager.h"
-#include "GameMap.h"
 #include "InputManager.h"
 #include <memory>
 #include "UIManager.h"

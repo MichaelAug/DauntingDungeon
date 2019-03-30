@@ -2,15 +2,17 @@
 #include "TileType.h"
 #include <vector>
 #include <memory>
-#include "GameManager.h"
+
+class GameManager;
 
 class GameMap {
 public:
+	inline static const int tileSize = 32;
 	GameMap();
-	
+
 	void LoadMap(GameManager &gameManager);
 	void DrawMap();
-	static const int tileSize = 32;
+
 private:
 	SDL_Rect src, dest;
 	int mapWidth;
@@ -23,3 +25,5 @@ private:
 
 	std::vector<std::vector<int>> map;
 };
+
+#include "GameManager.h"

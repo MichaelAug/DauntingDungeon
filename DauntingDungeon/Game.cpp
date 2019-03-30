@@ -1,6 +1,6 @@
 #include "Engine.h"
 #include "FPSCounter.h"
-int main(int argc, char *argv[]) {
+int main() {
 
 	std::unique_ptr<Engine>engine = std::make_unique<Engine>();
 

@@ -11,7 +11,7 @@ float CollisionManager::CalculateImpulse(const GameObject * a, const GameObject 
 		auto j = (-(1 + e)*dotProduct) / (a->inverseMass + b->inverseMass);
 		return j;
 	}
-	else { //OBJECT-OBJECT COLLISION	
+	else { //OBJECT-OBJECT COLLISION
 		float e = b->elasticity;
 		Vector2 vr = b->velocity;
 		float dotProduct = vr.DotProduct(normal);
@@ -97,7 +97,7 @@ bool CollisionManager::SphereCollision(const Circle * a, const Circle * b, Vecto
 	if (sqDist < radii * radii) {
 		normal = Vector2(b->pos.x - a->pos.x, b->pos.y - a->pos.y);
 		normal.normalise();
-		penDist = radii - std::sqrtf(sqDist);
+		penDist = radii - std::sqrt(sqDist);
 		return true;
 	}
 	else {
@@ -120,7 +120,7 @@ bool CollisionManager::CircleSquareCollision(const Square * square, const Circle
 	if (sqDist < pow(circle->GetRadius(), 2)) {
 		normal = Vector2(circle->pos.x - nearestX, circle->pos.y - nearestY);
 		normal.normalise();
-		float dist = std::sqrtf(sqDist);
+		float dist = std::sqrt(sqDist);
 
 		penDist = circle->GetRadius() - dist;
 		return true;

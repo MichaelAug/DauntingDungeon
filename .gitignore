@@ -267,3 +267,11 @@ __pycache__/
 /DauntingDungeon/OpenSans-ExtraBold.ttf
 /DauntingDungeon/libfreetype-6.dll
 *.sln
+CMakeLists.txt
+CMakeCache.txt
+/CMakeFiles
+DauntingDungeon/.vscode/
+DauntingDungeonGame
+Makefile
+cmake/
+cmake_install.cmake

@@ -15,7 +15,7 @@ public:
 private:
 	Uint32 frameStart, frameTime, secondStart, frameEnd;
 	const int FPS = 60;
-	const int FRAME_DELAY = 1000 / FPS;
+	const Uint32 FRAME_DELAY = 1000 / FPS;
 	int frames;
 	int fps;
 };

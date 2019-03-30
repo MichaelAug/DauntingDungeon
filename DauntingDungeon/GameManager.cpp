@@ -21,16 +21,16 @@ void GameManager::Initialise()
 
 	player = std::make_unique<PlayerObject>("Assets/man.png", Vector2(32, 48));
 
-	AddPlayerObject(player->position,player.get());
+	AddPlayerObject(player.get());
 
 	EnemyObject *enemy = new EnemyObject("Assets/demon.png", Vector2(300, 300));
-	AddGameObject(enemy->position, enemy);
+	AddGameObject(enemy);
 
 	EnemyObject *enemy2 = new EnemyObject("Assets/chort.png", Vector2(250, 400));
-	AddGameObject(enemy2->position, enemy2);
+	AddGameObject(enemy2);
 
 	EnemyObject *enemy3 = new EnemyObject("Assets/orc.png", Vector2(400, 250));
-	AddGameObject(enemy3->position, enemy3);
+	AddGameObject(enemy3);
 }
 
 void GameManager::Update(Uint32 dt)
@@ -57,7 +57,7 @@ void GameManager::AddTerrain(std::shared_ptr<Collidable> c)
 	terrain.emplace_back(c);
 }
 
-void GameManager::AddGameObject(Vector2 pos, GameObject* o)
+void GameManager::AddGameObject(GameObject* o)
 {
 	float centerX = (o->position.x+10 + GameMap::tileSize / 2);
 	float centerY = (o->position.y+30 + GameMap::tileSize / 2);
@@ -75,7 +75,7 @@ void GameManager::AddProjectile(Vector2 direction)
 	std::cout << "Projectile Added!" << std::endl;
 }
 
-void GameManager::AddPlayerObject(Vector2 pos, GameObject * o)
+void GameManager::AddPlayerObject(GameObject * o)
 {
 	float centerX = (o->position.x+20 + GameMap::tileSize / 2);
 	float centerY = (o->position.y+10 + GameMap::tileSize / 2);
