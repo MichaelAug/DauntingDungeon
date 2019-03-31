@@ -6,7 +6,7 @@
 #include "ColliderType.h"
 
 GameMap::GameMap() :
-	tileset(TextureManager::GetTexture("Assets/map/dungeon.png"))
+	tileset(TextureManager::GetTexture("DauntingDungeon/Assets/map/dungeon.png"))
 {
 	dest.w = tileSize;
 	dest.h = tileSize;
@@ -32,7 +32,7 @@ GameMap::GameMap() :
 
 void GameMap::LoadMap(GameManager &gameManager)
 {
-	std::ifstream mapFile("Assets/mapData/mapLayout.map");
+	std::ifstream mapFile("DauntingDungeon/Assets/mapData/mapLayout.map");
 
 	if (!mapFile) {
 		std::cout << "Error loading in Map file!" << std::endl;

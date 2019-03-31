@@ -19,17 +19,17 @@ void GameManager::Initialise()
 {
 	map->LoadMap(*this);
 
-	player = std::make_unique<PlayerObject>("Assets/man.png", Vector2(32, 48));
+	player = std::make_unique<PlayerObject>("DauntingDungeon/Assets/man.png", Vector2(32, 48));
 
 	AddPlayerObject(player.get());
 
-	EnemyObject *enemy = new EnemyObject("Assets/demon.png", Vector2(300, 300));
+	EnemyObject *enemy = new EnemyObject("DauntingDungeon/Assets/demon.png", Vector2(300, 300));
 	AddGameObject(enemy);
 
-	EnemyObject *enemy2 = new EnemyObject("Assets/chort.png", Vector2(250, 400));
+	EnemyObject *enemy2 = new EnemyObject("DauntingDungeon/Assets/chort.png", Vector2(250, 400));
 	AddGameObject(enemy2);
 
-	EnemyObject *enemy3 = new EnemyObject("Assets/orc.png", Vector2(400, 250));
+	EnemyObject *enemy3 = new EnemyObject("DauntingDungeon/Assets/orc.png", Vector2(400, 250));
 	AddGameObject(enemy3);
 }
 
@@ -68,7 +68,7 @@ void GameManager::AddGameObject(GameObject* o)
 
 void GameManager::AddProjectile(Vector2 direction)
 {
-	Projectile *p = new Projectile("Assets/projectile.png", player->GetPosition()/*+direction*60*/, direction);
+	Projectile *p = new Projectile("DauntingDungeon/Assets/projectile.png", player->GetPosition()/*+direction*60*/, direction);
 
 	p->AddCollider(std::make_unique<Circle>(player->GetCollider()->pos, 8));
 	allObjects.emplace_back(p);

@@ -6,7 +6,10 @@ UILabel::UILabel() : font(nullptr, TTF_CloseFont)
 }
 
 UILabel::UILabel(std::string fontName, int fontSize, SDL_Rect pos, SDL_Color col, std::string message) :
-	colour(col), text("FPS: " + message), position(pos), font(nullptr, TTF_CloseFont)
+	font(nullptr, TTF_CloseFont),
+	position(pos),
+	colour(col),
+	text("FPS: " + message)
 {
 	font.reset(TTF_OpenFont(fontName.c_str(), fontSize)); //this opens a font style and sets a size
 	if (font == NULL) { printf("Unable to open font! SDL_ttf Error: %s\n", TTF_GetError()); }

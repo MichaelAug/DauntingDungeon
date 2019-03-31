@@ -24,6 +24,6 @@ protected:
 
 	std::unique_ptr<CollisionManager> colManager;
 
-	int timeRemaining;
-	const Uint32 subTimeDelta = 8; //1000/120 = 8ms 
+	Uint32 timeRemaining;
+	const Uint32 subTimeDelta = 8; //1000/120 = 8ms
 };

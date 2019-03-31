@@ -25,8 +25,6 @@ public:
 	GameObjectType type;
 protected:
 	Collidable* collider;
-	
-
 	std::unique_ptr<SDL_Texture, void(*)(SDL_Texture*)> objTexture;
 	SDL_Rect srcRect, destRect; /*Position of the texture*/
 };
