@@ -261,8 +261,6 @@ __pycache__/
 *.pyc
 /DauntingDungeon/SDL2
 /Release
-/DauntingDungeon/SDL2_ttf.dll
-*.sln
 CMakeLists.txt
 CMakeCache.txt
 /CMakeFiles

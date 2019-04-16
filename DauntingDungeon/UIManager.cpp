@@ -10,7 +10,7 @@ UIManager::UIManager()
 	Message_rect.w = 80; // controls the width of the rect
 	Message_rect.h = 50; // controls the height of the rect
 	SDL_Color colour = { 255,255,200,255 };
-	fps = UILabel("DauntingDungeon/OpenSans-ExtraBold.ttf", 12, Message_rect, colour, "-");
+	fps = UILabel("OpenSans-ExtraBold.ttf", 12, Message_rect, colour, "-");
 	//--------------------------------------------------------
 }
 
