@@ -262,7 +262,6 @@ __pycache__/
 /DauntingDungeon/SDL2
 /Release
 /DauntingDungeon/SDL2_ttf.dll
-/DauntingDungeon/libfreetype-6.dll
 *.sln
 CMakeLists.txt
 CMakeCache.txt
@@ -272,3 +271,7 @@ DauntingDungeonGame
 Makefile
 cmake/
 cmake_install.cmake
+*.dll
+*.rc
+*.vcxproj
+*.filters
