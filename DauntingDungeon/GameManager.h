@@ -9,7 +9,7 @@ class PlayerObject;
 class GameManager {
 public:
 	GameManager();
-	~GameManager();
+	virtual ~GameManager();
 
 	void Initialise();
 	void Update(Uint32 dt);

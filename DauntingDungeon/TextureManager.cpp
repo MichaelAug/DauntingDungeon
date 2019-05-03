@@ -13,7 +13,7 @@ std::unique_ptr<SDL_Texture, void(*)(SDL_Texture*)> TextureManager::GetTexture(c
 	std::unique_ptr<SDL_Texture, void(*)(SDL_Texture*)> tex(SDL_CreateTextureFromSurface(Engine::renderer, surface),
 		SDL_DestroyTexture);
 	SDL_FreeSurface(surface);
-	return std::move(tex);
+	return tex;
 }
 
 void TextureManager::Draw(SDL_Texture * tex, SDL_Rect src, const SDL_Rect &dest)
