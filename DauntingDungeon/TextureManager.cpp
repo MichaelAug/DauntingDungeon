@@ -2,7 +2,7 @@
 #include <iostream>
 #include "Engine.h"
 
-std::unique_ptr<SDL_Texture, void(*)(SDL_Texture*)> TextureManager::GetTexture(const char * fileName)
+SDL_Texture* TextureManager::GetTexture(const char * fileName)
 {
 	SDL_Surface *surface = IMG_Load(fileName);
 
@@ -10,8 +10,7 @@ std::unique_ptr<SDL_Texture, void(*)(SDL_Texture*)> TextureManager::GetTexture(c
 		std::cout << IMG_GetError() << std::endl;
 	}
 
-	std::unique_ptr<SDL_Texture, void(*)(SDL_Texture*)> tex(SDL_CreateTextureFromSurface(Engine::renderer, surface),
-		SDL_DestroyTexture);
+	SDL_Texture* tex(SDL_CreateTextureFromSurface(Engine::renderer, surface));
 	SDL_FreeSurface(surface);
 	return tex;
 }

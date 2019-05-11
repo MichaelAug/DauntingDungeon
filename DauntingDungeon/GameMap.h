@@ -18,7 +18,7 @@ private:
 	int mapWidth;
 	int mapHeight;
 
-	std::unique_ptr<SDL_Texture, void(*)(SDL_Texture*)> tileset;
+	SDL_Texture* tileset;
 	TileType tiles;
 
 	static const int tileHalfSize = 16;

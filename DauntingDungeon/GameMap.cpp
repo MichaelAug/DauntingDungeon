@@ -124,13 +124,13 @@ void GameMap::DrawMap()
 
 			switch (type) {
 			case 0:
-				TextureManager::Draw(tileset.get(), tiles.ground, dest);
+				TextureManager::Draw(tileset, tiles.ground, dest);
 				break;
 			case 1:
-				TextureManager::Draw(tileset.get(), tiles.upper_wall, dest);
+				TextureManager::Draw(tileset, tiles.upper_wall, dest);
 				break;
 			case 2:
-				TextureManager::Draw(tileset.get(), tiles.pillar, dest);
+				TextureManager::Draw(tileset, tiles.pillar, dest);
 				break;
 
 			default:

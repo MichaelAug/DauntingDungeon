@@ -7,7 +7,20 @@ GameObject::GameObject(const std::string textureName, Vector2 pos, GameObjectTyp
 	type(type),
 	objTexture(TextureManager::GetTexture(textureName.c_str()))
 {
+	srcRect.h = 64;
+	srcRect.w = 64;
+	srcRect.x = 0;
+	srcRect.y = 0;
 
+	destRect.h = srcRect.h;
+	destRect.w = srcRect.w;
+	destRect.x = (int)position.x;
+	destRect.y = (int)position.y;
+	
+}
+
+GameObject::GameObject() : objTexture(nullptr), PhysicsObject()
+{
 	srcRect.h = 64;
 	srcRect.w = 64;
 	srcRect.x = 0;
@@ -33,7 +46,9 @@ void GameObject::UpdateTexPos()
 
 void GameObject::Render()
 {
-	TextureManager::Draw(objTexture.get(), srcRect, destRect);
+	if (objTexture) {
+		TextureManager::Draw(objTexture, srcRect, destRect);
+	}
 }
 
 void GameObject::UpdateObject()
