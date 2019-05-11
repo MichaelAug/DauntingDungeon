@@ -13,12 +13,12 @@ class GameObject : public PhysicsObject{
 	friend class GameManager;
 public:
 	GameObject(const std::string textureName, Vector2 pos, GameObjectType type);
-	GameObject();
+	GameObject(GameObjectType type);
 	//~GameObject();
 	void MovePosAndCol(Vector2 posChange);
 	void UpdateTexPos();
 	void Render();
-	virtual void UpdateObject();
+	virtual bool UpdateObject();
 
 	Collidable* GetCollider() { return collider; }
 

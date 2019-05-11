@@ -4,6 +4,7 @@
 #include <iostream>
 #include "Square.h"
 #include "ColliderType.h"
+#include "Engine.h"
 
 GameMap::GameMap() :
 	tileset(TextureManager::GetTexture("DauntingDungeon/Assets/map/dungeon.png"))
@@ -55,8 +56,8 @@ void GameMap::LoadMap(GameManager &gameManager)
 	}
 
 	int type = 0;
-	for (int row = 0; row < 20; ++row) {
-		for (int col = 0; col < 30; ++col) {
+	for (int row = 0; row < mapHeight; ++row) {
+		for (int col = 0; col < mapWidth; ++col) {
 			type = map[row][col];
 
 			dest.x = col * tileSize;
@@ -115,12 +116,12 @@ void GameMap::DrawMap()
 {
 	int type = 0;
 
-	for (int row = 0; row < 20; ++row) {
-		for (int col = 0; col < 30; ++col) {
+	for (int row = 0; row < mapHeight; ++row) {
+		for (int col = 0; col < mapWidth; ++col) {
 			type = map[row][col];
 
-			dest.x = col * tileSize;
-			dest.y = row * tileSize;
+			dest.x = (col * tileSize) - Engine::camera.x;
+			dest.y = (row * tileSize) - Engine::camera.y;
 
 			switch (type) {
 			case 0:

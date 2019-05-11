@@ -19,7 +19,7 @@ GameObject::GameObject(const std::string textureName, Vector2 pos, GameObjectTyp
 	
 }
 
-GameObject::GameObject() : objTexture(nullptr), PhysicsObject()
+GameObject::GameObject(GameObjectType type) : objTexture(nullptr), PhysicsObject()
 {
 	srcRect.h = 64;
 	srcRect.w = 64;
@@ -30,6 +30,8 @@ GameObject::GameObject() : objTexture(nullptr), PhysicsObject()
 	destRect.w = srcRect.w;
 	destRect.x = (int)position.x;
 	destRect.y = (int)position.y;
+
+	this->type = type;
 }
 
 void GameObject::MovePosAndCol(Vector2 posChange)
@@ -40,8 +42,8 @@ void GameObject::MovePosAndCol(Vector2 posChange)
 
 void GameObject::UpdateTexPos()
 {
-	destRect.x = (int)position.x;
-	destRect.y = (int)position.y;
+	destRect.x = (int)position.x - Engine::camera.x;
+	destRect.y = (int)position.y - Engine::camera.y;
 }
 
 void GameObject::Render()
@@ -51,9 +53,10 @@ void GameObject::Render()
 	}
 }
 
-void GameObject::UpdateObject()
+bool GameObject::UpdateObject()
 {
 	UpdateTexPos();
+	return true;
 }
 
 void GameObject::AddCollider(Collidable* col)

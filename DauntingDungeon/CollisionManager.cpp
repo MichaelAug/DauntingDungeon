@@ -13,21 +13,23 @@ float CollisionManager::CalculateImpulse(const GameObject * a, const GameObject 
 
 void CollisionManager::HandleCollisionResolution()
 {
-	/*if (b->type == player && a->type == projectile) {
-
-		}*/
 	for (auto c = collisions.begin(); c != collisions.end();) {
-		Vector2 posChange;
-		float mTotal = (*c)->obj1->inverseMass + (*c)->obj2->inverseMass;
-		float impulse = CalculateImpulse((*c)->obj1, (*c)->obj2, (*c)->normal);
 
-		posChange = (*c)->normal * (*c)->penetration * ((*c)->obj1->inverseMass / mTotal);
-		(*c)->obj1->MovePosAndCol(posChange*(-1));
-		(*c)->obj1->velocity -= (*c)->normal*((*c)->obj1->inverseMass*impulse);
+		if (CollisionEffects::ApplyEffects((*c))) {
+			Vector2 posChange;
 
-		posChange = (*c)->normal * (*c)->penetration * ((*c)->obj2->inverseMass / mTotal);
-		(*c)->obj2->MovePosAndCol(posChange);
-		(*c)->obj2->velocity += (*c)->normal*((*c)->obj2->inverseMass*impulse);
+			float mTotal = (*c)->obj1->inverseMass + (*c)->obj2->inverseMass;
+			float impulse = CalculateImpulse((*c)->obj1, (*c)->obj2, (*c)->normal);
+
+			posChange = (*c)->normal * (*c)->penetration * ((*c)->obj1->inverseMass / mTotal);
+			(*c)->obj1->MovePosAndCol(posChange * (-1));
+			(*c)->obj1->velocity -= (*c)->normal * ((*c)->obj1->inverseMass * impulse);
+
+			posChange = (*c)->normal * (*c)->penetration * ((*c)->obj2->inverseMass / mTotal);
+			(*c)->obj2->MovePosAndCol(posChange);
+			(*c)->obj2->velocity += (*c)->normal * ((*c)->obj2->inverseMass * impulse);
+		}
+		
 
 		delete (*c);
 		c = collisions.erase(c);

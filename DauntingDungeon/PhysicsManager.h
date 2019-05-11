@@ -3,6 +3,7 @@
 #include <memory>
 #include "GameObject.h"
 #include "CollisionManager.h"
+#include "CollisionEffects.h"
 
 class PhysicsManager {
 public:
@@ -23,7 +24,6 @@ protected:
 	void IntegrateVelocity(float dt, std::vector<GameObject*>& allObjects);
 
 	std::unique_ptr<CollisionManager> colManager;
-
 	Uint32 timeRemaining;
 	const Uint32 subTimeDelta = 8; //1000/120 = 8ms
 };

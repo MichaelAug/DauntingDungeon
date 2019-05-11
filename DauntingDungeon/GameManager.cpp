@@ -54,7 +54,7 @@ void GameManager::UpdateObjects()
 
 void GameManager::AddTerrain(Collidable* c)
 {
-	GameObject* g = new GameObject();
+	GameObject* g = new GameObject(wall);
 	g->AddCollider(c);
 	terrain.emplace_back(g);
 }

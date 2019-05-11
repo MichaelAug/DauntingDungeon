@@ -5,7 +5,7 @@ class EnemyObject : public GameObject {
 public:
 	EnemyObject(const std::string textureName, Vector2 pos);
 	virtual ~EnemyObject() {}
-	void UpdateObject() override;
+	bool UpdateObject() override;
 
 private:
 	int time;

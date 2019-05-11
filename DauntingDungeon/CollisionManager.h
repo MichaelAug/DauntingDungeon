@@ -6,18 +6,19 @@
 #include <memory>
 #include "GameObject.h"
 #include "Vector2.h"
+#include "CollisionEffects.h"
 
+struct collision {
+	GameObject* obj1;
+	GameObject* obj2;
+	Vector2 normal;
+	float penetration;
+};
+class CollisionEffects;
 class CollisionManager {
 	friend class PhysicsManager;
 	friend class GameMap; //refactor to not need this
 protected:
-	struct collision {
-		GameObject* obj1;
-		GameObject* obj2;
-		Vector2 normal;
-		float penetration;
-	};
-
 	std::vector<collision*> collisions;
 
 	static float CalculateImpulse(const GameObject * a, const GameObject * b, Vector2&normal);

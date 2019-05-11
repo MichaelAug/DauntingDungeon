@@ -3,6 +3,7 @@
 #include "GameMap.h"
 #include <memory>
 SDL_Renderer* Engine::renderer = nullptr;
+SDL_Rect Engine::camera = { 0,0, 960, 640 };
 
 Engine::Engine() : window(nullptr, SDL_DestroyWindow) {
 	//don't need to initialise unique_ptr because it's null by default
@@ -41,6 +42,9 @@ void Engine::Update(std::string fps, Uint32 dt)
 {
 	inputManager->HandleInput(isRunning, *gameManager);
 	gameManager->Update(dt);
+
+	camera.x = gameManager->GetPlayer().position.x - 480;
+	camera.y = gameManager->GetPlayer().position.y - 320;
 
 	ui->UpdateFPS(fps);
 }

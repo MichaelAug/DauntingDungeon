@@ -17,10 +17,12 @@ Projectile::Projectile(const std::string textureName, Vector2 pos, Vector2 direc
 	destRect.w = 50;
 }
 
-void Projectile::UpdateObject()
+bool Projectile::UpdateObject()
 {
 	AddForce(direction*30);
 
 	direction *= 0.98;
 	UpdateTexPos();
+
+	return true;
 }

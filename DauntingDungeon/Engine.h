@@ -18,7 +18,10 @@ public:
 	void ExitGame();
 	void Update(std::string fps, Uint32 dt);
 	static SDL_Renderer* renderer;
+	static SDL_Rect camera;
+
 private:
+	
 	bool isRunning;
 	std::unique_ptr<SDL_Window, void(*)(SDL_Window*)> window; // need to pass in a custom deleter because need to call SDL_DestroyWindow
 	std::unique_ptr<InputManager> inputManager;
