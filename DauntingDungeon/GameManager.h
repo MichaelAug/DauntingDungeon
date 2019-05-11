@@ -27,7 +27,7 @@ private:
 	std::unique_ptr<PlayerObject> player;
 
 	std::vector<GameObject*> allObjects;
-	std::vector<Collidable*> terrain;
+	std::vector<GameObject*> terrain;
 
 	std::unique_ptr<PhysicsManager> physics;
 

@@ -56,7 +56,7 @@ void GameObject::UpdateObject()
 	UpdateTexPos();
 }
 
-void GameObject::AddCollider(std::unique_ptr<Collidable> col)
+void GameObject::AddCollider(Collidable* col)
 {
-	collider = col.release();
+	collider = col;
 }

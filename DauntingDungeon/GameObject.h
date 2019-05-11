@@ -22,7 +22,7 @@ public:
 
 	Collidable* GetCollider() { return collider; }
 
-	void AddCollider(std::unique_ptr<Collidable> col);
+	void AddCollider(Collidable* col);
 	GameObjectType type;
 protected:
 	Collidable* collider;
