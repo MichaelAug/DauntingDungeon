@@ -32,7 +32,7 @@ public:
 	void ObjectTerrainCollision(std::vector<GameObject*>& allObjects, std::vector<GameObject*>& terrain);
 	void CollisionDetection(std::vector<GameObject*> &allObjects, std::vector<GameObject*>& terrain);
 	void ObjectCollision(std::vector<GameObject*> &allObjects);
-
+	void CollisionChecking(GameObject* a, GameObject* b);
 	CollisionManager() {}
 private:
 	
