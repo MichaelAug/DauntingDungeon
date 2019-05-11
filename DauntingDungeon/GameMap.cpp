@@ -18,17 +18,34 @@ GameMap::GameMap() :
 	/*height and width of rendered tile*/
 	dest.x = dest.y = 0;
 
-	src.w = src.h = tileSize;
+	src.w = src.h = 16;
 
-	src.x = 96; src.y = 64;
+	src.x = 16; src.y = 64;
 	tiles.ground = src;
 
-	src.x = 96; src.y = 0;
+	src.x = 32; src.y = 64;
+	tiles.ground1 = src;
+
+	src.x = 48; src.y = 64;
+	tiles.ground2 = src;
+
+	src.x = 32; src.y = 80;
+	tiles.ground3 = src;
+
+	src.x = 16; src.y = 16;
 	tiles.upper_wall = src;
 
 	src.x = 32; src.y = 32;
 	tiles.pillar = src;
 
+	src.x = 64; src.y = 16;
+	tiles.lava_fountain = src;
+
+	src.x = 64; src.y = 48;
+	tiles.water_fountain = src;
+
+	src.x = 16; src.y = 32;
+	tiles.flag_wall = src;
 }
 
 void GameMap::LoadMap(GameManager &gameManager)
@@ -115,14 +132,15 @@ void GameMap::LoadMap(GameManager &gameManager)
 void GameMap::DrawMap()
 {
 	int type = 0;
-
+	srand(420);
+	SDL_Rect t;
 	for (int row = 0; row < mapHeight; ++row) {
 		for (int col = 0; col < mapWidth; ++col) {
 			type = map[row][col];
 
 			dest.x = (col * tileSize) - Engine::camera.x;
 			dest.y = (row * tileSize) - Engine::camera.y;
-
+			int r = rand() % 3 +1;
 			switch (type) {
 			case 0:
 				TextureManager::Draw(tileset, tiles.ground, dest);
@@ -131,9 +149,25 @@ void GameMap::DrawMap()
 				TextureManager::Draw(tileset, tiles.upper_wall, dest);
 				break;
 			case 2:
-				TextureManager::Draw(tileset, tiles.pillar, dest);
+				switch (r) {
+				case 1: t = tiles.ground1;
+					break;
+				case 2: t = tiles.ground2;
+					break;
+				case 3: t = tiles.ground3;
+					break;
+				}
+				TextureManager::Draw(tileset, t, dest);
 				break;
-
+			case 3:
+				TextureManager::Draw(tileset, tiles.lava_fountain, dest);
+				break;
+			case 4:
+				TextureManager::Draw(tileset, tiles.water_fountain, dest);
+				break;
+			case 5:
+				TextureManager::Draw(tileset, tiles.flag_wall, dest);
+				break;
 			default:
 				break;
 			}

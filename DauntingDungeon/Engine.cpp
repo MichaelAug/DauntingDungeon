@@ -43,7 +43,7 @@ void Engine::Update(std::string fps, Uint32 dt)
 	inputManager->HandleInput(isRunning, *gameManager);
 	gameManager->Update(dt);
 
-	camera.x = gameManager->GetPlayer().position.x - 480;
+	camera.x = gameManager->GetPlayer().position.x - 440;
 	camera.y = gameManager->GetPlayer().position.y - 320;
 
 	ui->UpdateFPS(fps);

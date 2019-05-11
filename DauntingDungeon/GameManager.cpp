@@ -19,7 +19,7 @@ void GameManager::Initialise()
 {
 	map->LoadMap(*this);
 
-	player = std::make_unique<PlayerObject>("DauntingDungeon/Assets/man.png", Vector2(32, 48));
+	player = std::make_unique<PlayerObject>("DauntingDungeon/Assets/man.png", Vector2(400, 300));
 
 	AddPlayerObject(player.get());
 
