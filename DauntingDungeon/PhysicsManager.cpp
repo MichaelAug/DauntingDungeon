@@ -6,7 +6,7 @@ PhysicsManager::PhysicsManager() : colManager(std::make_unique<CollisionManager>
 }
 
 void PhysicsManager::FixedUpdate(Uint32 dt, std::vector<GameObject*>& allObjects,
-	std::vector<std::shared_ptr<Collidable>> &terrain)
+	std::vector<Collidable*>& terrain)
 {
 	timeRemaining += dt;
 
@@ -17,7 +17,7 @@ void PhysicsManager::FixedUpdate(Uint32 dt, std::vector<GameObject*>& allObjects
 }
 
 void PhysicsManager::UpdatePhysics(Uint32 dt, std::vector<GameObject*>& allObjects, 
-	std::vector<std::shared_ptr<Collidable>> &terrain)
+	std::vector<Collidable*>& terrain)
 {
 	Integration(dt, allObjects);
 	colManager->CollisionDetection(allObjects, terrain);

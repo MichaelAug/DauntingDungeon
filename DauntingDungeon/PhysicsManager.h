@@ -9,10 +9,10 @@ public:
 	PhysicsManager();
 
 	void FixedUpdate(Uint32 dt, std::vector<GameObject*>& allObjects,
-		std::vector<std::shared_ptr<Collidable>> &terrain);
+		std::vector<Collidable*> &terrain);
 
 	void UpdatePhysics(Uint32 dt,std::vector<GameObject*>& allObjects,
-		std::vector<std::shared_ptr<Collidable>> &terrain);
+		std::vector<Collidable*>& terrain);
 
 	void ResetForces(std::vector<GameObject*>& allObjects);
 

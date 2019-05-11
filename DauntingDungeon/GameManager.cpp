@@ -52,7 +52,7 @@ void GameManager::UpdateObjects()
 	}
 }
 
-void GameManager::AddTerrain(std::shared_ptr<Collidable> c)
+void GameManager::AddTerrain(Collidable* c)
 {
 	terrain.emplace_back(c);
 }

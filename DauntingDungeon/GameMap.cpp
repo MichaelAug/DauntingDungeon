@@ -43,7 +43,7 @@ void GameMap::LoadMap(GameManager &gameManager)
 
 	map = std::vector<std::vector<int>>(mapHeight, std::vector<int>(mapWidth, 0));
 
-	std::vector<std::unique_ptr<Square>> initTer;
+	std::vector<Square*> initTer;
 
 	for (int y = 0; y < mapHeight; ++y) {
 		for (int x = 0; x < mapWidth; ++x) {
@@ -63,7 +63,7 @@ void GameMap::LoadMap(GameManager &gameManager)
 			dest.y = row * tileSize;
 
 			if (type == 1) {
-				initTer.emplace_back(std::make_unique<Square>(Vector2( //initially save top left corner of block as pos
+				initTer.emplace_back(new Square(Vector2( //initially save top left corner of block as pos
 					(float)col*tileSize, (float)row * tileSize), tileSize, tileSize));
 			}
 		}
@@ -77,7 +77,7 @@ void GameMap::LoadMap(GameManager &gameManager)
 				initTer[i]->halfHeight == tileSize &&
 				(*j)->halfHeight == tileSize && (*j)->halfWidth == tileSize) {
 				initTer[i]->halfWidth += (*j)->halfWidth;
-				(*j).reset();
+				delete (*j);
 				j = initTer.erase(j);
 			}
 			else if (initTer[i]->pos.x == (*j)->pos.x &&
@@ -85,7 +85,7 @@ void GameMap::LoadMap(GameManager &gameManager)
 				initTer[i]->halfWidth == tileSize &&
 				(*j)->halfWidth == tileSize && (*j)->halfHeight == tileSize) {
 				initTer[i]->halfHeight += (*j)->halfHeight;
-				(*j).reset();
+				delete (*j);
 				j = initTer.erase(j);
 			}
 			else {
@@ -101,7 +101,7 @@ void GameMap::LoadMap(GameManager &gameManager)
 		o->pos.x = o->pos.x + o->GetHalfWidth();
 		o->pos.y = o->pos.y + o->GetHalfHeight();
 
-		gameManager.AddTerrain(std::move(o));
+		gameManager.AddTerrain(o);
 	}
 
 	/*std::cout << "numterrain: " << gameManager.terrain.size() << std::endl;

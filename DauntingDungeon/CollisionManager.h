@@ -29,8 +29,8 @@ public:
 	bool SphereCollision(const Circle *a, const Circle *b, Vector2 &normal, float &penDist);
 	bool CircleSquareCollision(const Square * square,
 		const Circle * circle, Vector2 &normal, float &penDist);
-	void ObjectTerrainCollision(std::vector<GameObject*>& allObjects, std::vector<std::shared_ptr<Collidable>> &terrain);
-	void CollisionDetection(std::vector<GameObject*> &allObjects, std::vector<std::shared_ptr<Collidable>> &terrain);
+	void ObjectTerrainCollision(std::vector<GameObject*>& allObjects, std::vector<Collidable*>& terrain);
+	void CollisionDetection(std::vector<GameObject*> &allObjects, std::vector<Collidable*>& terrain);
 	void ObjectCollision(std::vector<GameObject*> &allObjects);
 
 	CollisionManager() {}
