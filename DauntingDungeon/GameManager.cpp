@@ -87,7 +87,7 @@ void GameManager::AddProjectile(Vector2 direction)
 {
 	Projectile *p = new Projectile("DauntingDungeon/Assets/projectile.png", player->GetPosition(), direction);
 
-	p->AddCollider(new Circle(player->GetCollider()->pos, 16));
+	p->AddCollider(new Circle(player->GetCollider()->pos - Vector2(2,10), 12));
 	allObjects.emplace_back(p);
 	std::cout << "Projectile Added!" << std::endl;
 }
