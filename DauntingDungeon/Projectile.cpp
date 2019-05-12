@@ -4,7 +4,7 @@
 Projectile::Projectile(const std::string textureName, Vector2 pos, Vector2 direction) :
 	GameObject(textureName, pos, projectile)
 {
-	inverseMass = 0.001;
+	inverseMass = 0.001f;
 	elasticity = 1.0f;
 	direction.normalise();
 	this->direction = direction;
@@ -15,13 +15,17 @@ Projectile::Projectile(const std::string textureName, Vector2 pos, Vector2 direc
 
 	destRect.h = 50;
 	destRect.w = 50;
+	hit = false;
 }
 
 bool Projectile::UpdateObject()
 {
-	AddForce(direction*30);
+	if (hit) {
+		return false;
+	}
+	AddForce(direction*15);
 
-	direction *= 0.98;
+	//direction *= 0.98;
 	UpdateTexPos();
 
 	return true;

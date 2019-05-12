@@ -4,7 +4,7 @@
 EnemyObject::EnemyObject(const std::string textureName, Vector2 pos) : GameObject(textureName, pos, enemy)
 {
 	inverseMass = 0.001;
-	elasticity = 0.5f;
+	elasticity = 1;
 	time = SDL_GetTicks();
 	direction = Vector2(((rand() % 10) - 5)*0.1, ((rand() % 10) - 5)*0.1);
 }

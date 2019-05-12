@@ -16,7 +16,6 @@ GameObject::GameObject(const std::string textureName, Vector2 pos, GameObjectTyp
 	destRect.w = srcRect.w;
 	destRect.x = (int)position.x;
 	destRect.y = (int)position.y;
-	
 }
 
 GameObject::GameObject(GameObjectType type) : objTexture(nullptr), PhysicsObject()
@@ -56,6 +55,8 @@ void GameObject::Render()
 bool GameObject::UpdateObject()
 {
 	UpdateTexPos();
+
+	std::cout << "updated" << std::endl;
 	return true;
 }
 

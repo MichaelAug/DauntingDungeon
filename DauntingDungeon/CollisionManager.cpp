@@ -4,10 +4,10 @@
 
 float CollisionManager::CalculateImpulse(const GameObject * a, const GameObject * b, Vector2 & normal)
 {
-		float e = b->elasticity;
-		Vector2 vr = b->velocity;
+		float e = (a->elasticity + b->elasticity) / 2;
+		Vector2 vr = b->velocity - a->velocity;
 		float dotProduct = vr.DotProduct(normal);
-		auto j = (-(1 + e)*dotProduct) / (b->inverseMass);
+		auto j = (-(1 + e) * dotProduct) / (a->inverseMass + b->inverseMass);
 		return j;
 }
 
@@ -28,9 +28,8 @@ void CollisionManager::HandleCollisionResolution()
 			posChange = (*c)->normal * (*c)->penetration * ((*c)->obj2->inverseMass / mTotal);
 			(*c)->obj2->MovePosAndCol(posChange);
 			(*c)->obj2->velocity += (*c)->normal * ((*c)->obj2->inverseMass * impulse);
-		}
-		
 
+		}
 		delete (*c);
 		c = collisions.erase(c);
 	}

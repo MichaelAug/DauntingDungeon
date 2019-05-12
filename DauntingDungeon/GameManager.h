@@ -19,6 +19,7 @@ public:
 	void AddGameObject(GameObject* o);
 	void AddProjectile(Vector2 direction);
 	void AddPlayerObject(GameObject* o);
+	void AddEnemyObject(GameObject* o);
 	PlayerObject& GetPlayer() { return *player; }
 
 private:

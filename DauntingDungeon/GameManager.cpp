@@ -23,20 +23,20 @@ void GameManager::Initialise()
 
 	AddPlayerObject(player.get());
 
-	EnemyObject *enemy = new EnemyObject("DauntingDungeon/Assets/demon.png", Vector2(300, 300));
-	AddGameObject(enemy);
+	EnemyObject *enemy = new EnemyObject("DauntingDungeon/Assets/demon.png", Vector2(300, 500));
+	AddEnemyObject(enemy);
 
 	EnemyObject *enemy2 = new EnemyObject("DauntingDungeon/Assets/chort.png", Vector2(250, 400));
-	AddGameObject(enemy2);
+	AddEnemyObject(enemy2);
 
-	EnemyObject *enemy3 = new EnemyObject("DauntingDungeon/Assets/orc.png", Vector2(400, 250));
-	AddGameObject(enemy3);
+	EnemyObject *enemy3 = new EnemyObject("DauntingDungeon/Assets/orc.png", Vector2(400, 450));
+	AddEnemyObject(enemy3);
 }
 
 void GameManager::Update(Uint32 dt)
 {
-	UpdateObjects();
 	physics->FixedUpdate(dt, allObjects, terrain);
+	UpdateObjects();
 }
 
 void GameManager::Draw()
@@ -47,10 +47,25 @@ void GameManager::Draw()
 
 void GameManager::UpdateObjects()
 {
-	for (auto& o : allObjects) {
-		o->UpdateObject();
+	for (auto o = allObjects.begin(); o != allObjects.end();) {
+		if (!(*o)->UpdateObject()) {
+			delete (*o);
+			o = allObjects.erase(o);
+		}
+		else {
+			++o;
+		}
 	}
 }
+
+//void GameManager::DeleteExpired()
+//{
+//	for (auto a = allObjects.begin(); a != allObjects.end();) {
+//		if ((*a)->ToDelete()) {
+//
+//		}
+//	}
+//}
 
 void GameManager::AddTerrain(Collidable* c)
 {
@@ -70,20 +85,29 @@ void GameManager::AddGameObject(GameObject* o)
 
 void GameManager::AddProjectile(Vector2 direction)
 {
-	Projectile *p = new Projectile("DauntingDungeon/Assets/projectile.png", player->GetPosition()/*+direction*60*/, direction);
+	Projectile *p = new Projectile("DauntingDungeon/Assets/projectile.png", player->GetPosition(), direction);
 
-	p->AddCollider(new Circle(player->GetCollider()->pos, 8));
+	p->AddCollider(new Circle(player->GetCollider()->pos, 16));
 	allObjects.emplace_back(p);
 	std::cout << "Projectile Added!" << std::endl;
 }
 
 void GameManager::AddPlayerObject(GameObject * o)
 {
-	float centerX = (o->position.x+20 + GameMap::tileSize / 2);
-	float centerY = (o->position.y+10 + GameMap::tileSize / 2);
+	float centerX = (o->position.x+1 + GameMap::tileSize / 2);
+	float centerY = (o->position.y+12 + GameMap::tileSize / 2);
 	o->AddCollider(new Circle(Vector2(centerX, centerY), 16));
 	allObjects.emplace_back(o);
 	std::cout << "PlayerObject Added!" << std::endl;
+}
+
+void GameManager::AddEnemyObject(GameObject* o)
+{
+	float centerX = (o->position.x +10+ GameMap::tileSize / 2);
+	float centerY = (o->position.y+25 + GameMap::tileSize / 2);
+	o->AddCollider(new Square(Vector2(centerX, centerY),16 , 16));
+	allObjects.emplace_back(o);
+	std::cout << "Enemy Added!" << std::endl;
 }
 
 void GameManager::DrawObjects()

@@ -19,14 +19,18 @@ void InputManager::HandleInput(bool &isRunning, GameManager &g)
 	Vector2 direction = Vector2(x, y);
 	direction.normalise();
 	g.GetPlayer().AddForce(Vector2(x, y)*6);
-	
+
+	if (direction != Vector2(0, 0)) {
+		g.GetPlayer().UpdateDirection(direction);
+	}
+
 	if (event.type == SDL_KEYDOWN) {
 		switch (event.key.keysym.sym) {
 		case SDLK_ESCAPE:
 			isRunning = false;
 			break;
 		case SDLK_SPACE:
-			g.AddProjectile(direction);
+			g.AddProjectile(g.GetPlayer().GetDirection());
 			break;
 		}
 		

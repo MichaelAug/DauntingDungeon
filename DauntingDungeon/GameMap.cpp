@@ -17,35 +17,6 @@ GameMap::GameMap() :
 
 	/*height and width of rendered tile*/
 	dest.x = dest.y = 0;
-
-	src.w = src.h = 16;
-
-	src.x = 16; src.y = 64;
-	tiles.ground = src;
-
-	src.x = 32; src.y = 64;
-	tiles.ground1 = src;
-
-	src.x = 48; src.y = 64;
-	tiles.ground2 = src;
-
-	src.x = 32; src.y = 80;
-	tiles.ground3 = src;
-
-	src.x = 16; src.y = 16;
-	tiles.upper_wall = src;
-
-	src.x = 32; src.y = 32;
-	tiles.pillar = src;
-
-	src.x = 64; src.y = 16;
-	tiles.lava_fountain = src;
-
-	src.x = 64; src.y = 48;
-	tiles.water_fountain = src;
-
-	src.x = 16; src.y = 32;
-	tiles.flag_wall = src;
 }
 
 void GameMap::LoadMap(GameManager &gameManager)
@@ -80,7 +51,7 @@ void GameMap::LoadMap(GameManager &gameManager)
 			dest.x = col * tileSize;
 			dest.y = row * tileSize;
 
-			if (type == 1) {
+			if (type == 1 || type == 3 || type == 4 || type == 5) {
 				initTer.emplace_back(new Square(Vector2( //initially save top left corner of block as pos
 					(float)col*tileSize, (float)row * tileSize), tileSize, tileSize));
 			}
