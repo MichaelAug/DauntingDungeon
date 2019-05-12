@@ -19,17 +19,17 @@ void GameManager::Initialise()
 {
 	map->LoadMap(*this);
 
-	player = std::make_unique<PlayerObject>("DauntingDungeon/Assets/man.png", Vector2(400, 300));
+	player = std::make_unique<PlayerObject>(Vector2(400, 300));
 
 	AddPlayerObject(player.get());
 
-	EnemyObject *enemy = new EnemyObject("DauntingDungeon/Assets/demon.png", Vector2(300, 500));
+	EnemyObject *enemy = new EnemyObject(Vector2(300, 500), demon);
 	AddEnemyObject(enemy);
 
-	EnemyObject *enemy2 = new EnemyObject("DauntingDungeon/Assets/chort.png", Vector2(250, 400));
+	EnemyObject *enemy2 = new EnemyObject(Vector2(250, 400), orc);
 	AddEnemyObject(enemy2);
 
-	EnemyObject *enemy3 = new EnemyObject("DauntingDungeon/Assets/orc.png", Vector2(400, 450));
+	EnemyObject *enemy3 = new EnemyObject(Vector2(400, 450), chort);
 	AddEnemyObject(enemy3);
 }
 
@@ -105,7 +105,18 @@ void GameManager::AddEnemyObject(GameObject* o)
 {
 	float centerX = (o->position.x +10+ GameMap::tileSize / 2);
 	float centerY = (o->position.y+25 + GameMap::tileSize / 2);
-	o->AddCollider(new Square(Vector2(centerX, centerY),16 , 16));
+	EnemyObject* eo = dynamic_cast<EnemyObject*>(o);
+
+	if (eo->enemyType == demon) {
+		o->AddCollider(new Square(Vector2(centerX, centerY), 16, 16));
+	}
+	else if (eo->enemyType == orc) {
+		o->AddCollider(new Square(Vector2(centerX-10, centerY-10), 16, 16));
+	}
+	else if (eo->enemyType == chort) {
+		o->AddCollider(new Square(Vector2(centerX - 10, centerY - 10), 16, 16));
+	}
+	
 	allObjects.emplace_back(o);
 	std::cout << "Enemy Added!" << std::endl;
 }

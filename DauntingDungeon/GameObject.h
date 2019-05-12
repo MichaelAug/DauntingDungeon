@@ -8,10 +8,13 @@
 
 /*Handles Object's texture (setup and Rendering), its position and a reference to collider*/
 
+struct Animation;
 class GameObject : public PhysicsObject{
 	friend class PhysicsManager;
 	friend class GameManager;
 public:
+	int animIndex = 0;
+
 	GameObject(const std::string textureName, Vector2 pos, GameObjectType type);
 	GameObject(GameObjectType type);
 	//~GameObject();
@@ -25,6 +28,10 @@ public:
 	void AddCollider(Collidable* col);
 	GameObjectType type;
 protected:
+	Animation* anim;
+	Vector2 animDirection;
+	bool animated = false;
+
 	Collidable* collider;
 	SDL_Texture* objTexture;
 	SDL_Rect srcRect, destRect; /*Position of the texture*/

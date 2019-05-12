@@ -9,10 +9,18 @@ class PlayerObject : public GameObject {
 public:
 	friend class Engine;
 
+	PlayerObject(Vector2 pos);
+
+
 	void UpdateDirection(Vector2 dir) { direction = dir; }
 	Vector2 GetDirection() { return direction; }
-	PlayerObject(const std::string textureName, Vector2 pos);
+	
 	Vector2 GetPosition() { return position; }
+
+	void SetMoving() { objTexture = movingTex; }
+	void SetIdle() { objTexture = idleTex; }
 private:
 	Vector2 direction;
+	SDL_Texture* idleTex;
+	SDL_Texture* movingTex;
 };

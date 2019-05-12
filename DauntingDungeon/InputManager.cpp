@@ -21,7 +21,11 @@ void InputManager::HandleInput(bool &isRunning, GameManager &g)
 	g.GetPlayer().AddForce(Vector2(x, y)*6);
 
 	if (direction != Vector2(0, 0)) {
+		g.GetPlayer().SetMoving();
 		g.GetPlayer().UpdateDirection(direction);
+	}
+	else {
+		g.GetPlayer().SetIdle();
 	}
 
 	if (event.type == SDL_KEYDOWN) {

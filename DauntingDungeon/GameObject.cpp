@@ -1,6 +1,8 @@
 #include "GameObject.h"
 #include "TextureManager.h"
 #include "Engine.h"
+#include "Animation.h"
+#include <map>
 
 GameObject::GameObject(const std::string textureName, Vector2 pos, GameObjectType type) :
 	PhysicsObject(pos),
@@ -16,6 +18,9 @@ GameObject::GameObject(const std::string textureName, Vector2 pos, GameObjectTyp
 	destRect.w = srcRect.w;
 	destRect.x = (int)position.x;
 	destRect.y = (int)position.y;
+
+	animated = false;
+	animDirection = Vector2(1, 0);
 }
 
 GameObject::GameObject(GameObjectType type) : objTexture(nullptr), PhysicsObject()
@@ -54,9 +59,13 @@ void GameObject::Render()
 
 bool GameObject::UpdateObject()
 {
+
+	if (animated) {
+		srcRect.x = srcRect.w * static_cast<int>((SDL_GetTicks() / anim->speed) % anim->frames);
+	}
 	UpdateTexPos();
 
-	std::cout << "updated" << std::endl;
+	//std::cout << "updated" << std::endl;
 	return true;
 }
 
