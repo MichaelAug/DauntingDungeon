@@ -5,7 +5,7 @@
 Projectile::Projectile(const std::string textureName, Vector2 pos, Vector2 direction) :
 	GameObject(textureName, pos, projectile)
 {
-	inverseMass = 0.001f;
+	inverseMass = 0.0001f;
 	elasticity = 1.0f;
 	direction.normalise();
 	this->direction = direction;
@@ -16,25 +16,34 @@ Projectile::Projectile(const std::string textureName, Vector2 pos, Vector2 direc
 
 	destRect.h = 32;
 	destRect.w = 32;
-	hit = false;
 	animated = true;
 	anim = new Animation(Vector2(0, 0), 5, 50);
+	hit = false;
 }
 
 bool Projectile::UpdateObject()
 {
+	UpdateTexPos();
+	
 	if (hit) {
-		return false;
+		velocity = Vector2(0, 0);
+		anim->startPos = Vector2(240, 0);
+		anim->frames = 3;
+		anim->speed = 80;
+		destRect.x += 32;
+
+		if (SDL_GetTicks() - afterHitTimer > anim->speed*anim->frames) {
+			
+			return false;
+		}
 	}
 
 	if (animated) {
-		srcRect.x = srcRect.w * static_cast<int>((SDL_GetTicks() / anim->speed) % anim->frames);
+		srcRect.x = anim->startPos.x + srcRect.w * static_cast<int>((SDL_GetTicks() / anim->speed) % anim->frames);
 	}
 
-	AddForce(direction*15);
-
-	//direction *= 0.98;
-	UpdateTexPos();
-
+	if (!hit) {
+		AddForce(direction * 150);
+	}
 	return true;
 }

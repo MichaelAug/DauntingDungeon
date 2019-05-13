@@ -151,11 +151,9 @@ void CollisionManager::CollisionChecking(GameObject* a, GameObject* b)
 	ColliderType obj2type = a->GetCollider()->GetType();
 	ColliderType objType = b->GetCollider()->GetType();
 
-	/*Pass a nullptr to AddCollision if colliding with terrain (because it does not need to be moved)*/
 	if (obj2type == square && objType == circle) {
 		if (CircleSquareCollision(dynamic_cast<Square*>(a->GetCollider()), dynamic_cast<Circle*>
 			(b->GetCollider()), normal, penDist)) {
-			//std::cout << "collision happened";
 			AddCollision(new collision{ a,b, normal,penDist });
 		}
 	}
