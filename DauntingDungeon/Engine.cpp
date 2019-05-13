@@ -57,7 +57,7 @@ void Engine::Render()
 	SDL_SetRenderDrawColor(renderer, 25, 0, 25, 255);
 
 	gameManager->Draw();
-	ui->DrawUI(gameManager->GetLives());
+	ui->DrawUI(gameManager->GetLives(), gameManager->GetPaused(), gameManager->GetDied());
 	SDL_RenderPresent(renderer);
 }
 

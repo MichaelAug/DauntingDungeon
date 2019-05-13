@@ -24,11 +24,17 @@ public:
 	void UpdateScore(int scr) { score = scr; }
 	int GetLives() { return playerLives; }
 	int GetScore() { return score; }
-	void UpdateLives(int lives) { playerLives = lives; }
+	int GetDied() { return died; }
+	void UpdateLives(int lives);
+	void TogglePause();
+	bool GetPaused() { return paused; }
 private:
 	void DrawObjects();
 	int score = 0;
 	int playerLives;
+
+	bool paused;
+	bool died;
 
 	std::unique_ptr<PlayerObject> player;
 

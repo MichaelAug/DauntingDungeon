@@ -11,6 +11,8 @@ map(std::make_unique<GameMap>())
 {
 	playerLives = 3;
 	score = 0;
+	died = false;
+	paused = false;
 }
 
 GameManager::~GameManager()
@@ -39,10 +41,13 @@ void GameManager::Update(Uint32 dt)
 {
 	UpdateScore(player->GetScore());
 	UpdateLives(player->GetLives());
-	physics->FixedUpdate(dt, allObjects, terrain);
-	UpdateObjects();
-}
 
+	if (!paused) {
+		physics->FixedUpdate(dt, allObjects, terrain);
+		UpdateObjects();
+	}
+	
+}
 void GameManager::Draw()
 {
 	map->DrawMap();
@@ -114,6 +119,25 @@ void GameManager::AddEnemyObject(GameObject* o)
 	
 	allObjects.emplace_back(o);
 	//std::cout << "Enemy Added!" << std::endl;
+}
+
+void GameManager::UpdateLives(int lives)
+{
+	playerLives = lives;
+	if (lives == 0) {
+		died = true;
+		paused = true;
+	}
+}
+
+void GameManager::TogglePause()
+{
+	if (paused) {
+		paused = false;
+	}
+	else {
+		paused = true;
+	}
 }
 
 void GameManager::DrawObjects()
