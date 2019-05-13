@@ -46,7 +46,7 @@ void Engine::Update(std::string fps, Uint32 dt)
 	camera.x = gameManager->GetPlayer().position.x - 440;
 	camera.y = gameManager->GetPlayer().position.y - 320;
 
-	ui->UpdateFPS(fps);
+	ui->UpdateFPS("FPS: "+fps);
 }
 
 void Engine::Render()
@@ -55,7 +55,7 @@ void Engine::Render()
 	SDL_SetRenderDrawColor(renderer, 25, 0, 25, 255);
 
 	gameManager->Draw();
-	ui->DrawFPS();
+	ui->DrawUI(gameManager->GetLives());
 	SDL_RenderPresent(renderer);
 }
 

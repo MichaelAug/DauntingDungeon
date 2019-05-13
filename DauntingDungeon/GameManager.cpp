@@ -9,6 +9,7 @@
 GameManager::GameManager() : physics(std::make_unique<PhysicsManager>()),
 map(std::make_unique<GameMap>())
 {
+	playerLives = 3;
 }
 
 GameManager::~GameManager()
@@ -26,11 +27,11 @@ void GameManager::Initialise()
 	EnemyObject *enemy = new EnemyObject(Vector2(300, 500), demon, player.get());
 	AddEnemyObject(enemy);
 
-	EnemyObject *enemy2 = new EnemyObject(Vector2(250, 400), orc, player.get());
+	/*EnemyObject *enemy2 = new EnemyObject(Vector2(250, 400), orc, player.get());
 	AddEnemyObject(enemy2);
 
 	EnemyObject *enemy3 = new EnemyObject(Vector2(400, 450), chort, player.get());
-	AddEnemyObject(enemy3);
+	AddEnemyObject(enemy3);*/
 }
 
 void GameManager::Update(Uint32 dt)
@@ -108,7 +109,7 @@ void GameManager::AddEnemyObject(GameObject* o)
 	EnemyObject* eo = dynamic_cast<EnemyObject*>(o);
 
 	if (eo->enemyType == demon) {
-		o->AddCollider(new Square(Vector2(centerX, centerY), 16, 16));
+		o->AddCollider(new Square(Vector2(centerX, centerY), 20, 20));
 	}
 	else if (eo->enemyType == orc) {
 		o->AddCollider(new Square(Vector2(centerX-10, centerY-10), 16, 16));
