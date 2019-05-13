@@ -29,7 +29,7 @@ Projectile::Projectile(const std::string textureName, Vector2 pos, Vector2 direc
 	if (this->direction.y < 0) {
 		spriteRotation = -90;
 	}
-	if (this->direction.x == this->direction.y) {
+	if (std::abs(this->direction.x) == std::abs(this->direction.y)) {
 		spriteRotation = 0;
 	}
 

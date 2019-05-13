@@ -4,5 +4,6 @@ enum GameObjectType {
 	player,
 	projectile,
 	enemy,
-	wall
+	wall,
+	vortex
 };
