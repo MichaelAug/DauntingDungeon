@@ -15,8 +15,10 @@ public:
 	virtual ~EnemyObject() {}
 	bool UpdateObject() override;
 	EnemyType enemyType;
-private:
 
+	void EnemyHit() { lives--; }
+private:
+	int lives;
 	float agroRange;
 	bool attacking;
 	PlayerObject* player;

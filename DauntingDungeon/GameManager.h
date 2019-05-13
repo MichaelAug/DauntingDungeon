@@ -21,12 +21,13 @@ public:
 	void AddPlayerObject(GameObject* o);
 	void AddEnemyObject(GameObject* o);
 	PlayerObject& GetPlayer() { return *player; }
-
+	void UpdateScore(int scr) { score = scr; }
 	int GetLives() { return playerLives; }
-
+	int GetScore() { return score; }
+	void UpdateLives(int lives) { playerLives = lives; }
 private:
 	void DrawObjects();
-
+	int score = 0;
 	int playerLives;
 
 	std::unique_ptr<PlayerObject> player;

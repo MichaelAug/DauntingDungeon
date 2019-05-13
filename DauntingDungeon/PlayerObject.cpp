@@ -9,6 +9,9 @@
 PlayerObject::PlayerObject(Vector2 pos) : 
 	GameObject("DauntingDungeon/Assets/man_idle.png", pos, player)
 {
+	lives = 3;
+	score = 0;
+	recentlyHit = false;
 	inverseMass = 0.001;
 	elasticity = 0.0f;
 
@@ -27,4 +30,22 @@ PlayerObject::PlayerObject(Vector2 pos) :
 
 	idleTex = TextureManager::GetTexture("DauntingDungeon/Assets/man_idle.png");
 	movingTex = TextureManager::GetTexture("DauntingDungeon/Assets/man_moving.png");
+}
+
+bool PlayerObject::UpdateObject()
+{
+	if (recentlyHit) {
+
+		if (SDL_GetTicks() - invincibilityTime > 2000) {
+			recentlyHit = false;
+		}
+	}
+
+	if (animated) {
+		srcRect.x = srcRect.w * static_cast<int>((SDL_GetTicks() / anim->speed) % anim->frames);
+	}
+	UpdateTexPos();
+
+	//std::cout << "updated" << std::endl;
+	return true;
 }

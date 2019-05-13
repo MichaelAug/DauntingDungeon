@@ -10,6 +10,7 @@ GameManager::GameManager() : physics(std::make_unique<PhysicsManager>()),
 map(std::make_unique<GameMap>())
 {
 	playerLives = 3;
+	score = 0;
 }
 
 GameManager::~GameManager()
@@ -27,15 +28,17 @@ void GameManager::Initialise()
 	EnemyObject *enemy = new EnemyObject(Vector2(300, 500), demon, player.get());
 	AddEnemyObject(enemy);
 
-	/*EnemyObject *enemy2 = new EnemyObject(Vector2(250, 400), orc, player.get());
+	EnemyObject *enemy2 = new EnemyObject(Vector2(250, 400), orc, player.get());
 	AddEnemyObject(enemy2);
 
 	EnemyObject *enemy3 = new EnemyObject(Vector2(400, 450), chort, player.get());
-	AddEnemyObject(enemy3);*/
+	AddEnemyObject(enemy3);
 }
 
 void GameManager::Update(Uint32 dt)
 {
+	UpdateScore(player->GetScore());
+	UpdateLives(player->GetLives());
 	physics->FixedUpdate(dt, allObjects, terrain);
 	UpdateObjects();
 }
@@ -58,15 +61,6 @@ void GameManager::UpdateObjects()
 		}
 	}
 }
-
-//void GameManager::DeleteExpired()
-//{
-//	for (auto a = allObjects.begin(); a != allObjects.end();) {
-//		if ((*a)->ToDelete()) {
-//
-//		}
-//	}
-//}
 
 void GameManager::AddTerrain(Collidable* c)
 {

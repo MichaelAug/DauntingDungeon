@@ -22,6 +22,7 @@ EnemyObject::EnemyObject(Vector2 pos, EnemyType t, PlayerObject* p) : GameObject
 		srcRect.x = 17;
 		srcRect.y = 368;
 		agroRange = 200;
+		lives = 3;
 	}
 	else if (t == orc) {
 		anim = new Animation(Vector2(370, 176), 8, 200);
@@ -33,6 +34,7 @@ EnemyObject::EnemyObject(Vector2 pos, EnemyType t, PlayerObject* p) : GameObject
 		srcRect.x = 371;
 		srcRect.y = 174;
 		agroRange = 250;
+		lives = 2;
 	}
 	else if (t == chort) {
 		anim = new Animation(Vector2(368, 332), 8, 200);
@@ -44,6 +46,7 @@ EnemyObject::EnemyObject(Vector2 pos, EnemyType t, PlayerObject* p) : GameObject
 		srcRect.x = 368;
 		srcRect.y = 332;
 		agroRange = 300;
+		lives = 1;
 	}
 }
 
@@ -53,6 +56,11 @@ float Distance(Vector2 a, Vector2 b) {
 
 bool EnemyObject::UpdateObject()
 {
+	if (lives == 0) {
+		player->AddToScore();
+		return false;
+	}
+
 	if (attacking) {
 		AddForce(Vector2(player->GetPosition().x - position.x, player->GetPosition().y - position.y) * 0.05);
 		//std::cout << "atacking" << std::endl;

@@ -30,6 +30,10 @@ void UIManager::UpdateFPS(std::string msg)
 	fps.UpdateMessage(msg);
 }
 
+void UIManager::UpdateScore(std::string msg)
+{
+	score.UpdateMessage(msg);
+}
 void UIManager::DrawUI(int hearts)
 {
 	fps.Draw();

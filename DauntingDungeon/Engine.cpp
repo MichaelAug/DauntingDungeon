@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "GameMap.h"
 #include <memory>
+#include <string>
 SDL_Renderer* Engine::renderer = nullptr;
 SDL_Rect Engine::camera = { 0,0, 960, 640 };
 
@@ -47,6 +48,7 @@ void Engine::Update(std::string fps, Uint32 dt)
 	camera.y = gameManager->GetPlayer().position.y - 320;
 
 	ui->UpdateFPS("FPS: "+fps);
+	ui->UpdateScore("SCORE: " + std::to_string(gameManager->GetScore()));
 }
 
 void Engine::Render()

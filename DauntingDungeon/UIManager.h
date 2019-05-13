@@ -8,6 +8,7 @@ public:
 	UIManager();
 
 	void UpdateFPS(std::string msg);
+	void UpdateScore(std::string msg);
 	void DrawUI(int heart);
 private:
 	UILabel fps;
