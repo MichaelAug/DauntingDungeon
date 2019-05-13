@@ -35,6 +35,8 @@ public:
 	void ObjectCollision(std::vector<GameObject*> &allObjects);
 	void CollisionChecking(GameObject* a, GameObject* b);
 	CollisionManager() {}
+
+	bool CheckIfCollides(GameObject* g, std::vector<GameObject*>& allObjects);
 private:
 	
 	

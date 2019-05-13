@@ -33,6 +33,11 @@ void PhysicsManager::ResetForces(std::vector<GameObject*>& allObjects)
 	}
 }
 
+bool PhysicsManager::CheckIfCollides(GameObject* g, std::vector<GameObject*>& allObjects)
+{
+	return colManager->CheckIfCollides(g, allObjects);
+}
+
 void PhysicsManager::Integration(float dt, std::vector<GameObject*>& allObjects)
 {
 	Vector2 acceleration;

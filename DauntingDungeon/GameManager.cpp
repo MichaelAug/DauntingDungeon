@@ -5,6 +5,7 @@
 #include "EnemyObject.h"
 #include "GameMap.h"
 #include "Projectile.h"
+#include "Food.h"
 
 GameManager::GameManager() : physics(std::make_unique<PhysicsManager>()),
 map(std::make_unique<GameMap>())
@@ -17,6 +18,40 @@ map(std::make_unique<GameMap>())
 
 GameManager::~GameManager()
 {
+}
+
+bool GameManager::CheckIfCollides(GameObject* g)
+{
+	float centerX = (g->position.x + GameMap::tileSize / 2);
+	float centerY = (g->position.y + GameMap::tileSize / 2);
+
+	g->AddCollider(new Circle(Vector2(centerX, centerY), 16));
+	
+	return physics->CheckIfCollides(g, allObjects);;
+}
+
+void GameManager::SpawnFood()
+{
+	bool placed = false;
+	std::srand(SDL_GetTicks());
+	int r = rand() % 2;
+
+	while (!placed) {
+		float randomX = 32.0f + (rand() % map->mapWidth*32) - map->tileSize;
+		float randomY = 32.0f + (rand() % map->mapHeight*32) - map->tileSize;
+
+		Food* f = new Food(Vector2(randomX, randomY), (FoodType)r);
+
+		std::cout << f->position << std::endl;
+		if (CheckIfCollides(f)) {
+			delete f;
+		}
+		else {
+			placed = true;
+
+			allObjects.emplace_back(f);
+		}
+	}
 }
 
 void GameManager::RestartGame()
@@ -38,14 +73,16 @@ void GameManager::Initialise()
 
 	AddPlayerObject(player);
 
-	EnemyObject *enemy = new EnemyObject(Vector2(300, 500), demon, player);
+	/*EnemyObject *enemy = new EnemyObject(Vector2(300, 500), demon, player);
 	AddEnemyObject(enemy);
 
 	EnemyObject *enemy2 = new EnemyObject(Vector2(250, 400), orc, player);
 	AddEnemyObject(enemy2);
 
 	EnemyObject *enemy3 = new EnemyObject(Vector2(400, 450), chort, player);
-	AddEnemyObject(enemy3);
+	AddEnemyObject(enemy3);*/
+
+	SpawnFood();
 }
 
 void GameManager::Update(Uint32 dt)

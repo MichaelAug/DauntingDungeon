@@ -16,9 +16,8 @@ public:
 		std::vector<GameObject*>& terrain);
 
 	void ResetForces(std::vector<GameObject*>& allObjects);
-
-	void AddToAllObjects(GameObject* b);
-
+	
+	bool CheckIfCollides(GameObject* g, std::vector<GameObject*>& allObjects);
 protected:
 	void Integration(float dt, std::vector<GameObject*>& allObjects);
 	void IntegrateVelocity(float dt, std::vector<GameObject*>& allObjects);

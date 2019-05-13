@@ -15,7 +15,6 @@ class GameObject : public PhysicsObject{
 	friend class InputManager;
 public:
 	int animIndex = 0;
-
 	GameObject(const std::string textureName, Vector2 pos, GameObjectType type);
 	GameObject(GameObjectType type);
 	//~GameObject();

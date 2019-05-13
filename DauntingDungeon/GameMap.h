@@ -6,6 +6,7 @@
 class GameManager;
 
 class GameMap {
+	friend class GameManager;
 private:
 	SDL_Rect src, dest;
 	int mapWidth;

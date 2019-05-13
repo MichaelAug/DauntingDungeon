@@ -177,3 +177,41 @@ void CollisionManager::CollisionChecking(GameObject* a, GameObject* b)
 		}
 	}
 }
+
+bool CollisionManager::CheckIfCollides(GameObject* g, std::vector<GameObject*>& allObjects)
+{
+	ColliderType objType = g->GetCollider()->GetType();
+	for (auto& a : allObjects) {
+		Vector2 normal;
+		float penDist;
+		ColliderType obj2type = a->GetCollider()->GetType();
+		
+
+		if (obj2type == square && objType == circle) {
+			if (CircleSquareCollision(dynamic_cast<Square*>(a->GetCollider()), dynamic_cast<Circle*>
+				(g->GetCollider()), normal, penDist)) {
+				return true;
+			}
+		}
+		else if (obj2type == circle && objType == circle) {
+			if (SphereCollision(dynamic_cast<Circle*>(a->GetCollider()), dynamic_cast<Circle*>
+				(g->GetCollider()), normal, penDist)) {
+				return true;
+			}
+		}
+		else if (obj2type == square && objType == square) {
+			if (AABB(dynamic_cast<Square*>(g->GetCollider()), dynamic_cast<Square*>
+				(a->GetCollider()), normal, penDist)) {
+
+				return true;
+			}
+		}
+		else if (obj2type == circle && objType == square) {
+			if (CircleSquareCollision(dynamic_cast<Square*>(g->GetCollider()),
+				dynamic_cast<Circle*>(a->GetCollider()), normal, penDist)) {
+				return true;
+			}
+		}
+	}
+	return false;
+}

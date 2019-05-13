@@ -11,7 +11,8 @@ class GameManager {
 public:
 	GameManager();
 	virtual ~GameManager();
-
+	bool CheckIfCollides(GameObject* g);
+	void SpawnFood();
 	void RestartGame();
 	void Initialise();
 	void Update(Uint32 dt);

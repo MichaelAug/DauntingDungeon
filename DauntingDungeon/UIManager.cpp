@@ -71,10 +71,9 @@ void UIManager::DrawUI(int hearts, bool p, bool died)
 		help.Draw();
 		paused.Draw();
 	}
-
+	score.Draw();
 	if (!died) {
 		fps.Draw();
-		score.Draw();
 	}
 	else {
 		youDied.Draw();
