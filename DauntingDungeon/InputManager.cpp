@@ -4,6 +4,8 @@
 
 InputManager::InputManager()
 {
+	shootSpeed = 300;
+	shotTime = SDL_GetTicks();
 }
 
 void InputManager::HandleInput(bool &isRunning, GameManager &g)
@@ -11,7 +13,6 @@ void InputManager::HandleInput(bool &isRunning, GameManager &g)
 	SDL_PollEvent(&event);
 
 	const Uint8* keyState = SDL_GetKeyboardState(NULL);
-
 
 	float x = static_cast<float>(keyState[SDL_SCANCODE_D] - keyState[SDL_SCANCODE_A]);
 	float y = static_cast<float>(keyState[SDL_SCANCODE_S] - keyState[SDL_SCANCODE_W]);
@@ -41,11 +42,13 @@ void InputManager::HandleInput(bool &isRunning, GameManager &g)
 			isRunning = false;
 			break;
 		case SDLK_SPACE:
-			g.AddProjectile(g.GetPlayer().GetDirection());
+
+			if (SDL_GetTicks() - shotTime > shootSpeed) {
+				g.AddProjectile(g.GetPlayer().GetDirection());
+				shotTime = SDL_GetTicks();
+			}
 			break;
 		}
-		
-
 	}
 
 	switch (event.type) {

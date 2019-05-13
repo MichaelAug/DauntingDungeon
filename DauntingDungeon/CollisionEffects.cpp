@@ -20,13 +20,18 @@ bool CollisionEffects::playerProjectileCollision(collision* c)
 
 bool CollisionEffects::ProjectileCollision(collision* c)
 {
-	if (c->obj1->type == projectile) {
+	if (c->obj1->type == projectile && c->obj2->type != projectile) {
 		Projectile* p = dynamic_cast<Projectile*>(c->obj1);
 		p->Hit();
 	}
-	if (c->obj2->type == projectile) {
+	if (c->obj2->type == projectile && c->obj1->type != projectile) {
 		Projectile* p = dynamic_cast<Projectile*>(c->obj2);
 		p->Hit();
+	}
+
+	if (c->obj1->type == projectile && c->obj2->type == projectile) {
+
+		return true;
 	}
 	return false;
 }

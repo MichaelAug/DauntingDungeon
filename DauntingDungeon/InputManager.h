@@ -9,4 +9,6 @@ public:
 	void HandleInput(bool &isRunning, GameManager &g);
 private:
 	SDL_Event event;
+	Uint32 shotTime;
+	float shootSpeed;
 };

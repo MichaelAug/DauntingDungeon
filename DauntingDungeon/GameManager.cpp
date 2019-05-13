@@ -23,13 +23,13 @@ void GameManager::Initialise()
 
 	AddPlayerObject(player.get());
 
-	EnemyObject *enemy = new EnemyObject(Vector2(300, 500), demon);
+	EnemyObject *enemy = new EnemyObject(Vector2(300, 500), demon, player.get());
 	AddEnemyObject(enemy);
 
-	EnemyObject *enemy2 = new EnemyObject(Vector2(250, 400), orc);
+	EnemyObject *enemy2 = new EnemyObject(Vector2(250, 400), orc, player.get());
 	AddEnemyObject(enemy2);
 
-	EnemyObject *enemy3 = new EnemyObject(Vector2(400, 450), chort);
+	EnemyObject *enemy3 = new EnemyObject(Vector2(400, 450), chort, player.get());
 	AddEnemyObject(enemy3);
 }
 
@@ -80,7 +80,7 @@ void GameManager::AddGameObject(GameObject* o)
 	float centerY = (o->position.y+30 + GameMap::tileSize / 2);
 	o->AddCollider(new Circle(Vector2(centerX, centerY), 20));
 	allObjects.emplace_back(o);
-	std::cout << "GameObject Added!" << std::endl;
+	//std::cout << "GameObject Added!" << std::endl;
 }
 
 void GameManager::AddProjectile(Vector2 direction)
@@ -89,7 +89,7 @@ void GameManager::AddProjectile(Vector2 direction)
 
 	p->AddCollider(new Circle(player->GetCollider()->pos - Vector2(2,10), 12));
 	allObjects.emplace_back(p);
-	std::cout << "Projectile Added!" << std::endl;
+	//std::cout << "Projectile Added!" << std::endl;
 }
 
 void GameManager::AddPlayerObject(GameObject * o)
@@ -98,7 +98,7 @@ void GameManager::AddPlayerObject(GameObject * o)
 	float centerY = (o->position.y+12 + GameMap::tileSize / 2);
 	o->AddCollider(new Circle(Vector2(centerX, centerY), 16));
 	allObjects.emplace_back(o);
-	std::cout << "PlayerObject Added!" << std::endl;
+	//std::cout << "PlayerObject Added!" << std::endl;
 }
 
 void GameManager::AddEnemyObject(GameObject* o)
@@ -118,7 +118,7 @@ void GameManager::AddEnemyObject(GameObject* o)
 	}
 	
 	allObjects.emplace_back(o);
-	std::cout << "Enemy Added!" << std::endl;
+	//std::cout << "Enemy Added!" << std::endl;
 }
 
 void GameManager::DrawObjects()
