@@ -15,7 +15,7 @@ SDL_Texture* TextureManager::GetTexture(const char * fileName)
 	return tex;
 }
 
-void TextureManager::Draw(SDL_Texture * tex, SDL_Rect src, const SDL_Rect &dest)
+void TextureManager::Draw(SDL_Texture * tex, SDL_Rect src, const SDL_Rect &dest, float rotation, SDL_RendererFlip flip)
 {
-	SDL_RenderCopy(Engine::renderer, tex, &src, &dest);
+	SDL_RenderCopyEx(Engine::renderer, tex, &src, &dest, rotation, NULL, flip);
 }

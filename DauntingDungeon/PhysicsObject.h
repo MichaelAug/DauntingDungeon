@@ -2,7 +2,6 @@
 #include "Vector2.h"
 
 class PhysicsObject {
-	friend class InputManager;
 	friend class CollisionManager;
 public:
 	void AddForce(Vector2 f);

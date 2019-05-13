@@ -20,6 +20,13 @@ void InputManager::HandleInput(bool &isRunning, GameManager &g)
 	direction.normalise();
 	g.GetPlayer().AddForce(Vector2(x, y)*6);
 
+	if (direction.x < 0) {
+		g.GetPlayer().spriteFlip = SDL_FLIP_HORIZONTAL;
+	}
+	if (direction.x > 0) {
+		g.GetPlayer().spriteFlip = SDL_FLIP_NONE;
+	}
+
 	if (direction != Vector2(0, 0)) {
 		g.GetPlayer().SetMoving();
 		g.GetPlayer().UpdateDirection(direction);

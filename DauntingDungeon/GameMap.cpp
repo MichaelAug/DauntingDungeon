@@ -114,10 +114,10 @@ void GameMap::DrawMap()
 			int r = rand() % 3 +1;
 			switch (type) {
 			case 0:
-				TextureManager::Draw(tileset, tiles.ground, dest);
+				TextureManager::Draw(tileset, tiles.ground, dest, 0, SDL_FLIP_NONE);
 				break;
 			case 1:
-				TextureManager::Draw(tileset, tiles.upper_wall, dest);
+				TextureManager::Draw(tileset, tiles.upper_wall, dest, 0, SDL_FLIP_NONE);
 				break;
 			case 2:
 				switch (r) {
@@ -128,16 +128,16 @@ void GameMap::DrawMap()
 				case 3: t = tiles.ground3;
 					break;
 				}
-				TextureManager::Draw(tileset, t, dest);
+				TextureManager::Draw(tileset, t, dest, 0, SDL_FLIP_NONE);
 				break;
 			case 3:
-				TextureManager::Draw(tileset, tiles.lava_fountain, dest);
+				TextureManager::Draw(tileset, tiles.lava_fountain, dest, 0, SDL_FLIP_NONE);
 				break;
 			case 4:
-				TextureManager::Draw(tileset, tiles.water_fountain, dest);
+				TextureManager::Draw(tileset, tiles.water_fountain, dest, 0, SDL_FLIP_NONE);
 				break;
 			case 5:
-				TextureManager::Draw(tileset, tiles.flag_wall, dest);
+				TextureManager::Draw(tileset, tiles.flag_wall, dest, 0, SDL_FLIP_NONE);
 				break;
 			default:
 				break;

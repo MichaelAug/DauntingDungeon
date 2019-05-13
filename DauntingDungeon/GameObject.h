@@ -12,6 +12,7 @@ struct Animation;
 class GameObject : public PhysicsObject{
 	friend class PhysicsManager;
 	friend class GameManager;
+	friend class InputManager;
 public:
 	int animIndex = 0;
 
@@ -28,6 +29,8 @@ public:
 	void AddCollider(Collidable* col);
 	GameObjectType type;
 protected:
+	SDL_RendererFlip spriteFlip = SDL_FLIP_NONE;
+	float spriteRotation;
 	Animation* anim;
 	Vector2 animDirection;
 	bool animated = false;

@@ -21,6 +21,7 @@ GameObject::GameObject(const std::string textureName, Vector2 pos, GameObjectTyp
 
 	animated = false;
 	animDirection = Vector2(1, 0);
+	spriteRotation = 0;
 }
 
 GameObject::GameObject(GameObjectType type) : objTexture(nullptr), PhysicsObject()
@@ -36,6 +37,7 @@ GameObject::GameObject(GameObjectType type) : objTexture(nullptr), PhysicsObject
 	destRect.y = (int)position.y;
 
 	this->type = type;
+	spriteRotation = 0;
 }
 
 void GameObject::MovePosAndCol(Vector2 posChange)
@@ -53,7 +55,7 @@ void GameObject::UpdateTexPos()
 void GameObject::Render()
 {
 	if (objTexture) {
-		TextureManager::Draw(objTexture, srcRect, destRect);
+		TextureManager::Draw(objTexture, srcRect, destRect, spriteRotation, spriteFlip);
 	}
 }
 
