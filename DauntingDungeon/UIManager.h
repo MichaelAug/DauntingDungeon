@@ -16,6 +16,7 @@ private:
 	UILabel paused;
 	UILabel help;
 	UILabel youDied;
+	UILabel restart;
 
 	float helpTimer;
 

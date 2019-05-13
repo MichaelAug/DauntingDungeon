@@ -19,21 +19,32 @@ GameManager::~GameManager()
 {
 }
 
+void GameManager::RestartGame()
+{
+	for (auto o = allObjects.begin(); o != allObjects.end();) {
+		delete (*o);
+		o = allObjects.erase(o);
+	}
+	Initialise();
+	died = false;
+	paused = false;
+}
+
 void GameManager::Initialise()
 {
 	map->LoadMap(*this);
 
-	player = std::make_unique<PlayerObject>(Vector2(400, 300));
+	player = new PlayerObject(Vector2(400, 300));
 
-	AddPlayerObject(player.get());
+	AddPlayerObject(player);
 
-	EnemyObject *enemy = new EnemyObject(Vector2(300, 500), demon, player.get());
+	EnemyObject *enemy = new EnemyObject(Vector2(300, 500), demon, player);
 	AddEnemyObject(enemy);
 
-	EnemyObject *enemy2 = new EnemyObject(Vector2(250, 400), orc, player.get());
+	EnemyObject *enemy2 = new EnemyObject(Vector2(250, 400), orc, player);
 	AddEnemyObject(enemy2);
 
-	EnemyObject *enemy3 = new EnemyObject(Vector2(400, 450), chort, player.get());
+	EnemyObject *enemy3 = new EnemyObject(Vector2(400, 450), chort, player);
 	AddEnemyObject(enemy3);
 }
 

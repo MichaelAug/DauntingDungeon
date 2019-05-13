@@ -7,10 +7,12 @@
 class PlayerObject;
 
 class GameManager {
+	friend class InputManager;
 public:
 	GameManager();
 	virtual ~GameManager();
 
+	void RestartGame();
 	void Initialise();
 	void Update(Uint32 dt);
 	void Draw();
@@ -36,7 +38,7 @@ private:
 	bool paused;
 	bool died;
 
-	std::unique_ptr<PlayerObject> player;
+	PlayerObject* player;
 
 	std::vector<GameObject*> allObjects;
 	std::vector<GameObject*> terrain;

@@ -54,6 +54,10 @@ void InputManager::HandleInput(bool& isRunning, GameManager& g)
 		case SDLK_p:
 			g.TogglePause();
 			break;
+		case SDLK_r:
+			if (g.died) {
+				g.RestartGame();
+			}
 		}
 	}
 

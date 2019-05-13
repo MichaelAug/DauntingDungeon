@@ -38,6 +38,12 @@ UIManager::UIManager()
 	Message_rect.h = 80;
 	help = UILabel("OpenSans-ExtraBold.ttf", 18, Message_rect, colour, "WASD - move   SPACE - shoot   P - pause/resume");
 
+	Message_rect.x = 200;
+	Message_rect.y = 400;
+	Message_rect.w = 600;
+	Message_rect.h = 70;
+	restart = UILabel("OpenSans-ExtraBold.ttf", 18, Message_rect, colour, "press R to restart");
+
 	colour = { 255,0,50,255 };
 	Message_rect.x = 150;
 	Message_rect.y = 250;
@@ -72,6 +78,7 @@ void UIManager::DrawUI(int hearts, bool p, bool died)
 	}
 	else {
 		youDied.Draw();
+		restart.Draw();
 	}
 	
 
