@@ -17,6 +17,7 @@ public:
 	EnemyType enemyType;
 
 	void EnemyHit() { lives--; }
+	void IncreaseAgroRange() { agroRange += 20; }
 private:
 	int lives;
 	float agroRange;
@@ -25,6 +26,7 @@ private:
 	int time;
 	Vector2 direction;
 	Animation* anim;
+	float agroRangeTimer;
 };
 
 float Distance(Vector2 a, Vector2 b);

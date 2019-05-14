@@ -16,6 +16,44 @@ map(std::make_unique<GameMap>())
 	paused = false;
 	foodNum = 0;
 	enemyNum = 0;
+
+	foodRespawn = 20*1000;
+	enemyRespawn = 10 * 1000;
+
+	foodTimer = SDL_GetTicks();
+	enemyTimer = SDL_GetTicks();
+}
+
+void GameManager::SpawnNewObjects()
+{
+
+	if (SDL_GetTicks() - foodTimer > foodRespawn) {
+		foodTimer = SDL_GetTicks();
+		SpawnFood();
+	}
+
+	if (SDL_GetTicks() - enemyTimer > enemyRespawn) {
+		enemyTimer = SDL_GetTicks();
+		SpawnEnemy(1);
+	}
+
+}
+
+void GameManager::UpdateTimers()
+{
+	foodRespawn += SDL_GetTicks() / 10000;
+
+	if (foodRespawn > 20000) {
+		foodRespawn = 20000;
+	}
+
+	enemyRespawn -= SDL_GetTicks() / 10000;
+
+	if (enemyRespawn < 2000) {
+		enemyRespawn = 2000;
+	}
+
+	//std::cout << "foodRespawn: " << foodRespawn << "enemyRespawn" << enemyRespawn << std::endl;
 }
 
 GameManager::~GameManager()
@@ -51,7 +89,7 @@ void GameManager::SpawnFood()
 			}
 			else {
 				placed = true;
-				std::cout << f->position << std::endl;
+				//std::cout << "FOOD SPAWNED" << std::endl;
 				allObjects.emplace_back(f);
 				++foodNum;
 			}
@@ -95,6 +133,8 @@ void GameManager::SpawnEnemy(int num)
 			}
 			else {
 				placed = true;
+
+				//std::cout << "ENEMY SPAWNED" << std::endl;
 				allObjects.emplace_back(f);
 				++enemyNum;
 			}
@@ -136,6 +176,8 @@ void GameManager::Initialise()
 
 void GameManager::Update(Uint32 dt)
 {
+	UpdateTimers();
+	SpawnNewObjects();
 	UpdateScore(player->GetScore());
 	UpdateLives(player->GetLives());
 
@@ -143,6 +185,8 @@ void GameManager::Update(Uint32 dt)
 		physics->FixedUpdate(dt, allObjects, terrain);
 		UpdateObjects();
 	}
+
+
 	
 }
 void GameManager::Draw()

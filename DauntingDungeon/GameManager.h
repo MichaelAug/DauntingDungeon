@@ -10,6 +10,9 @@ class GameManager {
 	friend class InputManager;
 public:
 	GameManager();
+
+	void SpawnNewObjects();
+	void UpdateTimers();
 	virtual ~GameManager();
 	bool CheckIfCollides(GameObject* g, Collidable* col);
 	void SpawnFood();
@@ -41,7 +44,12 @@ private:
 	bool died;
 
 	int foodNum;
+	float foodRespawn;
+	float enemyRespawn;
 	int enemyNum;
+
+	float foodTimer;
+	float enemyTimer;
 
 	PlayerObject* player;
 

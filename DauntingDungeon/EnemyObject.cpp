@@ -5,6 +5,7 @@
 
 EnemyObject::EnemyObject(Vector2 pos, EnemyType t, PlayerObject* p) : GameObject("DauntingDungeon/Assets/map/dungeon.png", pos, enemy)
 {
+	agroRangeTimer = SDL_GetTicks();
 	inverseMass = 0.0005;
 	elasticity = 1;
 	time = SDL_GetTicks();
@@ -56,6 +57,12 @@ float Distance(Vector2 a, Vector2 b) {
 
 bool EnemyObject::UpdateObject()
 {
+	if (SDL_GetTicks() - agroRangeTimer > 1000) {
+		IncreaseAgroRange();
+		agroRangeTimer = SDL_GetTicks();
+	}
+
+
 	if (lives == 0) {
 		player->AddToScore();
 		return false;

@@ -33,7 +33,7 @@ Projectile::Projectile(const std::string textureName, Vector2 pos, Vector2 direc
 		spriteRotation = 0;
 	}
 
-	std::cout << this->direction << std::endl;
+	//std::cout << this->direction << std::endl;
 }
 
 bool Projectile::UpdateObject()

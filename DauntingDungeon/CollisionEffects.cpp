@@ -48,7 +48,7 @@ bool CollisionEffects::ProjectileEnemyCollision(collision* c)
 		Projectile* p = dynamic_cast<Projectile*>(c->obj1);
 		
 		if (!p->IsHit()) {
-			std::cout << "HERE" << std::endl;
+			//std::cout << "HERE" << std::endl;
 			e->EnemyHit();
 		}
 	}
