@@ -13,11 +13,15 @@ enum FoodType {
 	pretzel,
 	ribs
 };
-
+class GameManager;
 class Food : public GameObject {
 public:
-	Food(Vector2 pos, FoodType f);
+	Food(Vector2 pos, FoodType f, GameManager* g);
+	void Consumed();
 
+	bool UpdateObject();
+	bool IsConsumed() { return consumed; }
 protected:
-
+	GameManager* game;
+	bool consumed;
 };

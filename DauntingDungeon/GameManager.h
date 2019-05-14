@@ -11,6 +11,8 @@ class GameManager {
 public:
 	GameManager();
 
+	void FoodConsumed() { --foodNum; }
+	void EnemyKilled() { --enemyNum; }
 	void SpawnNewObjects();
 	void UpdateTimers();
 	virtual ~GameManager();

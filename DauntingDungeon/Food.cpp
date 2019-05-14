@@ -1,10 +1,13 @@
 #include "Food.h"
 #include "TextureManager.h"
+#include "GameManager.h"
 
-Food::Food(Vector2 pos, FoodType f) : GameObject("DauntingDungeon/Assets/collectables/ChickenLeg.png", pos, food)
+Food::Food(Vector2 pos, FoodType f, GameManager* g) : 
+	GameObject("DauntingDungeon/Assets/collectables/ChickenLeg.png", pos, food)
 {
+	consumed = false;
 	inverseMass = 0.005;
-
+	game = g;
 	destRect.h = 35;
 	destRect.w = 35;
 	switch (f) {
@@ -26,4 +29,21 @@ Food::Food(Vector2 pos, FoodType f) : GameObject("DauntingDungeon/Assets/collect
 		break;
 	case ribs: objTexture = TextureManager::GetTexture("DauntingDungeon/Assets/collectables/Ribs.png");
 	}
+}
+
+void Food::Consumed()
+{
+	consumed = true;
+}
+
+bool Food::UpdateObject()
+{
+	if (consumed) {
+		game->FoodConsumed();
+		return false;
+	}
+
+	UpdateTexPos();
+
+	return true;
 }

@@ -33,6 +33,8 @@ public:
 			recentlyHit = true;
 		}
 	}
+
+	bool ConsumeFood();
 private:
 	int lives;
 	int score;

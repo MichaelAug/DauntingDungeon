@@ -8,4 +8,5 @@ public:
 	static bool ProjectileCollision(collision* c);
 	static bool ProjectileEnemyCollision(collision* c);
 	static bool EnemyPlayerCollision(collision* c);
+	static bool FoodCollision(collision* c);
 };

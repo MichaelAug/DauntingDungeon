@@ -49,3 +49,14 @@ bool PlayerObject::UpdateObject()
 	//std::cout << "updated" << std::endl;
 	return true;
 }
+
+bool PlayerObject::ConsumeFood()
+{
+	if (lives == 3) {
+		return false;
+	}
+	else {
+		++lives;
+		return true;
+	}
+}

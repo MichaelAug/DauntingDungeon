@@ -9,9 +9,10 @@ enum EnemyType {
 
 struct Animation;
 class PlayerObject;
+class GameManager;
 class EnemyObject : public GameObject {
 public:
-	EnemyObject(Vector2 pos, EnemyType t, PlayerObject* p);
+	EnemyObject(Vector2 pos, EnemyType t, PlayerObject* p, GameManager* g);
 	virtual ~EnemyObject() {}
 	bool UpdateObject() override;
 	EnemyType enemyType;
@@ -23,6 +24,7 @@ private:
 	float agroRange;
 	bool attacking;
 	PlayerObject* player;
+	GameManager* game;
 	int time;
 	Vector2 direction;
 	Animation* anim;

@@ -2,8 +2,10 @@
 #include "GameObjectType.h"
 #include "Animation.h"
 #include "PlayerObject.h"
+#include "GameManager.h"
 
-EnemyObject::EnemyObject(Vector2 pos, EnemyType t, PlayerObject* p) : GameObject("DauntingDungeon/Assets/map/dungeon.png", pos, enemy)
+EnemyObject::EnemyObject(Vector2 pos, EnemyType t, PlayerObject* p, GameManager* g) : 
+	GameObject("DauntingDungeon/Assets/map/dungeon.png", pos, enemy)
 {
 	agroRangeTimer = SDL_GetTicks();
 	inverseMass = 0.0005;
@@ -15,6 +17,7 @@ EnemyObject::EnemyObject(Vector2 pos, EnemyType t, PlayerObject* p) : GameObject
 	//anim = new Animation(Vector2(17,368), 8, 200);
 	attacking = false;
 	enemyType = t;
+	game = g;
 
 	if (t == demon) {
 		anim = new Animation(Vector2(17, 368), 8, 200);
@@ -65,6 +68,7 @@ bool EnemyObject::UpdateObject()
 
 	if (lives == 0) {
 		player->AddToScore();
+		game->EnemyKilled();
 		return false;
 	}
 

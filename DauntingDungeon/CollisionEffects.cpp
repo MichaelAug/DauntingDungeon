@@ -3,11 +3,13 @@
 #include "Projectile.h"
 #include "EnemyObject.h"
 #include "PlayerObject.h"
+#include "Food.h"
 
 bool CollisionEffects::ApplyEffects(collision* c)
 {
 	//std::cout << c->obj1->type<<"    "<<c->obj2->type << std::endl;
-	if (EnemyPlayerCollision(c) ||
+	if (FoodCollision(c) ||
+		EnemyPlayerCollision(c) ||
 		ProjectileEnemyCollision(c) ||
 		playerProjectileCollision(c) ||
 		ProjectileCollision(c)) {
@@ -74,6 +76,32 @@ bool CollisionEffects::EnemyPlayerCollision(collision* c)
 		p->EnemyHit();
 	}
 
+
+	return false;
+}
+
+bool CollisionEffects::FoodCollision(collision* c)
+{
+	if (c->obj1->type == player && c->obj2->type == food) {
+		PlayerObject* p = dynamic_cast<PlayerObject*>(c->obj1);
+		Food* f = dynamic_cast<Food*>(c->obj2);
+		if (!f->IsConsumed() && p->GetLives() <3 ) {
+			p->ConsumeFood();
+			f->Consumed();
+		}
+	}
+	if (c->obj2->type == player && c->obj1->type == food) {
+		PlayerObject* p = dynamic_cast<PlayerObject*>(c->obj2);
+		Food* f = dynamic_cast<Food*>(c->obj1);
+		if (!f->IsConsumed() && p->GetLives() < 3) {
+			p->ConsumeFood();
+			f->Consumed();
+		}
+	}
+
+	if (c->obj2->type == food || c->obj1->type == food) {
+		return true;
+	}
 
 	return false;
 }
