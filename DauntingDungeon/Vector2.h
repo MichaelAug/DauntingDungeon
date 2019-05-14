@@ -28,4 +28,5 @@ public:
 	void operator+=(const Vector2  &v);
 	void operator*=(float f);
 	void operator-=(const Vector2  &a);
+	inline bool	operator!=(const Vector2& A)const { return (A.x == x && A.y == y) ? false : true; };
 };

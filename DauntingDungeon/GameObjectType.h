@@ -3,5 +3,8 @@
 enum GameObjectType {
 	player,
 	projectile,
-	enemy
+	enemy,
+	wall,
+	vortex,
+	food
 };

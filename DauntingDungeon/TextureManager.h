@@ -4,6 +4,6 @@
 
 class TextureManager {
 public:
-	static std::unique_ptr<SDL_Texture, void(*)(SDL_Texture*)>GetTexture(const char* fileName);
-	static void Draw(SDL_Texture* tex, SDL_Rect src, const SDL_Rect &dest);
+	static SDL_Texture* GetTexture(const char* fileName);
+	static void Draw(SDL_Texture* tex, SDL_Rect src, const SDL_Rect &dest, float rotation, SDL_RendererFlip flip);
 };

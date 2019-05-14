@@ -4,44 +4,33 @@
 
 float CollisionManager::CalculateImpulse(const GameObject * a, const GameObject * b, Vector2 & normal)
 {
-	if (a != nullptr) { //OBJECT-TERRAIN COLLISION
 		float e = (a->elasticity + b->elasticity) / 2;
 		Vector2 vr = b->velocity - a->velocity;
 		float dotProduct = vr.DotProduct(normal);
-		auto j = (-(1 + e)*dotProduct) / (a->inverseMass + b->inverseMass);
+		auto j = (-(1 + e) * dotProduct) / (a->inverseMass + b->inverseMass);
 		return j;
-	}
-	else { //OBJECT-OBJECT COLLISION
-		float e = b->elasticity;
-		Vector2 vr = b->velocity;
-		float dotProduct = vr.DotProduct(normal);
-		auto j = (-(1 + e)*dotProduct) / (b->inverseMass);
-		return j;
-	}
 }
 
 void CollisionManager::HandleCollisionResolution()
 {
 	for (auto c = collisions.begin(); c != collisions.end();) {
-		Vector2 posChange;
-		if ((*c)->obj1 == nullptr) { //if this is null, means checking against terrain
-			posChange = (*c)->normal * (*c)->penetration;
-			float impulse = CalculateImpulse(nullptr, (*c)->obj2, (*c)->normal);
-			(*c)->obj2->MovePosAndCol(posChange);
-			(*c)->obj2->velocity += (*c)->normal*((*c)->obj2->inverseMass*impulse);
-		}
-		else {
+
+		if (CollisionEffects::ApplyEffects((*c))) {
+			Vector2 posChange;
+
 			float mTotal = (*c)->obj1->inverseMass + (*c)->obj2->inverseMass;
 			float impulse = CalculateImpulse((*c)->obj1, (*c)->obj2, (*c)->normal);
 
 			posChange = (*c)->normal * (*c)->penetration * ((*c)->obj1->inverseMass / mTotal);
-			(*c)->obj1->MovePosAndCol(posChange*(-1));
-			(*c)->obj1->velocity -= (*c)->normal*((*c)->obj1->inverseMass*impulse);
+			(*c)->obj1->MovePosAndCol(posChange * (-1));
+			(*c)->obj1->velocity -= (*c)->normal * ((*c)->obj1->inverseMass * impulse);
 
 			posChange = (*c)->normal * (*c)->penetration * ((*c)->obj2->inverseMass / mTotal);
 			(*c)->obj2->MovePosAndCol(posChange);
-			(*c)->obj2->velocity += (*c)->normal*((*c)->obj2->inverseMass*impulse);
+			(*c)->obj2->velocity += (*c)->normal * ((*c)->obj2->inverseMass * impulse);
+
 		}
+		delete (*c);
 		c = collisions.erase(c);
 	}
 }
@@ -130,50 +119,17 @@ bool CollisionManager::CircleSquareCollision(const Square * square, const Circle
 	}
 }
 
-void CollisionManager::ObjectTerrainCollision(std::vector<GameObject*>& allObjects, std::vector<std::shared_ptr<Collidable>> &terrain)
+void CollisionManager::ObjectTerrainCollision(std::vector<GameObject*>& allObjects, std::vector<GameObject*>& terrain)
 {
 	for (size_t i = 0; i < allObjects.size(); ++i) {
 		//std::cout << allObjects[i]->position << "colliderpso:" << allObjects[i]->GetCollider()->pos << std::endl;
 		for (size_t j = 0; j < terrain.size(); ++j) {
-			Vector2 normal;
-			float penDist;
-
-			ColliderType terType = terrain[j]->GetType();
-			ColliderType objType = allObjects[i]->GetCollider()->GetType();
-
-			/*Pass a nullptr to AddCollision if colliding with terrain (because it does not need to be moved)*/
-			if (terType == square && objType == circle) {
-				if (CircleSquareCollision(dynamic_cast<Square*>(terrain[j].get()), dynamic_cast<Circle*>
-					(allObjects[i]->GetCollider()), normal, penDist)) {
-					//std::cout << "collision happened";
-					AddCollision(new collision{ nullptr,allObjects[i], normal,penDist });
-				}
-			}
-			else if (terType == circle && objType == circle) {
-				if (SphereCollision(dynamic_cast<Circle*>(terrain[j].get()), dynamic_cast<Circle*>
-					(allObjects[i]->GetCollider()), normal, penDist)) {
-
-					AddCollision(new collision{ nullptr,allObjects[i],normal,penDist });
-				}
-			}
-			else if (terType == square && objType == square) {
-				if (AABB(dynamic_cast<Square*>(allObjects[i]->GetCollider()), dynamic_cast<Square*>
-					(terrain[j].get()), normal, penDist)) {
-
-					AddCollision(new collision{ nullptr,allObjects[i],normal,penDist });
-				}
-			}
-			else if (terType == circle && objType == square) {
-				if (CircleSquareCollision(dynamic_cast<Square*>(allObjects[i]->GetCollider()),
-					dynamic_cast<Circle*>(terrain[j].get()), normal, penDist)) {
-					AddCollision(new collision{ nullptr,allObjects[i], normal,penDist });
-				}
-			}
+			CollisionChecking(terrain[j], allObjects[i]);
 		}
 	}
 }
 
-void CollisionManager::CollisionDetection(std::vector<GameObject*>& allObjects, std::vector<std::shared_ptr<Collidable>> &terrain)
+void CollisionManager::CollisionDetection(std::vector<GameObject*>& allObjects, std::vector<GameObject*>& terrain)
 {
 	ObjectTerrainCollision(allObjects, terrain);
 	ObjectCollision(allObjects);
@@ -183,41 +139,79 @@ void CollisionManager::ObjectCollision(std::vector<GameObject*>& allObjects)
 {
 	for (size_t i = 0; i < allObjects.size(); ++i) {
 		for (size_t j = i+1; j < allObjects.size(); ++j) {
-			Vector2 normal;
-			float penDist;
-			ColliderType obj2type = allObjects[j]->GetCollider()->GetType();
-			ColliderType objType = allObjects[i]->GetCollider()->GetType();
+			CollisionChecking(allObjects[j], allObjects[i]);
+		}
+	}
+}
 
-			/*Pass a nullptr to AddCollision if colliding with terrain (because it does not need to be moved)*/
-			if (obj2type == square && objType == circle) {
-				if (CircleSquareCollision(dynamic_cast<Square*>(allObjects[j]->GetCollider()), dynamic_cast<Circle*>
-					(allObjects[i]->GetCollider()), normal, penDist)) {
-					//std::cout << "collision happened";
-					AddCollision(new collision{ allObjects[j],allObjects[i], normal,penDist });
-				}
-			}
-			else if (obj2type == circle && objType == circle) {
-				if (allObjects[i]->type == player && allObjects[j]->type == projectile) {
-					continue;
-				}
-				if (SphereCollision(dynamic_cast<Circle*>(allObjects[j]->GetCollider()), dynamic_cast<Circle*>
-					(allObjects[i]->GetCollider()), normal, penDist)) {
-					AddCollision(new collision{ allObjects[j],allObjects[i],normal,penDist });
-				}
-			}
-			else if (obj2type == square && objType == square) {
-				if (AABB(dynamic_cast<Square*>(allObjects[i]->GetCollider()), dynamic_cast<Square*>
-					(allObjects[j]->GetCollider()), normal, penDist)) {
+void CollisionManager::CollisionChecking(GameObject* a, GameObject* b)
+{
+	Vector2 normal;
+	float penDist;
+	ColliderType obj2type = a->GetCollider()->GetType();
+	ColliderType objType = b->GetCollider()->GetType();
 
-					AddCollision(new collision{ allObjects[j],allObjects[i],normal,penDist });
-				}
+	if (obj2type == square && objType == circle) {
+		if (CircleSquareCollision(dynamic_cast<Square*>(a->GetCollider()), dynamic_cast<Circle*>
+			(b->GetCollider()), normal, penDist)) {
+			AddCollision(new collision{ a,b, normal,penDist });
+		}
+	}
+	else if (obj2type == circle && objType == circle) {
+		if (SphereCollision(dynamic_cast<Circle*>(a->GetCollider()), dynamic_cast<Circle*>
+			(b->GetCollider()), normal, penDist)) {
+			AddCollision(new collision{ a,b,normal,penDist });
+		}
+	}
+	else if (obj2type == square && objType == square) {
+		if (AABB(dynamic_cast<Square*>(b->GetCollider()), dynamic_cast<Square*>
+			(a->GetCollider()), normal, penDist)) {
+
+			AddCollision(new collision{ a,b,normal,penDist });
+		}
+	}
+	else if (obj2type == circle && objType == square) {
+		if (CircleSquareCollision(dynamic_cast<Square*>(b->GetCollider()),
+			dynamic_cast<Circle*>(a->GetCollider()), normal, penDist)) {
+			AddCollision(new collision{ a,b, normal,penDist });
+		}
+	}
+}
+
+bool CollisionManager::CheckIfCollides(GameObject* g, std::vector<GameObject*>& allObjects)
+{
+	ColliderType objType = g->GetCollider()->GetType();
+	for (auto& a : allObjects) {
+		Vector2 normal;
+		float penDist;
+		ColliderType obj2type = a->GetCollider()->GetType();
+		
+
+		if (obj2type == square && objType == circle) {
+			if (CircleSquareCollision(dynamic_cast<Square*>(a->GetCollider()), dynamic_cast<Circle*>
+				(g->GetCollider()), normal, penDist)) {
+				return true;
 			}
-			else if (obj2type == circle && objType == square) {
-				if (CircleSquareCollision(dynamic_cast<Square*>(allObjects[i]->GetCollider()),
-					dynamic_cast<Circle*>(allObjects[j]->GetCollider()), normal, penDist)) {
-					AddCollision(new collision{ allObjects[j],allObjects[i], normal,penDist });
-				}
+		}
+		else if (obj2type == circle && objType == circle) {
+			if (SphereCollision(dynamic_cast<Circle*>(a->GetCollider()), dynamic_cast<Circle*>
+				(g->GetCollider()), normal, penDist)) {
+				return true;
+			}
+		}
+		else if (obj2type == square && objType == square) {
+			if (AABB(dynamic_cast<Square*>(g->GetCollider()), dynamic_cast<Square*>
+				(a->GetCollider()), normal, penDist)) {
+
+				return true;
+			}
+		}
+		else if (obj2type == circle && objType == square) {
+			if (CircleSquareCollision(dynamic_cast<Square*>(g->GetCollider()),
+				dynamic_cast<Circle*>(a->GetCollider()), normal, penDist)) {
+				return true;
 			}
 		}
 	}
+	return false;
 }

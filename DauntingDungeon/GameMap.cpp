@@ -4,6 +4,7 @@
 #include <iostream>
 #include "Square.h"
 #include "ColliderType.h"
+#include "Engine.h"
 
 GameMap::GameMap() :
 	tileset(TextureManager::GetTexture("DauntingDungeon/Assets/map/dungeon.png"))
@@ -16,18 +17,6 @@ GameMap::GameMap() :
 
 	/*height and width of rendered tile*/
 	dest.x = dest.y = 0;
-
-	src.w = src.h = tileSize;
-
-	src.x = 96; src.y = 64;
-	tiles.ground = src;
-
-	src.x = 96; src.y = 0;
-	tiles.upper_wall = src;
-
-	src.x = 32; src.y = 32;
-	tiles.pillar = src;
-
 }
 
 void GameMap::LoadMap(GameManager &gameManager)
@@ -43,7 +32,7 @@ void GameMap::LoadMap(GameManager &gameManager)
 
 	map = std::vector<std::vector<int>>(mapHeight, std::vector<int>(mapWidth, 0));
 
-	std::vector<std::unique_ptr<Square>> initTer;
+	std::vector<Square*> initTer;
 
 	for (int y = 0; y < mapHeight; ++y) {
 		for (int x = 0; x < mapWidth; ++x) {
@@ -55,15 +44,15 @@ void GameMap::LoadMap(GameManager &gameManager)
 	}
 
 	int type = 0;
-	for (int row = 0; row < 20; ++row) {
-		for (int col = 0; col < 30; ++col) {
+	for (int row = 0; row < mapHeight; ++row) {
+		for (int col = 0; col < mapWidth; ++col) {
 			type = map[row][col];
 
 			dest.x = col * tileSize;
 			dest.y = row * tileSize;
 
-			if (type == 1) {
-				initTer.emplace_back(std::make_unique<Square>(Vector2( //initially save top left corner of block as pos
+			if (type == 1 || type == 3 || type == 4 || type == 5 || type == 6 || type == 7 || type == 8) {
+				initTer.emplace_back(new Square(Vector2( //initially save top left corner of block as pos
 					(float)col*tileSize, (float)row * tileSize), tileSize, tileSize));
 			}
 		}
@@ -77,7 +66,7 @@ void GameMap::LoadMap(GameManager &gameManager)
 				initTer[i]->halfHeight == tileSize &&
 				(*j)->halfHeight == tileSize && (*j)->halfWidth == tileSize) {
 				initTer[i]->halfWidth += (*j)->halfWidth;
-				(*j).reset();
+				delete (*j);
 				j = initTer.erase(j);
 			}
 			else if (initTer[i]->pos.x == (*j)->pos.x &&
@@ -85,7 +74,7 @@ void GameMap::LoadMap(GameManager &gameManager)
 				initTer[i]->halfWidth == tileSize &&
 				(*j)->halfWidth == tileSize && (*j)->halfHeight == tileSize) {
 				initTer[i]->halfHeight += (*j)->halfHeight;
-				(*j).reset();
+				delete (*j);
 				j = initTer.erase(j);
 			}
 			else {
@@ -101,7 +90,7 @@ void GameMap::LoadMap(GameManager &gameManager)
 		o->pos.x = o->pos.x + o->GetHalfWidth();
 		o->pos.y = o->pos.y + o->GetHalfHeight();
 
-		gameManager.AddTerrain(std::move(o));
+		gameManager.AddTerrain(o);
 	}
 
 	/*std::cout << "numterrain: " << gameManager.terrain.size() << std::endl;
@@ -114,25 +103,51 @@ void GameMap::LoadMap(GameManager &gameManager)
 void GameMap::DrawMap()
 {
 	int type = 0;
-
-	for (int row = 0; row < 20; ++row) {
-		for (int col = 0; col < 30; ++col) {
+	srand(420);
+	SDL_Rect t;
+	for (int row = 0; row < mapHeight; ++row) {
+		for (int col = 0; col < mapWidth; ++col) {
 			type = map[row][col];
 
-			dest.x = col * tileSize;
-			dest.y = row * tileSize;
-
+			dest.x = (col * tileSize) - Engine::camera.x;
+			dest.y = (row * tileSize) - Engine::camera.y;
+			int r = rand() % 3 +1;
 			switch (type) {
 			case 0:
-				TextureManager::Draw(tileset.get(), tiles.ground, dest);
+				TextureManager::Draw(tileset, tiles.ground, dest, 0, SDL_FLIP_NONE);
 				break;
 			case 1:
-				TextureManager::Draw(tileset.get(), tiles.upper_wall, dest);
+				TextureManager::Draw(tileset, tiles.upper_wall, dest, 0, SDL_FLIP_NONE);
 				break;
 			case 2:
-				TextureManager::Draw(tileset.get(), tiles.pillar, dest);
+				switch (r) {
+				case 1: t = tiles.ground1;
+					break;
+				case 2: t = tiles.ground2;
+					break;
+				case 3: t = tiles.ground3;
+					break;
+				}
+				TextureManager::Draw(tileset, t, dest, 0, SDL_FLIP_NONE);
 				break;
-
+			case 3:
+				TextureManager::Draw(tileset, tiles.lava_fountain, dest, 0, SDL_FLIP_NONE);
+				break;
+			case 4:
+				TextureManager::Draw(tileset, tiles.water_fountain, dest, 0, SDL_FLIP_NONE);
+				break;
+			case 5:
+				TextureManager::Draw(tileset, tiles.flag_wall, dest, 0, SDL_FLIP_NONE);
+				break;
+			case 6:
+				TextureManager::Draw(tileset, tiles.flag_wall_blue, dest, 0, SDL_FLIP_NONE);
+				break;
+			case 7:
+				TextureManager::Draw(tileset, tiles.flag_wall_yellow, dest, 0, SDL_FLIP_NONE);
+				break;
+			case 8:
+				TextureManager::Draw(tileset, tiles.wall_acid, dest, 0, SDL_FLIP_NONE);
+				break;
 			default:
 				break;
 			}
