@@ -14,42 +14,90 @@ map(std::make_unique<GameMap>())
 	score = 0;
 	died = false;
 	paused = false;
+	foodNum = 0;
+	enemyNum = 0;
 }
 
 GameManager::~GameManager()
 {
 }
 
-bool GameManager::CheckIfCollides(GameObject* g)
+bool GameManager::CheckIfCollides(GameObject* g, Collidable* col)
 {
-	float centerX = (g->position.x + GameMap::tileSize / 2);
-	float centerY = (g->position.y + GameMap::tileSize / 2);
-
-	g->AddCollider(new Circle(Vector2(centerX, centerY), 16));
+	g->AddCollider(col);
 	
-	return physics->CheckIfCollides(g, allObjects);;
+	return physics->CheckIfCollides(g, terrain);;
 }
 
 void GameManager::SpawnFood()
 {
 	bool placed = false;
 	std::srand(SDL_GetTicks());
-	int r = rand() % 2;
+	int r = rand() % 9;
 
-	while (!placed) {
-		float randomX = 32.0f + (rand() % map->mapWidth*32) - map->tileSize;
-		float randomY = 32.0f + (rand() % map->mapHeight*32) - map->tileSize;
+	for(int i=0; i<1; i++) {
+		placed = false;
+		r = rand() % 9;
+		while (!placed) {
+			float randomX = 32.0f + (rand() % map->mapWidth * 32) - map->tileSize;
+			float randomY = 32.0f + (rand() % map->mapHeight * 32) - map->tileSize;
 
-		Food* f = new Food(Vector2(randomX, randomY), (FoodType)r);
-
-		std::cout << f->position << std::endl;
-		if (CheckIfCollides(f)) {
-			delete f;
+			Food* f = new Food(Vector2(randomX, randomY), (FoodType)r);
+			float centerX = (f->position.x + GameMap::tileSize / 2);
+			float centerY = (f->position.y + GameMap::tileSize / 2);
+			Collidable* col = new Circle(Vector2(centerX, centerY), 16);
+			if (CheckIfCollides(f, col)) {
+				delete f;
+			}
+			else {
+				placed = true;
+				std::cout << f->position << std::endl;
+				allObjects.emplace_back(f);
+				++foodNum;
+			}
 		}
-		else {
-			placed = true;
+	}
+	
+}
 
-			allObjects.emplace_back(f);
+void GameManager::SpawnEnemy(int num)
+{
+	bool placed = false;
+	std::srand(SDL_GetTicks());
+	int r = rand() % 3;
+
+	for (int i = 0; i < num; i++) {
+		placed = false;
+		r = rand() % 3;
+		while (!placed) {
+			float randomX = 32.0f + (rand() % map->mapWidth * 32) - map->tileSize;
+			float randomY = 32.0f + (rand() % map->mapHeight * 32) - map->tileSize;
+			
+			EnemyObject* f = new EnemyObject(Vector2(randomX, randomY), (EnemyType)r, player);
+			float centerX = (f->position.x + GameMap::tileSize / 2);
+			float centerY = (f->position.y + GameMap::tileSize / 2);
+			Collidable* col = new Square(Vector2(centerX - 10, centerY - 10), 16, 16);;
+			if (f->enemyType == demon) {
+				delete col;
+				col = new Square(Vector2(centerX+15, centerY+20), 20, 20);
+			}
+			else if (f->enemyType == orc) {
+				delete col;
+				col = new Square(Vector2(centerX + 10, centerY + 10), 16, 16);
+			}
+			else if (f->enemyType == chort) {
+				delete col;
+				col = new Square(Vector2(centerX + 10, centerY + 10), 16, 16);
+			}
+
+			if (CheckIfCollides(f, col) || Distance(player->position, f->position) < 400) {
+				delete f;
+			}
+			else {
+				placed = true;
+				allObjects.emplace_back(f);
+				++enemyNum;
+			}
 		}
 	}
 }
@@ -83,6 +131,7 @@ void GameManager::Initialise()
 	AddEnemyObject(enemy3);*/
 
 	SpawnFood();
+	SpawnEnemy(5);
 }
 
 void GameManager::Update(Uint32 dt)

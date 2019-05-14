@@ -26,3 +26,5 @@ private:
 	Vector2 direction;
 	Animation* anim;
 };
+
+float Distance(Vector2 a, Vector2 b);

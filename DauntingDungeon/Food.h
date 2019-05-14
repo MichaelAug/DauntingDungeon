@@ -5,7 +5,13 @@
 enum FoodType {
 	chickenLeg,
 	fishSteak,
-	Jerky
+	Jerky,
+	pepperoni,
+	pieLemon,
+	piePumpkin,
+	potatoRed,
+	pretzel,
+	ribs
 };
 
 class Food : public GameObject {

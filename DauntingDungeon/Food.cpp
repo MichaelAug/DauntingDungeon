@@ -14,5 +14,16 @@ Food::Food(Vector2 pos, FoodType f) : GameObject("DauntingDungeon/Assets/collect
 		break;
 	case Jerky: objTexture = TextureManager::GetTexture("DauntingDungeon/Assets/collectables/Jerky.png");
 		break;
+	case pepperoni: objTexture = TextureManager::GetTexture("DauntingDungeon/Assets/collectables/Pepperoni.png");
+		break;
+	case pieLemon: objTexture = TextureManager::GetTexture("DauntingDungeon/Assets/collectables/PieLemon.png");
+		break;
+	case piePumpkin: objTexture = TextureManager::GetTexture("DauntingDungeon/Assets/collectables/PiePumpkin.png");
+		break;
+	case potatoRed: objTexture = TextureManager::GetTexture("DauntingDungeon/Assets/collectables/PotatoRed.png");
+		break;
+	case pretzel: objTexture = TextureManager::GetTexture("DauntingDungeon/Assets/collectables/Pretzel.png");
+		break;
+	case ribs: objTexture = TextureManager::GetTexture("DauntingDungeon/Assets/collectables/Ribs.png");
 	}
 }

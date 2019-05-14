@@ -11,8 +11,9 @@ class GameManager {
 public:
 	GameManager();
 	virtual ~GameManager();
-	bool CheckIfCollides(GameObject* g);
+	bool CheckIfCollides(GameObject* g, Collidable* col);
 	void SpawnFood();
+	void SpawnEnemy(int num);
 	void RestartGame();
 	void Initialise();
 	void Update(Uint32 dt);
@@ -38,6 +39,9 @@ private:
 
 	bool paused;
 	bool died;
+
+	int foodNum;
+	int enemyNum;
 
 	PlayerObject* player;
 
