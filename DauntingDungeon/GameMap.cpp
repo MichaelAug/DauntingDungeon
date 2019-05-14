@@ -51,7 +51,7 @@ void GameMap::LoadMap(GameManager &gameManager)
 			dest.x = col * tileSize;
 			dest.y = row * tileSize;
 
-			if (type == 1 || type == 3 || type == 4 || type == 5) {
+			if (type == 1 || type == 3 || type == 4 || type == 5 || type == 6 || type == 7 || type == 8) {
 				initTer.emplace_back(new Square(Vector2( //initially save top left corner of block as pos
 					(float)col*tileSize, (float)row * tileSize), tileSize, tileSize));
 			}
@@ -138,6 +138,15 @@ void GameMap::DrawMap()
 				break;
 			case 5:
 				TextureManager::Draw(tileset, tiles.flag_wall, dest, 0, SDL_FLIP_NONE);
+				break;
+			case 6:
+				TextureManager::Draw(tileset, tiles.flag_wall_blue, dest, 0, SDL_FLIP_NONE);
+				break;
+			case 7:
+				TextureManager::Draw(tileset, tiles.flag_wall_yellow, dest, 0, SDL_FLIP_NONE);
+				break;
+			case 8:
+				TextureManager::Draw(tileset, tiles.wall_acid, dest, 0, SDL_FLIP_NONE);
 				break;
 			default:
 				break;

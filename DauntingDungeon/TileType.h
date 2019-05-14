@@ -14,7 +14,9 @@ struct TileType {
 	SDL_Rect flag_wall = { 16,32, 16,16 };
 	SDL_Rect upper_wall = { 16,16, 16,16 };
 	SDL_Rect pillar = { 32,32, 16,16 };
-	
+	SDL_Rect flag_wall_blue = { 32,32, 16,16 };
+	SDL_Rect flag_wall_yellow = { 32,48, 16,16 };
+	SDL_Rect wall_acid = { 64,80, 16,16 };
 	SDL_Rect grass;
 	SDL_Rect water;
 };
