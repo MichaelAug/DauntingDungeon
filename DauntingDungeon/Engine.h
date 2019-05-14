@@ -7,6 +7,7 @@
 #include <memory>
 #include "UIManager.h"
 #include "GameManager.h"
+#include "AudioManager.h"
 
 class Engine {
 public:
@@ -27,4 +28,5 @@ private:
 	std::unique_ptr<InputManager> inputManager;
 	std::unique_ptr<UIManager> ui;
 	std::unique_ptr<GameManager> gameManager;
+	AudioManager* audioManager;
 };

@@ -3,6 +3,8 @@
 #include "GameMap.h"
 #include <memory>
 #include <string>
+#include "SDL_mixer.h"
+#include <stdio.h>
 SDL_Renderer* Engine::renderer = nullptr;
 SDL_Rect Engine::camera = { 0,0, 960, 640 };
 
@@ -29,19 +31,31 @@ void Engine::Initialise(std::string title, int x, int y, int width, int height, 
 	renderer = SDL_CreateRenderer(window.get(), -1, 0);
 	if (renderer) { std::cout << "Renderer Created Successfully!" << std::endl; }
 
+	//initialise SDL_mixer
+	if (Mix_OpenAudio(44100, AUDIO_S16SYS, 2, 2048) < 0) {
+		printf("SDL_mixer could not be initialised! Error: %s\n", Mix_GetError());
+	}
+	else {
+		printf("SDL_mixer initialised!\n");
+	}
+
 	SDL_RenderSetLogicalSize(renderer, 960, 640);
 
 	isRunning = true;
-
-	gameManager = std::make_unique<GameManager>();
+	audioManager = new AudioManager();
+	gameManager = std::make_unique<GameManager>(audioManager);
 	gameManager->Initialise();
 	inputManager = std::make_unique<InputManager>();
 	ui = std::make_unique<UIManager>();
+
+	
+
+	audioManager->PlayMusic();
 }
 
 void Engine::Update(std::string fps, Uint32 dt)
 {
-	inputManager->HandleInput(isRunning, *gameManager);
+	inputManager->HandleInput(isRunning, *gameManager, *audioManager);
 	gameManager->Update(dt);
 
 	camera.x = gameManager->GetPlayer().position.x - 440;

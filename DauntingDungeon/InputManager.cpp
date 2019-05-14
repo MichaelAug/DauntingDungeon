@@ -1,5 +1,6 @@
 #include "InputManager.h"
 #include "Projectile.h"
+#include "AudioManager.h"
 
 
 InputManager::InputManager()
@@ -8,7 +9,7 @@ InputManager::InputManager()
 	shotTime = SDL_GetTicks();
 }
 
-void InputManager::HandleInput(bool& isRunning, GameManager& g)
+void InputManager::HandleInput(bool& isRunning, GameManager& g, AudioManager& audio)
 {
 	SDL_PollEvent(&event);
 
@@ -53,6 +54,7 @@ void InputManager::HandleInput(bool& isRunning, GameManager& g)
 			break;
 		case SDLK_p:
 			g.TogglePause();
+			audio.ToggleMusic();
 			break;
 		case SDLK_r:
 			if (g.died) {

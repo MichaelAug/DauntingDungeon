@@ -6,8 +6,9 @@
 #include "GameMap.h"
 #include "Projectile.h"
 #include "Food.h"
+#include "AudioManager.h"
 
-GameManager::GameManager() : physics(std::make_unique<PhysicsManager>()),
+GameManager::GameManager(AudioManager* audioManager) : physics(std::make_unique<PhysicsManager>()),
 map(std::make_unique<GameMap>())
 {
 	playerLives = 3;
@@ -16,6 +17,7 @@ map(std::make_unique<GameMap>())
 	paused = false;
 	foodNum = 0;
 	enemyNum = 0;
+	audio = audioManager;
 
 	foodRespawn = 20 * 1000;
 	enemyRespawn = 10 * 1000;
@@ -151,7 +153,7 @@ void GameManager::RestartGame()
 		o = allObjects.erase(o);
 	}
 	allObjects.clear();
-	
+	audio->PlayMusic();
 	died = false;
 	paused = false;
 	foodNum = 0;
@@ -277,6 +279,9 @@ void GameManager::UpdateLives(int lives)
 	if (lives == 0) {
 		died = true;
 		paused = true;
+	}
+	if (died) {
+		audio->StopMusic();
 	}
 }
 

@@ -5,11 +5,11 @@
 #include "GameMap.h"
 
 class PlayerObject;
-
+class AudioManager;
 class GameManager {
 	friend class InputManager;
 public:
-	GameManager();
+	GameManager(AudioManager* audioManager);
 
 	void FoodConsumed() { --foodNum; }
 	void EnemyKilled() { --enemyNum; }
@@ -57,7 +57,7 @@ private:
 
 	std::vector<GameObject*> allObjects;
 	std::vector<GameObject*> terrain;
-
+	AudioManager* audio;
 	std::unique_ptr<PhysicsManager> physics;
 
 	std::unique_ptr<GameMap> map;
