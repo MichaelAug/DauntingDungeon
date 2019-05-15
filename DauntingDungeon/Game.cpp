@@ -1,11 +1,13 @@
+#define SDL_MAIN_HANDLED
+
 #include "Engine.h"
 #include "FPSCounter.h"
 
 /*NOTE: THE CODE IN THIS PROJECT IS VERY RUSHED, IN NEED OF A LOT OF REFACTORING AND IS NOT REPRESENTATIVE OF MY USUAL WORK*/
 
-int main(int argc, char *argv[]) {
-
-	std::unique_ptr<Engine>engine = std::make_unique<Engine>();
+int main() {
+	std::cout << "hi mark\n";
+	auto engine = std::make_unique<Engine>();
 
 	FPSCounter fps;
 

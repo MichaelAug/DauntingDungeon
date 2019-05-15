@@ -1,5 +1,5 @@
 #pragma once
-#include "SDL.h"
+#include "SDL2/SDL.h"
 
 
 /*Struct that contains SDL_Rects corresponding to a certain tile on the tilemap*/

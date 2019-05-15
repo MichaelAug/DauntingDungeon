@@ -1,6 +1,7 @@
 #include "CollisionManager.h"
 #include <iostream>
 #include <algorithm>
+#include <cmath>
 
 float CollisionManager::CalculateImpulse(const GameObject * a, const GameObject * b, Vector2 & normal)
 {

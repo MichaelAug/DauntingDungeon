@@ -4,6 +4,8 @@
 #include "PlayerObject.h"
 #include "GameManager.h"
 
+#include <cmath>
+
 EnemyObject::EnemyObject(Vector2 pos, EnemyType t, PlayerObject* p, GameManager* g) : 
 	GameObject("DauntingDungeon/Assets/map/dungeon.png", pos, enemy)
 {
@@ -55,7 +57,7 @@ EnemyObject::EnemyObject(Vector2 pos, EnemyType t, PlayerObject* p, GameManager*
 }
 
 float Distance(Vector2 a, Vector2 b) {
-	return std::sqrtf(std::pow(a.x - b.x, 2) + std::pow(a.y - b.y, 2));
+	return std::sqrt(std::pow(a.x - b.x, 2) + std::pow(a.y - b.y, 2));
 }
 
 bool EnemyObject::UpdateObject()

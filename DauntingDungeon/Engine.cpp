@@ -3,7 +3,7 @@
 #include "GameMap.h"
 #include <memory>
 #include <string>
-#include "SDL_mixer.h"
+#include "SDL2/SDL_mixer.h"
 #include <stdio.h>
 SDL_Renderer* Engine::renderer = nullptr;
 SDL_Rect Engine::camera = { 0,0, 960, 640 };

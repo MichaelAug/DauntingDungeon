@@ -261,7 +261,6 @@ __pycache__/
 *.pyc
 /DauntingDungeon/SDL2
 /Release
-CMakeLists.txt
 CMakeCache.txt
 /CMakeFiles
 DauntingDungeon/.vscode/
@@ -273,3 +272,5 @@ cmake_install.cmake
 *.rc
 *.vcxproj
 *.filters
+/build
+*.sln
