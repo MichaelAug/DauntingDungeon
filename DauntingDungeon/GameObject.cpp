@@ -7,6 +7,7 @@
 GameObject::GameObject(const std::string textureName, Vector2 pos, GameObjectType type) :
 	PhysicsObject(pos),
 	type(type),
+	collider(nullptr),
 	objTexture(TextureManager::GetTexture(textureName.c_str()))
 {
 	srcRect.h = 64;
@@ -24,7 +25,9 @@ GameObject::GameObject(const std::string textureName, Vector2 pos, GameObjectTyp
 	spriteRotation = 0;
 }
 
-GameObject::GameObject(GameObjectType type) : objTexture(nullptr), PhysicsObject()
+GameObject::GameObject(GameObjectType type) : 
+ PhysicsObject(),
+objTexture(nullptr)
 {
 	srcRect.h = 64;
 	srcRect.w = 64;

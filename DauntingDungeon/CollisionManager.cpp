@@ -35,7 +35,6 @@ void CollisionManager::HandleCollisionResolution()
 		c = collisions.erase(c);
 	}
 }
-
 void CollisionManager::AddCollision(collision * c)
 {
 	collisions.emplace_back(c);

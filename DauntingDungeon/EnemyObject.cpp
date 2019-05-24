@@ -6,7 +6,7 @@
 
 #include <cmath>
 
-EnemyObject::EnemyObject(Vector2 pos, EnemyType t, PlayerObject* p, GameManager* g) : 
+EnemyObject::EnemyObject(Vector2 pos, EnemyType t, PlayerObject* p, GameManager* g) :
 	GameObject("DauntingDungeon/Assets/map/dungeon.png", pos, enemy)
 {
 	agroRangeTimer = SDL_GetTicks();
