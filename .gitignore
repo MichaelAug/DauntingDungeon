@@ -274,3 +274,4 @@ cmake_install.cmake
 *.filters
 /build
 *.sln
+*.vscode
